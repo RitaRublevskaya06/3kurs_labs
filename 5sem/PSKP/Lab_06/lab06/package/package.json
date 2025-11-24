@@ -1,0 +1,17 @@
+{
+  "name": "m0603-margo",
+  "version": "1.0.4",
+  "description": "m0603 - модуль для отправки тестового письма на фиксированный адрес",
+  "main": "m0603.js",
+  "keywords": [
+    "m0603",
+    "sendmail",
+    "email",
+    "lab06"
+  ],
+  "author": "Margo <margouniver@mail.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "sendmail": "^1.0.0"
+  }
+}
