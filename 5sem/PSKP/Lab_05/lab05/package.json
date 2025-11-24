@@ -1,0 +1,13 @@
+{
+  "name": "lab05",
+  "version": "1.0.0",
+  "description": "Лабораторная работа 05 - ПСКП",
+  "main": "05-01.js",
+  "scripts": {
+    "start": "node 05-01.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["pskp", "lab05", "server"],
+  "author": "Ваше имя",
+  "license": "ISC"
+}

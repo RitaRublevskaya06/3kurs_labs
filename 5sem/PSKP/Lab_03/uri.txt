@@ -1,0 +1,7 @@
+
+№ 2
+http://localhost:5000/fact?k=3
+
+
+№3
+http://localhost:5000/fact?k=x
