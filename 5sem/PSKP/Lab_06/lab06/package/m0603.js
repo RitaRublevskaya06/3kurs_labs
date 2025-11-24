@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const FIXED_TO = 'margouniver@mail.ru';
+const FIXED_TO = 'primer@mail.ru';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.mail.ru',
@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: FIXED_TO,
-    pass: 'NlJXsaIjTdZKp1YGvMEE'
+    pass: 'asdfghjm'
   }
 });
 
@@ -31,3 +31,4 @@ function send(messageText) {
 }
 
 module.exports = { send };
+
