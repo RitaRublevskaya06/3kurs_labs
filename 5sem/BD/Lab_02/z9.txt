@@ -1,0 +1,13 @@
+# 1. Заходим в контейнер
+docker exec -it oracle-xe bash
+
+# 2. Подключаемся как администратор
+sqlplus "sys/...@//localhost:1521/XEPDB1 as sysdba"
+
+# 3. В SQLPlus выполняем:
+ALTER USER RMVCORE IDENTIFIED BY RMV123
+ALTER USER RMVCORE ACCOUNT UNLOCK;
+EXIT;
+
+# 4. Подключаемся под пользователем RMVCORE
+sqlplus RMVCORE/...@//localhost:1521/XEPDB1

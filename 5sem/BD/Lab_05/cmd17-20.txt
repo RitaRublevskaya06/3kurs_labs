@@ -1,0 +1,16 @@
+---- ЗАДАНИЕ 17
+docker ps | findstr oracle
+
+---- ЗАДАНИЕ 18
+docker exec oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/listener.ora
+
+---- ЗАДАНИЕ 19
+docker exec -it oracle-xe lsnrctl
+status
+services
+version
+quit
+
+---- ЗАДАНИЕ 20
+docker exec oracle-xe lsnrctl services
+

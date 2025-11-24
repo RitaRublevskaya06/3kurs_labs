@@ -1,0 +1,43 @@
+
+docker exec -it oracle-xe bash
+
+sqlplus / as sysdba
+
+-- 16
+SHUTDOWN IMMEDIATE;
+
+STARTUP MOUNT;
+
+ALTER DATABASE ARCHIVELOG;
+
+ALTER DATABASE OPEN;
+
+SELECT name, log_mode FROM v$database;
+SELECT archiver, status FROM v$instance;
+
+--17
+ALTER SYSTEM ARCHIVE LOG CURRENT;
+
+SELECT sequence#, name, first_change#, completion_time 
+FROM v$archived_log 
+ORDER BY sequence# DESC 
+FETCH FIRST 3 ROWS ONLY;
+
+SELECT 
+    l.group#,
+    l.sequence# as log_sequence,
+    l.first_change# as log_first_scn,
+    a.sequence# as arch_sequence,
+    a.first_change# as arch_first_scn
+FROM v$log l
+LEFT JOIN v$archived_log a ON l.sequence# = a.sequence#
+WHERE l.status = 'CURRENT';
+
+--18
+SHUTDOWN IMMEDIATE;
+STARTUP MOUNT;
+ALTER DATABASE NOARCHIVELOG;
+ALTER DATABASE OPEN;
+
+SELECT name, log_mode FROM v$database;
+SELECT archiver, status FROM v$instance;
