@@ -26,8 +26,8 @@ http.createServer((req, res) => {
         port: 465,
         secure: true,
         auth: {
-            user: 'margouniver@mail.ru',
-            pass: 'NlJXsaIjTdZKp1YGvMEE'
+            user: 'primer@mail.ru',
+            pass: 'sdfghyjuk'
             }
         });
 
@@ -56,3 +56,4 @@ http.createServer((req, res) => {
 }).listen(port, () => {
   console.log(`Server is running at: http://localhost:${port}`);
 });
+
