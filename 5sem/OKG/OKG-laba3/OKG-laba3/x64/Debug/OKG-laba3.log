@@ -1,0 +1,68 @@
+﻿  ChildView.cpp
+  CMatrix.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(68,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(68,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(68,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(97,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(97,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(97,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(114,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(114,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(114,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(220,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(220,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(220,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(240,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(240,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(240,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(256,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(256,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(256,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(276,3): error C2664: "int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)": невозможно преобразовать аргумент 2 из "char *" в "LPCWSTR"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(276,20):
+      Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции в круглых скобках
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winuser.h(9222,1):
+       см. объявление "MessageBoxW"
+      C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\CMatrix.cpp(276,3):
+      при попытке сопоставить список аргументов "(int, char *, const char [7], long)"
+  
+  LibChart2D.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\LibChart2D.cpp(229,41): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\LibChart2D.cpp(229,31): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\LibChart2D.cpp(229,23): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\ФИТ\Лабораторные работы\5 сем\ОКГ\Лабораторная работа 3\OKG-laba3\OKG-laba3\LibChart2D.cpp(229,14): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  MainFrm.cpp
+  OKG-laba3.cpp
+  Создание кода...

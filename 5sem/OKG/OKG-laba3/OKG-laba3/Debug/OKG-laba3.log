@@ -1,0 +1,8 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: промежуточный каталог (Debug\) содержит файлы, которые используются совместно с другим проектом (OKG-laba3.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  LibChart2D.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+D:\Univer\3_kurs\5_sem\OKG\lab_03\OKG-laba3\OKG-laba3\LibChart2D.cpp(373,44): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\Univer\3_kurs\5_sem\OKG\lab_03\OKG-laba3\OKG-laba3\LibChart2D.cpp(373,34): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\Univer\3_kurs\5_sem\OKG\lab_03\OKG-laba3\OKG-laba3\LibChart2D.cpp(373,26): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\Univer\3_kurs\5_sem\OKG\lab_03\OKG-laba3\OKG-laba3\LibChart2D.cpp(373,17): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  OKG-laba3.vcxproj -> D:\Univer\3_kurs\5_sem\OKG\lab_03\OKG-laba3\Debug\lab3.exe
