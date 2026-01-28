@@ -1,0 +1,12 @@
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\bin\Debug\net8.0\BSTU.Results.Collection.deps.json
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\bin\Debug\net8.0\BSTU.Results.Collection.dll
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\bin\Debug\net8.0\BSTU.Results.Collection.pdb
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.csproj.AssemblyReference.cache
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.GeneratedMSBuildEditorConfig.editorconfig
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.AssemblyInfoInputs.cache
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.AssemblyInfo.cs
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.csproj.CoreCompileInputs.cache
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.dll
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\refint\BSTU.Results.Collection.dll
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\BSTU.Results.Collection.pdb
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\BSTU.Results.Collection\obj\Debug\net8.0\ref\BSTU.Results.Collection.dll

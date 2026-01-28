@@ -1,0 +1,12 @@
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\bin\Debug\net8.0\ResultsAuthenticate.deps.json
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\bin\Debug\net8.0\ResultsAuthenticate.dll
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\bin\Debug\net8.0\ResultsAuthenticate.pdb
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.csproj.AssemblyReference.cache
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.GeneratedMSBuildEditorConfig.editorconfig
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.AssemblyInfoInputs.cache
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.AssemblyInfo.cs
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.csproj.CoreCompileInputs.cache
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.dll
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\refint\ResultsAuthenticate.dll
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ResultsAuthenticate.pdb
+D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\obj\Debug\net8.0\ref\ResultsAuthenticate.dll

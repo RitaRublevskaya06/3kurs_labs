@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>BSTU.Results.Authenticate</id>
+    <version>1.0.1</version>
+    <title>BSTU_st</title>
+    <authors>BSTU_st</authors>
+    <description>Authentication service for ASP.NET Core Web API</description>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.AspNetCore.Authentication.Cookies" version="2.3.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.3.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.10" exclude="Build,Analyzers" />
+        <dependency id="System.IdentityModel.Tokens.Jwt" version="8.14.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Univer\3_kurs\5_sem\TPvI\ASPA0010_1\ResultsAuthenticate\bin\Debug\net8.0\ResultsAuthenticate.dll" target="lib\net8.0\ResultsAuthenticate.dll" />
+  </files>
+</package>
