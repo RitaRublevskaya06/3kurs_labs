@@ -1,0 +1,47 @@
+﻿Сборка начата 21.12.2025 22:43:57.
+Уровень детализации журнала: Normal.     1>Проект "D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLib\ServiceLib.vcxproj" в узле 2 (целевые объекты Build).
+     1>PrepareForBuild:
+         Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+         Создание каталога "x64\Release\ServiceLibrary.tlog\".
+       InitializeBuildStatus:
+         Создание "x64\Release\ServiceLibrary.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
+         Обращение к "x64\Release\ServiceLibrary.tlog\unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\CL.exe /c /Zi /nologo /W3 /WX- /diagnostics:column /sdl /O2 /Oi /GL /D NDEBUG /D SERVICELIB_EXPORTS /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Yc"pch.h" /Fp"x64\Release\ServiceLibrary.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt pch.cpp
+         pch.cpp
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\CL.exe /c /Zi /nologo /W3 /WX- /diagnostics:column /sdl /O2 /Oi /GL /D NDEBUG /D SERVICELIB_EXPORTS /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Yu"pch.h" /Fp"x64\Release\ServiceLibrary.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt ..\ServiceLibrary\Errors.cpp
+         Errors.cpp
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\CL.exe /c /Zi /nologo /W3 /WX- /diagnostics:column /sdl /O2 /Oi /GL /D NDEBUG /D SERVICELIB_EXPORTS /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Fo"x64\Release\\" /Fd"x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt ..\ServiceLibrary\ServiceLibrary.cpp
+         ServiceLibrary.cpp
+     1>D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLibrary\PrototypeService.h(80,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+         (компиляция исходного файла "../ServiceLibrary/ServiceLibrary.cpp")
+         
+     1>D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLibrary\PrototypeService.h(174,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+         (компиляция исходного файла "../ServiceLibrary/ServiceLibrary.cpp")
+         
+       Link:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ServiceLibrary.dll" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:NO /manifest:embed /DEBUG /PDB:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ServiceLibrary.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG:incremental /LTCGOUT:"x64\Release\ServiceLibrary.iobj" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ServiceLibrary.lib" /MACHINE:X64 /DLL x64\Release\Errors.obj
+         x64\Release\ServiceLibrary.obj
+         x64\Release\pch.obj
+            Создается библиотека D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ServiceLibrary.lib и объект D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ServiceLibrary.exp
+         Создание кода
+         Previous IPDB not found, fall back to full compilation.
+         All 134 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+         Создание кода завершено
+         ServiceLib.vcxproj -> D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ServiceLibrary.dll
+       FinalizeBuildStatus:
+         Файл "x64\Release\ServiceLibrary.tlog\unsuccessfulbuild" удаляется.
+         Обращение к "x64\Release\ServiceLibrary.tlog\ServiceLibrary.lastbuildstate".
+     1>Сборка проекта "D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLib\ServiceLib.vcxproj" завершена (целевые объекты Build).
+
+Сборка успешно завершена.
+
+       "D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLib\ServiceLib.vcxproj" (целевой объект Build ) (1) ->
+       (Целевой объект ClCompile) -> 
+         D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLibrary\PrototypeService.h(80,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+         D:\labs\5semester\PSP\lb8\lab8\lab8\ServiceLibrary\PrototypeService.h(174,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+
+    Предупреждений: 2
+    Ошибок: 0
+
+Прошло времени 00:00:01.15

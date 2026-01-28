@@ -1,0 +1,31 @@
+﻿Сборка начата 21.12.2025 22:41:39.
+Уровень детализации журнала: Normal.     1>Проект "D:\labs\5semester\PSP\lb8\lab8\lab8\RConsole\RConsole.vcxproj" в узле 2 (целевые объекты Build).
+     1>PrepareForBuild:
+         Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+         Создание каталога "D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\".
+         Создание каталога "x64\Release\RConsole.tlog\".
+       InitializeBuildStatus:
+         Создание "x64\Release\RConsole.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
+         Обращение к "x64\Release\RConsole.tlog\unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\CL.exe /c /Zi /nologo /W3 /WX- /diagnostics:column /sdl /O2 /Oi /GL /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Fo"x64\Release\\" /Fd"x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt Errors.cpp RConsole.cpp
+         Errors.cpp
+         RConsole.cpp
+       Link:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\RConsole.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\RConsole.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /LTCGOUT:"x64\Release\RConsole.iobj" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\RConsole.lib" /MACHINE:X64 x64\Release\Errors.obj
+         x64\Release\RConsole.obj
+         Создание кода
+         Previous IPDB not found, fall back to full compilation.
+         All 116 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+         Создание кода завершено
+         RConsole.vcxproj -> D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\RConsole.exe
+       FinalizeBuildStatus:
+         Файл "x64\Release\RConsole.tlog\unsuccessfulbuild" удаляется.
+         Обращение к "x64\Release\RConsole.tlog\RConsole.lastbuildstate".
+     1>Сборка проекта "D:\labs\5semester\PSP\lb8\lab8\lab8\RConsole\RConsole.vcxproj" завершена (целевые объекты Build).
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:13.41
