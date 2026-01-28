@@ -1,0 +1,37 @@
+﻿Сборка начата 22.12.2025 8:02:57.
+Уровень детализации журнала: Normal.     1>Проект "D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.vcxproj" в узле 2 (целевые объекты Build).
+     1>PrepareForBuild:
+         Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+       InitializeBuildStatus:
+         Создание "x64\Release\ClientT.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
+         Обращение к "x64\Release\ClientT.tlog\unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\CL.exe /c /Zi /nologo /W3 /WX- /diagnostics:column /sdl /O2 /Oi /GL /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Fo"x64\Release\\" /Fd"x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt ClientT.cpp
+         ClientT.cpp
+     1>D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.cpp(111,75): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+     1>D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.cpp(145,87): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+       Link:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ClientT.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ClientT.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /LTCGOUT:"x64\Release\ClientT.iobj" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ClientT.lib" /MACHINE:X64 x64\Release\ClientT.obj
+         x64\Release\Errors.obj
+         Создание кода
+         0 of 179 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+           0 functions were new in current compilation
+           0 functions had inline decision re-evaluated but remain unchanged
+         Создание кода завершено
+         ClientT.vcxproj -> D:\labs\5semester\PSP\lb8\lab8\lab8\x64\Release\ClientT.exe
+       FinalizeBuildStatus:
+         Файл "x64\Release\ClientT.tlog\unsuccessfulbuild" удаляется.
+         Обращение к "x64\Release\ClientT.tlog\ClientT.lastbuildstate".
+     1>Сборка проекта "D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.vcxproj" завершена (целевые объекты Build).
+
+Сборка успешно завершена.
+
+       "D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.vcxproj" (целевой объект Build ) (1) ->
+       (Целевой объект ClCompile) -> 
+         D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.cpp(111,75): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+         D:\labs\5semester\PSP\lb8\lab8\lab8\ClientT\ClientT.cpp(145,87): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+
+    Предупреждений: 2
+    Ошибок: 0
+
+Прошло времени 00:00:01.28

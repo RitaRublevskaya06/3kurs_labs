@@ -1,0 +1,27 @@
+﻿  ConcurrentServer.cpp
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(119,45): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(202,12): warning C4477: "printf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "1" имеет тип "unsigned __int64"
+      D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(202,12):
+      рекомендуется использовать "%zd" в строке форматирования
+  
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(216,12): warning C4477: "printf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "1" имеет тип "unsigned __int64"
+      D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(216,12):
+      рекомендуется использовать "%zd" в строке форматирования
+  
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(219,11): warning C4477: "printf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "1" имеет тип "unsigned __int64"
+      D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(219,11):
+      рекомендуется использовать "%zd" в строке форматирования
+  
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(331,1): warning C4477: "sprintf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "4" имеет тип "unsigned __int64"
+      D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(331,1):
+      рекомендуется использовать "%zd" в строке форматирования
+  
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(340,42): warning C4267: аргумент: преобразование из "size_t" в "DWORD"; возможна потеря данных
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(392,49): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(422,66): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(480,60): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(488,62): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Errors.cpp
+  Создание кода...
+D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\ConcurrentServer\ConcurrentServer.cpp(272,1): warning C4715: set_param: значение возвращается не при всех путях выполнения
+  ConcurrentServer.vcxproj -> D:\Univer\3_kurs\5_sem\PSP\Lab_08-10\lab8\x64\Debug\ConcurrentServer.exe
