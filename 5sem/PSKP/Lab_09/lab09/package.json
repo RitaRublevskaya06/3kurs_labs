@@ -1,0 +1,33 @@
+{
+  "name": "lab09-pskp",
+  "version": "1.0.0",
+  "description": "Лабораторная работа 09",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "client:01": "node 09-01.js",
+    "client:02": "node 09-02.js",
+    "client:03": "node 09-03.js",
+    "client:04": "node 09-04.js",
+    "client:05": "node 09-05.js",
+    "client:06": "node 09-06.js",
+    "client:07": "node 09-07.js",
+    "client:08": "node 09-08.js",
+    "test:all": "node 09-01.js && node 09-02.js && node 09-03.js && node 09-04.js && node 09-05.js && node 09-06.js && node 09-07.js && node 09-08.js"
+  },
+  "keywords": [
+    "pskp",
+    "http",
+    "client-server",
+    "nodejs",
+    "laboratory"
+  ],
+  "author": "Ваше Имя",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "xml2js": "^0.6.2"
+  }
+}
