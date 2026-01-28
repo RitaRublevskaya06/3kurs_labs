@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание №9</title>
+    <style type="text/css">
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 18px;
+        }
+
+        #container {
+            margin: 20px 0 0 10px;
+        }
+
+        input {
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        textarea {
+            width: 207px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        input[type="submit"] {
+            height: 2em;
+            font-size: 1rem;
+            background-color: rgb(248, 248, 248);
+            color: #2f2f2f;
+            border: 1px solid #c4c4c4;
+            border-radius: 4px;
+            margin: 10px 10px;
+            cursor: pointer;
+        }
+
+        .checks {
+            margin-right: 20px;
+        }
+
+        td {
+            padding: 12px 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <form action="/formparameter" method="POST">
+        <table id="container_table">
+            <tr>
+                <td><label for="inpText">Text</label></td>
+                <td><input type="text" id="inpText" name="inpText" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpNumber">Number</label></td>
+                <td><input type="number" id="inpNumber" name="inpNumber" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpDate">Date</label></td>
+                <td><input type="date" id="inpDate" name="inpDate" required></td>
+            </tr>
+
+            <tr>
+                <td>Checkbox</td>
+                <td>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="inpCheck1" id="inpCheck1" name="inpCheck" class="checks">
+                        Вариант 1
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="inpCheck2" id="inpCheck2" name="inpCheck" class="checks">
+                        Вариант 2
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Radiobutton</td>
+                <td>
+                    <label class="radio-label">
+                        <input type="radio" value="inpRadio1" id="inpRadio1" name="inpRadio" class="radios">
+                        Опция 1
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" value="inpRadio2" id="inpRadio2" name="inpRadio" class="radios">
+                        Опция 2
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="inpTextarea">Textarea</label></td>
+                <td><textarea id="inpTextarea" name="inpTextArea" required></textarea></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" name="inpSubmitForm" value="Отправить" id="submit1"></td>
+                <td><input type="submit" name="inpSubmitForm" value="Отправить 2" id="submit2"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
