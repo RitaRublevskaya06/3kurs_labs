@@ -1,0 +1,326 @@
+{
+  "info": {
+    "_postman_id": "bstu-lab-15",
+    "name": "BSTU Lab 15 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Информация API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "Факультеты",
+      "item": [
+        {
+          "name": "GET все факультеты",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/faculties",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "POST создать факультет",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"MF\",\n  \"faculty_name\": \"Машиностроительный факультет\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/faculties",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "PUT обновить факультет",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty_name\": \"Машиностроительный и энергетический факультет\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/faculties/MF",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties", "MF"]
+            }
+          }
+        },
+        {
+          "name": "DELETE факультет",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/faculties/MF",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties", "MF"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Кафедры",
+      "item": [
+        {
+          "name": "GET все кафедры",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits"]
+            }
+          }
+        },
+        {
+          "name": "POST создать кафедру",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit\": \"IS\",\n  \"pulpit_name\": \"Информационные системы\",\n  \"faculty\": \"VT\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits"]
+            }
+          }
+        },
+        {
+          "name": "PUT обновить кафедру",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit_name\": \"Информационные системы и технологии\",\n  \"faculty\": \"VT\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits/IS",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits", "IS"]
+            }
+          }
+        },
+        {
+          "name": "DELETE кафедру",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits/IS",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits", "IS"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Тестовые данные из задания",
+      "item": [
+        {
+          "name": "GET существующие факультеты",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/faculties",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "GET существующие кафедры",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits"]
+            }
+          }
+        },
+        {
+          "name": "POST тестовый факультет Vi3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"Vi3\",\n  \"faculty_name\": \"Инженерно-экономический\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/faculties",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "POST тестовый факультет VT",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"VT\",\n  \"faculty_name\": \"Информационных технологий\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/faculties",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "POST тестовая кафедра MCWT",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit\": \"MCWT\",\n  \"pulpit_name\": \"Информационных систем и технологий\",\n  \"faculty\": \"MT\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits"]
+            }
+          }
+        },
+        {
+          "name": "POST тестовая кафедра ПИ",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit\": \"ПИ\",\n  \"pulpit_name\": \"Программной инженерии\",\n  \"faculty\": \"MT\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/pulpits",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "pulpits"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
