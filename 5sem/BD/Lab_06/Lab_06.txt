@@ -21,12 +21,9 @@ SELECT * FROM lab_table;
 
 docker exec -it oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/listener.ora
 
-
 docker exec -it oracle-xe ls -la /opt/oracle/homes/OraDBHome21cXE/network/admin/
 
-
 docker exec -it oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/sqlnet.ora
-
 
 docker exec -it oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/tnsnames.ora
 
@@ -119,5 +116,6 @@ SELECT * FROM lab_view_segments;
 CONNECT sys/MyStrongPassw0rd@//localhost:1521/XEPDB1 AS SYSDBA
 
 GRANT CREATE VIEW TO lab_user;
+
 
 CONNECT lab_user/MyStrongLabPassw0rd@LAB_USER_XE
