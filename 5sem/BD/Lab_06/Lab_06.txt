@@ -1,0 +1,123 @@
+docker exec -it oracle-xe bash
+
+sqlplus sys/MyStrongPassw0rd@//localhost:1521/XEPDB1 AS SYSDBA
+
+CREATE USER lab_user IDENTIFIED BY "MyStrongLabPassw0rd";
+GRANT CONNECT, RESOURCE TO lab_user;
+ALTER USER lab_user QUOTA UNLIMITED ON USERS;
+EXIT;
+
+sqlplus lab_user/MyStrongLabPassw0rd@//localhost:1521/XEPDB1
+
+CREATE TABLE lab_table (id NUMBER, name VARCHAR2(50));
+INSERT INTO lab_table VALUES (1, 'first');
+INSERT INTO lab_table VALUES (2, 'second');
+COMMIT;
+
+SELECT * FROM lab_table;
+
+
+Задание № 1
+
+docker exec -it oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/listener.ora
+
+
+docker exec -it oracle-xe ls -la /opt/oracle/homes/OraDBHome21cXE/network/admin/
+
+
+docker exec -it oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/sqlnet.ora
+
+
+docker exec -it oracle-xe cat /opt/oracle/homes/OraDBHome21cXE/network/admin/tnsnames.ora
+
+
+
+Задание № 2
+
+CONNECT system/MyStrongPassw0rd@//localhost:1521/XEPDB1
+
+SELECT name, value FROM v$parameter WHERE ROWNUM <= 10;
+ 
+
+
+Задание № 3
+SELECT tablespace_name FROM dba_tablespaces;
+
+SELECT tablespace_name, file_name FROM dba_data_files;
+
+SELECT role FROM dba_roles WHERE ROWNUM <= 10;
+
+SELECT username FROM dba_users WHERE ROWNUM <= 10;
+
+
+Задание № 4
+
+docker exec oracle-xe printenv | findstr "ORACLE_HOME ORACLE_SID ORACLE_BASE PATH"
+
+Задание № 5
+
+docker cp oracle-xe:/opt/oracle/oradata/dbconfig/XE/tnsnames.ora D:\tnsnames_modified.ora
+
+LAB_USER_XE =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = XEPDB1)
+    )
+  )
+
+docker cp D:\tnsnames_modified.ora oracle-xe:/opt/oracle/oradata/dbconfig/XE/tnsnames.ora
+
+docker exec oracle-xe tail -10 /opt/oracle/oradata/dbconfig/XE/tnsnames.ora
+
+
+
+Задание № 6
+docker exec -it oracle-xe sqlplus lab_user/MyStrongLabPassw0rd@LAB_USER_XE
+
+CONNECT lab_user/MyStrongLabPassw0rd@LAB_USER_XE
+
+
+Задание № 7
+SELECT * FROM lab_table;
+
+
+
+Задание № 8
+HELP TIMING
+
+
+SET TIMING ON;
+SELECT * FROM lab_table;
+SET TIMING OFF;
+
+
+Задание № 9
+DESC lab_table;
+
+DESCRIBE lab_table;
+
+Задание № 10
+SELECT segment_name, segment_type FROM user_segments;
+
+
+Задание № 11
+DROP VIEW lab_view_segments;
+
+CREATE VIEW lab_view_segments AS
+    SELECT COUNT(segment_name) AS segments_count,
+           SUM(extents) AS extents_count,
+           SUM(blocks) AS blocks_count,
+           ROUND(SUM(bytes) / 1024) AS memory_size_kb
+    FROM user_segments;
+
+SELECT * FROM lab_view_segments;
+
+
+
+CONNECT sys/MyStrongPassw0rd@//localhost:1521/XEPDB1 AS SYSDBA
+
+GRANT CREATE VIEW TO lab_user;
+
+CONNECT lab_user/MyStrongLabPassw0rd@LAB_USER_XE
