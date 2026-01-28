@@ -1,0 +1,277 @@
+
+Активные подключения
+
+  Имя    Локальный адрес        Внешний адрес          Состояние
+  TCP    0.0.0.0:135            analytics:0            LISTENING
+  RpcSs
+ [svchost.exe]
+  TCP    0.0.0.0:445            analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    0.0.0.0:1433           analytics:0            LISTENING
+ [sqlservr.exe]
+  TCP    0.0.0.0:2343           analytics:0            LISTENING
+ [lkads.exe]
+  TCP    0.0.0.0:3580           analytics:0            LISTENING
+ [nisvcloc.exe]
+  TCP    0.0.0.0:5040           analytics:0            LISTENING
+  CDPSvc
+ [svchost.exe]
+  TCP    0.0.0.0:5357           analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    0.0.0.0:49664          analytics:0            LISTENING
+ [lsass.exe]
+  TCP    0.0.0.0:49665          analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    0.0.0.0:49666          analytics:0            LISTENING
+  EventLog
+ [svchost.exe]
+  TCP    0.0.0.0:49667          analytics:0            LISTENING
+  Schedule
+ [svchost.exe]
+  TCP    0.0.0.0:49668          analytics:0            LISTENING
+ [spoolsv.exe]
+  TCP    0.0.0.0:49696          analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    0.0.0.0:59110          analytics:0            LISTENING
+ [nidmsrv.exe]
+  TCP    0.0.0.0:59111          analytics:0            LISTENING
+ [lktsrv.exe]
+  TCP    10.208.127.39:139      analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    10.208.127.39:49924    149.154.167.50:https   ESTABLISHED
+ [Telegram.exe]
+  TCP    10.208.127.39:49931    98.66.133.185:https    ESTABLISHED
+  WpnService
+ [svchost.exe]
+  TCP    10.208.127.39:49935    rd-in-f188:5228        ESTABLISHED
+ [chrome.exe]
+  TCP    10.208.127.39:49936    rd-in-f188:5228        ESTABLISHED
+ [chrome.exe]
+  TCP    10.208.127.39:49938    ec2-18-97-36-48:https  ESTABLISHED
+ [chrome.exe]
+  TCP    10.208.127.39:49947    waw07s03-in-f3:https   TIME_WAIT
+  TCP    10.208.127.39:49949    waw07s05-in-f10:https  TIME_WAIT
+  TCP    10.208.127.39:49950    20.190.177.147:https   ESTABLISHED
+  wlidsvc
+ [svchost.exe]
+  TCP    10.208.127.39:49951    waw02s22-in-f14:https  ESTABLISHED
+ [chrome.exe]
+  TCP    10.208.127.39:49955    20.189.173.14:https    ESTABLISHED
+ [WINWORD.EXE]
+  TCP    10.208.127.39:49956    10.208.127.251:8009    SYN_SENT
+ [chrome.exe]
+  TCP    10.208.127.39:49957    185-26-51-60:21927     ESTABLISHED
+ [chrome.exe]
+  TCP    127.0.0.1:49670        analytics:0            LISTENING
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49676        analytics:0            LISTENING
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49676        lenovo-home:49687      ESTABLISHED
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49676        lenovo-home:49692      ESTABLISHED
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49676        lenovo-home:49693      ESTABLISHED
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49676        lenovo-home:49694      ESTABLISHED
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49676        lenovo-home:49695      ESTABLISHED
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49687        lenovo-home:49676      ESTABLISHED
+ [lkads.exe]
+  TCP    127.0.0.1:49692        lenovo-home:49676      ESTABLISHED
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49693        lenovo-home:49676      ESTABLISHED
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49694        lenovo-home:49676      ESTABLISHED
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49695        lenovo-home:49676      ESTABLISHED
+ [niDiscSvc.exe]
+  TCP    172.16.194.233:139     analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    192.168.162.1:139      analytics:0            LISTENING
+ Не удается получить сведения о владельце
+  TCP    [::]:135               lenovo-home:0          LISTENING
+  RpcSs
+ [svchost.exe]
+  TCP    [::]:445               lenovo-home:0          LISTENING
+ Не удается получить сведения о владельце
+  TCP    [::]:1433              lenovo-home:0          LISTENING
+ [sqlservr.exe]
+  TCP    [::]:5357              lenovo-home:0          LISTENING
+ Не удается получить сведения о владельце
+  TCP    [::]:49664             lenovo-home:0          LISTENING
+ [lsass.exe]
+  TCP    [::]:49665             lenovo-home:0          LISTENING
+ Не удается получить сведения о владельце
+  TCP    [::]:49666             lenovo-home:0          LISTENING
+  EventLog
+ [svchost.exe]
+  TCP    [::]:49667             lenovo-home:0          LISTENING
+  Schedule
+ [svchost.exe]
+  TCP    [::]:49668             lenovo-home:0          LISTENING
+ [spoolsv.exe]
+  TCP    [::]:49696             lenovo-home:0          LISTENING
+ Не удается получить сведения о владельце
+  TCP    [::1]:42050            lenovo-home:0          LISTENING
+ [OneDrive.Sync.Service.exe]
+  TCP    [::1]:49679            lenovo-home:49683      ESTABLISHED
+ [lktsrv.exe]
+  TCP    [::1]:49680            lenovo-home:49684      ESTABLISHED
+ [nidmsrv.exe]
+  TCP    [::1]:49681            lenovo-home:49682      ESTABLISHED
+ [lkads.exe]
+  TCP    [::1]:49682            lenovo-home:49681      ESTABLISHED
+ [lkads.exe]
+  TCP    [::1]:49683            lenovo-home:49679      ESTABLISHED
+ [lktsrv.exe]
+  TCP    [::1]:49684            lenovo-home:49680      ESTABLISHED
+ [nidmsrv.exe]
+  UDP    0.0.0.0:500            *:*                    
+  IKEEXT
+ [svchost.exe]
+  UDP    0.0.0.0:2343           *:*                    
+ [lkads.exe]
+  UDP    0.0.0.0:3702           *:*                    
+  FDResPub
+ [svchost.exe]
+  UDP    0.0.0.0:3702           *:*                    
+  FDResPub
+ [svchost.exe]
+  UDP    0.0.0.0:4500           *:*                    
+  IKEEXT
+ [svchost.exe]
+  UDP    0.0.0.0:5000           *:*                    
+ [nidmsrv.exe]
+  UDP    0.0.0.0:5001           *:*                    
+ [lktsrv.exe]
+  UDP    0.0.0.0:5050           *:*                    
+  CDPSvc
+ [svchost.exe]
+  UDP    0.0.0.0:5353           *:*                    
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                    
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                    
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                    
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                    
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                    
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                    
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:5355           *:*                    
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:6000           *:*                    
+ [lktsrv.exe]
+  UDP    0.0.0.0:6001           *:*                    
+ [nidmsrv.exe]
+  UDP    0.0.0.0:62722          *:*                    
+ [nimdnsResponder.exe]
+  UDP    0.0.0.0:63896          *:*                    
+  FDResPub
+ [svchost.exe]
+  UDP    10.208.127.39:137      *:*                    
+ Не удается получить сведения о владельце
+  UDP    10.208.127.39:138      *:*                    
+ Не удается получить сведения о владельце
+  UDP    10.208.127.39:1900     *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    10.208.127.39:5353     *:*                    
+ [nimdnsResponder.exe]
+  UDP    10.208.127.39:63894    *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    127.0.0.1:1900         *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    127.0.0.1:62721        *:*                    
+  iphlpsvc
+ [svchost.exe]
+  UDP    127.0.0.1:63895        *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    172.16.194.233:137     *:*                    
+ Не удается получить сведения о владельце
+  UDP    172.16.194.233:138     *:*                    
+ Не удается получить сведения о владельце
+  UDP    172.16.194.233:1900    *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    172.16.194.233:5353    *:*                    
+ [nimdnsResponder.exe]
+  UDP    172.16.194.233:63892   *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.162.1:137      *:*                    
+ Не удается получить сведения о владельце
+  UDP    192.168.162.1:138      *:*                    
+ Не удается получить сведения о владельце
+  UDP    192.168.162.1:1900     *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.162.1:5353     *:*                    
+ [nimdnsResponder.exe]
+  UDP    192.168.162.1:63893    *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [::]:500               *:*                    
+  IKEEXT
+ [svchost.exe]
+  UDP    [::]:3702              *:*                    
+  FDResPub
+ [svchost.exe]
+  UDP    [::]:3702              *:*                    
+  FDResPub
+ [svchost.exe]
+  UDP    [::]:4500              *:*                    
+  IKEEXT
+ [svchost.exe]
+  UDP    [::]:5353              *:*                    
+ [chrome.exe]
+  UDP    [::]:5353              *:*                    
+ [chrome.exe]
+  UDP    [::]:5353              *:*                    
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:5353              *:*                    
+ [chrome.exe]
+  UDP    [::]:5355              *:*                    
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:62723             *:*                    
+ [nimdnsResponder.exe]
+  UDP    [::]:63897             *:*                    
+  FDResPub
+ [svchost.exe]
+  UDP    [::1]:1900             *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [::1]:5353             *:*                    
+ [nimdnsResponder.exe]
+  UDP    [::1]:63891            *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::50c:4a1d:c6a2:f9f3%9]:1900  *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::50c:4a1d:c6a2:f9f3%9]:63889  *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::af46:7844:ccd:ba78%14]:1900  *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::af46:7844:ccd:ba78%14]:63890  *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::ccbf:374c:e0fb:8f82%4]:1900  *:*                    
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::ccbf:374c:e0fb:8f82%4]:63888  *:*                    
+  SSDPSRV
+ [svchost.exe]
