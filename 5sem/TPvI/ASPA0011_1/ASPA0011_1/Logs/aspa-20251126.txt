@@ -1,0 +1,11 @@
+2025-11-26 21:16:36.153 [Information ] Program - Application ASPA0011_1 started successfully on: 11/26/2025 21:16:36
+2025-11-26 21:18:27.234 [Information ] Program - Test endpoint called at 11/26/2025 21:18:27
+2025-11-26 22:01:31.323 [Information ] Program - Application ASPA0011_1 started successfully on: 11/26/2025 22:01:31
+2025-11-26 22:10:48.422 [Warning     ] ASPA0011_1.Services.ChannelService - Channel not found with ID: 12345678-1234-1234-1234-123456789abc
+2025-11-26 22:10:48.423 [Warning     ] ASPA0011_1.Controllers.ChannelsController - Channel 12345678-1234-1234-1234-123456789abc not found
+2025-11-26 22:11:26.732 [Warning     ] ASPA0011_1.Services.ChannelService - Channel not found for queue operation: 12345678-1234-1234-1234-123456789abc
+2025-11-26 22:11:26.732 [Warning     ] ASPA0011_1.Controllers.QueueController - Queue operation failed for channel: 12345678-1234-1234-1234-123456789abc
+2025-11-26 22:11:43.433 [Information ] ASPA0011_1.Services.ChannelService - Created new channel: State Test Channel with ID: bfb1bdda-ed1d-479a-a6d2-bb4554594c03, State: ACTIVE
+2025-11-26 22:11:43.434 [Information ] ASPA0011_1.Controllers.ChannelsController - Created ACTIVE channel: State Test Channel
+2025-11-26 22:11:44.017 [Information ] ASPA0011_1.Services.ChannelService - Closed channel: State Test Channel, Reason: Тестирование закрытия
+2025-11-26 22:11:44.018 [Information ] ASPA0011_1.Controllers.ChannelsController - Updated 1 channels with command: close
