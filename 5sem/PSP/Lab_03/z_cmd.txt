@@ -1,0 +1,6 @@
+netstat -an | findstr :2000
+
+netstat -an -p UDP
+
+netstat -ab -p UDP
+

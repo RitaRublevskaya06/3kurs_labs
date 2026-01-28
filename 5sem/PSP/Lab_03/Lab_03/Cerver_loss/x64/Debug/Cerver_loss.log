@@ -1,0 +1,3 @@
+﻿  Server.cpp
+D:\Univer\3_kurs\5_sem\PSP\Lab_03\Lab_03\Cerver_loss\Server.cpp(136,86): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Cerver_loss.vcxproj -> D:\Univer\3_kurs\5_sem\PSP\Lab_03\Lab_03\x64\Debug\Server_loss.exe
