@@ -1,0 +1,8 @@
+﻿  CA.cpp
+D:\Univer\3_kurs\5_sem\SP\Lab_05\SP_Lab14\OS14_HTCOM\CA.cpp(647,20): warning C4018: <: несоответствие типов со знаком и без знака
+  (компиляция исходного файла "/CA.cpp")
+  
+D:\Univer\3_kurs\5_sem\SP\Lab_05\SP_Lab14\OS14_HTCOM\CA.cpp(676,21): warning C4018: <: несоответствие типов со знаком и без знака
+  (компиляция исходного файла "/CA.cpp")
+  
+  OS14_HTCOM.vcxproj -> D:\Univer\3_kurs\5_sem\SP\Lab_05\SP_Lab14\x64\Debug\OS14_HTCOM.dll
