@@ -1,0 +1,10 @@
+﻿  OS11_03.cpp
+D:\Univer\3_kurs\5_sem\SP\Lab_02\SP_Lab11\OS11_HTAPI\HT.h(18,42): warning C4091: __declspec(dllexport): пропускается слева от "HT::Element", когда ни одна переменная не объявлена
+  (компиляция исходного файла "OS11_03.cpp")
+  
+D:\Univer\3_kurs\5_sem\SP\Lab_02\SP_Lab11\OS11_HTAPI\HT.h(36,42): warning C4091: __declspec(dllexport): пропускается слева от "HT::HTHANDLE", когда ни одна переменная не объявлена
+  (компиляция исходного файла "OS11_03.cpp")
+  
+D:\Univer\3_kurs\5_sem\SP\Lab_02\SP_Lab11\OS11_03\OS11_03.cpp(14,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\Univer\3_kurs\5_sem\SP\Lab_02\SP_Lab11\OS11_03\OS11_03.cpp(45,65): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  OS11_03.vcxproj -> D:\Univer\3_kurs\5_sem\SP\Lab_02\SP_Lab11\x64\Debug\OS11_03.exe
