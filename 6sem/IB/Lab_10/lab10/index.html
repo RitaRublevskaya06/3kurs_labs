@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №10: RSA и Эль-Гамаль</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Исследование асимметричных шифров</h1>
+        <h2>RSA и Эль-Гамаль</h2>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="performance">Производительность<span class="formula">\(\ a^x \pmod{n}\)</span></button>
+            <button class="tab-btn" data-tab="rsa">RSA Шифрование</button>
+            <button class="tab-btn" data-tab="elgamal">Эль-Гамаль Шифрование</button>
+        </div>
+
+        <!-- Вкладка 1: Замер времени a^x mod n -->
+        <div id="performance" class="tab-content active">
+            <h3>Зависимость времени вычисления <span class="formula">\(y \equiv a^x \pmod{n}\)</span></h3>
+            <div class="form-group">
+                <label>Параметр a: <input type="number" id="perf_a" value="7" min="2" max="35"></label>
+                <label>Разрядность n (бит): 
+                    <select id="perf_bits">
+                        <option value="512">512 бит</option>
+                        <option value="1024" selected>1024 бит</option>
+                        <option value="2048">2048 бит</option>
+                    </select>
+                </label>
+                <button id="runPerfTest">Выполнить тест</button>
+            </div>
+            <div id="perfResults">
+                <table id="perfTable">
+                    <thead>
+                        <tr><th>Размер x (бит)</th><th>x (примерное значение)</th><th>Время (мс)</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div style="margin-top: 30px;">
+                    <canvas id="perfChart" width="600" height="300" style="max-width: 100%; height: auto;"></canvas>
+                </div>
+            </div>
+            <p class="note">Примечание: Тест использует 5 случайных чисел x (порядка 10^3 до 10^100). Каждый замер выполняется 10 раз для усреднения.</p>
+        </div>
+
+        <!-- Вкладка 2: RSA Шифрование -->
+        <div id="rsa" class="tab-content">
+            <h3>RSA Криптосистема</h3>
+            <div class="split-pane">
+                <div class="pane">
+                    <h4>1. Генерация ключей</h4>
+                    <button id="genRsaKeys">Сгенерировать ключи RSA (1024 бит)</button>
+                    <div class="key-box">
+                        <label>Открытый ключ (e, n):</label>
+                        <textarea id="rsaPublicKey" rows="2" readonly placeholder="Нажмите 'Сгенерировать'"></textarea>
+                        <label>Закрытый ключ (d, n):</label>
+                        <textarea id="rsaPrivateKey" rows="2" readonly placeholder="Нажмите 'Сгенерировать'"></textarea>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4>2. Сообщение</h4>
+                    <label>Открытый текст (ФИО):</label>
+                    <input type="text" id="rsaPlainText" value="Фамилия Имя Отчество">
+                    <button id="rsaEncryptBtn">Зашифровать (RSA)</button>
+                    <label>Шифртекст (Hex):</label>
+                    <textarea id="rsaCipherText" rows="2" readonly></textarea>
+                    <button id="rsaDecryptBtn">Расшифровать (RSA)</button>
+                    <label>Расшифрованный текст:</label>
+                    <textarea id="rsaDecryptedText" rows="2" readonly></textarea>
+                    <div id="rsaTiming" class="timing-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка 3: Эль-Гамаль Шифрование -->
+        <div id="elgamal" class="tab-content">
+            <h3>Эль-Гамаль Криптосистема</h3>
+            <div class="split-pane">
+                <div class="pane">
+                    <h4>1. Генерация ключей</h4>
+                    <button id="genElGamalKeys">Сгенерировать ключи Эль-Гамаля (512 бит p)</button>
+                    <div class="key-box">
+                        <label>Открытый ключ (p, g, y):</label>
+                        <textarea id="elPublicKey" rows="3" readonly></textarea>
+                        <label>Закрытый ключ (x):</label>
+                        <textarea id="elPrivateKey" rows="1" readonly></textarea>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4>2. Сообщение</h4>
+                    <label>Открытый текст (ФИО):</label>
+                    <input type="text" id="elPlainText" value="Фамилия Имя Отчество">
+                    <button id="elEncryptBtn">Зашифровать (Эль-Гамаль)</button>
+                    <label>Шифртекст (a, b в Hex):</label>
+                    <textarea id="elCipherText" rows="3" readonly></textarea>
+                    <button id="elDecryptBtn">Расшифровать (Эль-Гамаль)</button>
+                    <label>Расшифрованный текст:</label>
+                    <textarea id="elDecryptedText" rows="2" readonly></textarea>
+                    <div id="elTiming" class="timing-info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

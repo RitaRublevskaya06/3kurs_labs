@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket клиент</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        #log {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #333;
+        }
+        .sent {
+            color: #4ec9b0;
+        }
+        .received {
+            color: #ce9178;
+        }
+        .info {
+            color: #569cd6;
+        }
+        .error {
+            color: #f48771;
+        }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #005a9e;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebSocket Клиент</h1>
+        <div id="status" class="status disconnected">Отключен</div>
+        <div id="log">
+            <div class="log-entry info">Готов к отправке сообщений...</div>
+        </div>
+        <button id="startBtn" onclick="startSending()">Начать отправку 5 сообщений</button>
+        <button id="connectBtn" onclick="connect()" style="margin-left: 10px;">Подключиться</button>
+    </div>
+
+    <script>
+        let socket = null;
+        let isSending = false;
+
+        function addLog(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.textContent = `[${timestamp}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function updateStatus(connected) {
+            const statusDiv = document.getElementById('status');
+            if (connected) {
+                statusDiv.className = 'status connected';
+                statusDiv.textContent = 'Подключен';
+                document.getElementById('connectBtn').textContent = 'Отключиться';
+            } else {
+                statusDiv.className = 'status disconnected';
+                statusDiv.textContent = 'Отключен';
+                document.getElementById('connectBtn').textContent = 'Подключиться';
+            }
+        }
+
+        function connect() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.close();
+                addLog('Закрытие соединения...', 'info');
+            } else {
+                socket = new WebSocket('ws://localhost:3000/ws');
+
+                socket.onopen = function() {
+                    addLog('Соединение установлено', 'info');
+                    updateStatus(true);
+                };
+
+                socket.onmessage = function(event) {
+                    addLog(`Получено: ${event.data}`, 'received');
+                };
+
+                socket.onerror = function(error) {
+                    addLog(`Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
+                };
+
+                socket.onclose = function(event) {
+                    let reason = '';
+                    if (event.wasClean) {
+                        reason = 'нормальное закрытие';
+                    } else {
+                        reason = 'аварийное закрытие';
+                    }
+                    addLog(`Соединение закрыто (${reason}, код: ${event.code})`, 'info');
+                    updateStatus(false);
+                    isSending = false;
+                    document.getElementById('startBtn').disabled = false;
+                };
+            }
+        }
+
+        async function startSending() {
+            if (!socket || socket.readyState !== WebSocket.OPEN) {
+                addLog('Ошибка: нет активного соединения. Нажмите "Подключиться" сначала.', 'error');
+                return;
+            }
+
+            if (isSending) {
+                addLog('Отправка уже выполняется', 'info');
+                return;
+            }
+
+            isSending = true;
+            document.getElementById('startBtn').disabled = true;
+            addLog('Начинаем отправку 5 сообщений...', 'info');
+
+            for (let i = 1; i <= 5; i++) {
+                if (socket.readyState !== WebSocket.OPEN) {
+                    addLog('Соединение разорвано, остановка отправки', 'error');
+                    break;
+                }
+
+                const message = `сообщение ${i}`;
+                socket.send(JSON.stringify(message));
+                addLog(`Отправлено: ${message}`, 'sent');
+
+                if (i < 5) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+
+            addLog('Отправка 5 сообщений завершена', 'info');
+            
+            setTimeout(() => {
+                if (socket && socket.readyState === WebSocket.OPEN) {
+                    addLog('Завершение работы, закрытие соединения...', 'info');
+                    socket.close();
+                }
+                isSending = false;
+                document.getElementById('startBtn').disabled = false;
+            }, 500);
+        }
+    </script>
+</body>
+</html>

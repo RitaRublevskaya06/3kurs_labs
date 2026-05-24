@@ -1,0 +1,22 @@
+# Зависимости
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Git
+.git/
+.gitignore
+
+# Файлы проекта
+README.md
+.vscode/
+.idea/
+*.log
+.DS_Store
+dist/
+build/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

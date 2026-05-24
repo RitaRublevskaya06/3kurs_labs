@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №12: ЭЦП (RSA, Эль-Гамаль, Шнорр)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Исследование алгоритмов генерации и верификации ЭЦП</h1>
+        <p class="subtitle">RSA | Эль-Гамаль | Шнорр</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="rsa">RSA ЭЦП</button>
+            <button class="tab-btn" data-tab="elgamal">Эль-Гамаль ЭЦП</button>
+            <button class="tab-btn" data-tab="schnorr">Шнорр ЭЦП</button>
+            <button class="tab-btn" data-tab="performance">График производительности</button>
+        </div>
+
+        <!-- RSA вкладка -->
+        <div id="rsa" class="tab-content active">
+            <h3>ЭЦП на основе RSA</h3>
+            <div class="split-pane">
+                <div class="pane">
+                    <h4>1. Генерация ключей RSA (1024 бит)</h4>
+                    <button id="genRsaKeysBtn" class="btn-primary">Сгенерировать ключи RSA</button>
+                    <div class="key-box">
+                        <label>Открытый ключ (e, n):</label>
+                        <textarea id="rsaPublicKey" rows="2" readonly placeholder="Нажмите 'Сгенерировать'"></textarea>
+                        <label>Закрытый ключ (d, n):</label>
+                        <textarea id="rsaPrivateKey" rows="2" readonly placeholder="Нажмите 'Сгенерировать'"></textarea>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4>2. Подписание и верификация</h4>
+                    <label>Сообщение для подписи:</label>
+                    <input type="text" id="rsaMessage" value="Фамилия Имя Отчество">
+                    <button id="rsaSignBtn" class="btn-success">Подписать (RSA)</button>
+                    <label>Подпись (Hex):</label>
+                    <textarea id="rsaSignature" rows="2" readonly></textarea>
+                    <button id="rsaVerifyBtn" class="btn-info">Верифицировать подпись</button>
+                    <div id="rsaVerifyResult" class="verify-result"></div>
+                    <div id="rsaTiming" class="timing-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Эль-Гамаль вкладка -->
+        <div id="elgamal" class="tab-content">
+            <h3>ЭЦП на основе Эль-Гамаля</h3>
+            <div class="split-pane">
+                <div class="pane">
+                    <h4>1. Генерация ключей (p ~ 512 бит)</h4>
+                    <button id="genElGamalKeysBtn" class="btn-primary">Сгенерировать ключи Эль-Гамаля</button>
+                    <div class="key-box">
+                        <label>Открытый ключ (p, g, y):</label>
+                        <textarea id="elPublicKey" rows="3" readonly></textarea>
+                        <label>Закрытый ключ (x):</label>
+                        <textarea id="elPrivateKey" rows="1" readonly></textarea>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4>2. Подписание и верификация</h4>
+                    <label>Сообщение для подписи:</label>
+                    <input type="text" id="elMessage" value="Фамилия Имя Отчество">
+                    <button id="elSignBtn" class="btn-success">Подписать (Эль-Гамаль)</button>
+                    <label>Подпись (a, b в Hex):</label>
+                    <textarea id="elSignature" rows="2" readonly></textarea>
+                    <button id="elVerifyBtn" class="btn-info">Верифицировать подпись</button>
+                    <div id="elVerifyResult" class="verify-result"></div>
+                    <div id="elTiming" class="timing-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Шнорр вкладка -->
+        <div id="schnorr" class="tab-content">
+            <h3>ЭЦП на основе Шнорра</h3>
+            <div class="split-pane">
+                <div class="pane">
+                    <h4>1. Генерация ключей (p ~ 512 бит, q ~ 160 бит)</h4>
+                    <button id="genSchnorrKeysBtn" class="btn-primary">Сгенерировать ключи Шнорра</button>
+                    <div class="key-box">
+                        <label>Открытый ключ (p, q, g, y):</label>
+                        <textarea id="schnorrPublicKey" rows="3" readonly></textarea>
+                        <label>Закрытый ключ (x):</label>
+                        <textarea id="schnorrPrivateKey" rows="1" readonly></textarea>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4>2. Подписание и верификация</h4>
+                    <label>Сообщение для подписи:</label>
+                    <input type="text" id="schnorrMessage" value="Фамилия Имя Отчество">
+                    <button id="schnorrSignBtn" class="btn-success">Подписать (Шнорр)</button>
+                    <label>Подпись (h, b в Hex):</label>
+                    <textarea id="schnorrSignature" rows="2" readonly></textarea>
+                    <button id="schnorrVerifyBtn" class="btn-info">Верифицировать подпись</button>
+                    <div id="schnorrVerifyResult" class="verify-result"></div>
+                    <div id="schnorrTiming" class="timing-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- График производительности -->
+        <div id="performance" class="tab-content">
+            <h3>Анализ производительности алгоритмов ЭЦП</h3>
+            <div class="perf-controls">
+                <label>Размер ключа (бит): 
+                    <select id="keySizeSelect">
+                        <option value="512">512 бит</option>
+                        <option value="1024" selected>1024 бит</option>
+                        <option value="2048">2048 бит (может быть медленно)</option>
+                    </select>
+                </label>
+                <button id="runPerfTestBtn" class="btn-primary">Запустить тест производительности</button>
+                <button id="clearPerfDataBtn" class="btn-secondary">Очистить данные</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="perfChart" width="700" height="350"></canvas>
+            </div>
+            <div id="perfResultsTable" class="perf-results">
+                <p class="placeholder">Нажмите "Запустить тест" для получения данных</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

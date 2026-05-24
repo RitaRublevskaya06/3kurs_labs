@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "TDWA06-API",
+    "description": "CRUD операции для Celebrities",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET все записи",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/celebrities"
+      }
+    },
+    {
+      "name": "GET одну запись",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/celebrities/1"
+      }
+    },
+    {
+      "name": "POST создать",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "http://localhost:3000/celebrities",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"FullName\": \"Albert Einstein\",\n    \"Nationality\": \"DE\",\n    \"ReqPhotoPath\": \"/photos/einstein.jpg\"\n}"
+        }
+      }
+    },
+    {
+      "name": "PUT обновить",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "http://localhost:3000/celebrities/1",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"FullName\": \"Albert Einstein (Updated)\",\n    \"Nationality\": \"DE\",\n    \"ReqPhotoPath\": \"/photos/einstein_updated.jpg\"\n}"
+        }
+      }
+    },
+    {
+      "name": "DELETE удалить",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:3000/celebrities/2"
+      }
+    }
+  ]
+}

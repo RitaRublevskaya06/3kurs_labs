@@ -1,0 +1,12 @@
+D:\Univer\3_kurs\6sem\PIS\Lab_02\GO02_01
+
+go build -o GO02_01.exe
+
+.\GO02_01.exe
+
+
+D:\Univer\3_kurs\6sem\PIS\Lab_02\GO02_02
+
+go build -o GO02_02.exe
+
+.\GO02_02.exe

@@ -1,0 +1,65 @@
+Лабораторная работа 9 — WebDAV
+================================
+
+Учётные данные nginx: webdavuser / password123
+
+--- Задание 1: nginx + cadaver (WSL) ---
+
+1. Откройте WSL:
+
+   wsl -d docker-desktop
+   # или Ubuntu (лучше для лабы): wsl --install -d Ubuntu
+
+2. Установите и настройте nginx WebDAV (путь зависит от дистрибутива):
+
+   sh /mnt/host/d/Univer/3_kurs/6sem/PIS/Lab_09/scripts/setup_nginx_wsl.sh
+   # в Ubuntu обычно: sh /mnt/d/Univer/3_kurs/6sem/PIS/Lab_09/scripts/setup_nginx_wsl.sh
+
+3. Проверка cadaver:
+
+   cadaver http://localhost:8081/webdav/
+   (логин webdavuser, пароль password123)
+   > mkcol test
+   > put /mnt/d/Univer/3_kurs/6sem/PIS/Lab_09/myfile.txt myfile.txt
+   > get myfile.txt
+   > quit
+
+--- Задание 2: клиент GO09_01c (Windows PowerShell) ---
+
+cd D:\Univer\3_kurs\6sem\PIS\Lab_09
+go build -o GO09_01c.exe ./GO09_01c
+
+.\GO09_01c.exe mkcol testfolder
+.\GO09_01c.exe put myfile.txt myfile.txt
+.\GO09_01c.exe get myfile.txt
+.\GO09_01c.exe copy myfile.txt copied.txt
+.\GO09_01c.exe move myfile.txt testfolder/myfile.txt
+.\GO09_01c.exe delete copied.txt
+.\GO09_01c.exe delete testfolder/myfile.txt
+.\GO09_01c.exe delete testfolder/
+
+--- Задание 3: сервер GO09_01s + клиент ---
+
+Терминал 1 (сервер Go):
+  cd D:\Univer\3_kurs\6sem\PIS\Lab_09
+  go run ./GO09_01s
+
+Терминал 2 (клиент к Go-серверу, без auth):
+  $env:WEBDAV_URL="http://localhost:8090/webdav/"
+  $env:WEBDAV_NO_AUTH="1"
+  .\GO09_01c.exe mkcol testfolder
+  .\GO09_01c.exe put myfile.txt myfile.txt
+  .\GO09_01c.exe get myfile.txt
+  .\GO09_01c.exe copy myfile.txt copied.txt
+  .\GO09_01c.exe move myfile.txt testfolder/myfile.txt
+  .\GO09_01c.exe delete copied.txt
+  .\GO09_01c.exe delete testfolder/myfile.txt
+  .\GO09_01c.exe delete testfolder/
+
+--- Управление nginx в WSL ---
+
+  nginx -s reload    # перезагрузка
+  nginx -s stop      # остановка
+  nginx              # запуск
+
+URL: http://localhost:8081/webdav/

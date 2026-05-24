@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №3: Основы теории чисел</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .input-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        .input-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .input-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        .input-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .input-field input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        .input-field input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102,126,234,0.3);
+        }
+        .input-field input[readonly] {
+            background-color: #ecf0f1;
+            cursor: not-allowed;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 25px;
+            display: block;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .results {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            border-radius: 0 10px 10px 0;
+        }
+        .section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .result-item {
+            background: white;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+        .result-label {
+            font-weight: 600;
+            color: #34495e;
+            min-width: 200px;
+            padding-right: 15px;
+        }
+        .result-value {
+            color: #2c3e50;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            flex: 1;
+        }
+        .prime-text {
+            color: #10b981;
+            font-weight: 600;
+        }
+        .composite-text {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        .divider-item {
+            background: white;
+            padding: 8px 15px 12px 15px;
+            margin-top: -4px;
+            margin-bottom: 0;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .divider-label {
+            font-weight: 500;
+            color: #4a5568;
+            min-width: 200px;
+            padding-right: 15px;
+            display: inline-block;
+        }
+        .divider-value {
+            color: #2c3e50;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+        }
+        .step-list {
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            line-height: 1.8;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .step-list span {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        .prime-list {
+            max-height: 150px;
+            overflow-y: auto;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-top: 5px;
+            width: 100%;
+        }
+        .info-note {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа №3</h1>
+        <h2 style="text-align: center; color: white; margin-top: -10px; opacity: 0.9;">Основы теории чисел и их использование в криптографии</h2>
+        
+        <div class="input-panel">
+            <div class="input-group">
+                <div class="input-field">
+                    <label>Параметр m</label>
+                    <input type="number" id="inputM" value="555" min="2" step="1">
+                </div>
+                <div class="input-field">
+                    <label>Параметр n</label>
+                    <input type="number" id="inputN" value="591" min="2" step="1">
+                </div>
+            </div>
+            <button onclick="calculate()">Выполнить расчеты</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="section">
+                <h2>Исходные данные (Вариант 11)</h2>
+                <div class="result-item">
+                    <span class="result-label">m =</span>
+                    <span class="result-value" id="displayM">555</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">n =</span>
+                    <span class="result-value" id="displayN">591</span>
+                </div>
+                <div class="info-note">
+                    <strong>Примечание:</strong> В варианте 11: m = 555, n = 591. Так как m (555) < n (591), 
+                    поиск простых чисел выполняется в интервале [555, 591].
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Пункты 1 и 2. Поиск простых чисел</h2>
+                <div class="result-item">
+                    <span class="result-label">Простые числа в [2, n]:</span>
+                </div>
+                <div class="prime-list" id="primesUpToNList"></div>
+                <div class="result-item" style="margin-top: 10px;">
+                    <span class="result-label">Количество π(n):</span>
+                    <span class="result-value" id="primesUpToNCount"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">n/ln(n):</span>
+                    <span class="result-value" id="nOverLnN"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Простые числа в [555, 591]:</span>
+                </div>
+                <div class="prime-list" id="primesInRangeList"></div>
+                <div class="result-item" style="margin-top: 10px;">
+                    <span class="result-label">Количество в [555, 591]:</span>
+                    <span class="result-value" id="primesInRangeCount"></span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Пункт 3. Разложение на простые множители</h2>
+                <div class="result-item">
+                    <span class="result-label">m = 555 =</span>
+                    <span class="result-value" id="factorsM"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">n = 591 =</span>
+                    <span class="result-value" id="factorsN"></span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Пункт 4. Проверка конкатенации m||n</h2>
+                <div class="result-item">
+                    <span class="result-label">m||n = 555||591 =</span>
+                    <span class="result-value" id="concatenated"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Статус:</span>
+                    <span class="result-value" id="concatStatus"></span>
+                </div>
+                <div class="divider-item" id="divisorContainer" style="display: none;">
+                    <span class="divider-label">Наименьший делитель:</span>
+                    <span class="divider-value" id="divisorText"></span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Пункт 5. НОД(m, n)</h2>
+                <div class="result-item">
+                    <span class="result-label">НОД(555, 591) =</span>
+                    <span class="result-value" id="gcdResult"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Алгоритм Евклида:</span>
+                </div>
+                <div class="step-list" id="euclidSteps"></div>
+            </div>
+        </div>
+        
+        <footer>
+            Группа 9 | Вариант 11
+        </footer>
+    </div>
+
+    <script>
+        /**
+         * Вычисление НОД (алгоритм Евклида)
+         */
+        function gcd(a, b) {
+            a = Math.abs(a);
+            b = Math.abs(b);
+            while (b !== 0) {
+                let temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        /**
+         * Разложение числа на простые множители
+         */
+        function primeFactors(num) {
+            let factors = {};
+            let number = Math.abs(num);
+            if (number <= 1) return factors;
+
+            let count = 0;
+            while (number % 2 === 0) {
+                count++;
+                number /= 2;
+            }
+            if (count > 0) factors[2] = count;
+
+            for (let i = 3; i * i <= number; i += 2) {
+                count = 0;
+                while (number % i === 0) {
+                    count++;
+                    number /= i;
+                }
+                if (count > 0) factors[i] = count;
+            }
+
+            if (number > 1) factors[number] = 1;
+
+            return factors;
+        }
+
+        /**
+         * Форматирование разложения
+         */
+        function formatPrimeFactors(factors) {
+            if (Object.keys(factors).length === 0) return "1";
+            let parts = [];
+            Object.keys(factors)
+                .map(Number)
+                .sort((a, b) => a - b)
+                .forEach(prime => {
+                    if (factors[prime] === 1) {
+                        parts.push(`${prime}`);
+                    } else {
+                        parts.push(`${prime}^${factors[prime]}`);
+                    }
+                });
+            return parts.join(" × ");
+        }
+
+        /**
+         * Проверка числа на простоту
+         */
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+            for (let i = 5; i * i <= num; i += 6) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+            }
+            return true;
+        }
+
+        /**
+         * Решето Эратосфена для поиска простых чисел до limit
+         */
+        function sieveOfEratosthenes(limit) {
+            if (limit < 2) return [];
+            let sieve = new Array(limit + 1).fill(true);
+            sieve[0] = sieve[1] = false;
+            for (let i = 2; i * i <= limit; i++) {
+                if (sieve[i]) {
+                    for (let j = i * i; j <= limit; j += i) {
+                        sieve[j] = false;
+                    }
+                }
+            }
+            let primes = [];
+            for (let i = 2; i <= limit; i++) {
+                if (sieve[i]) primes.push(i);
+            }
+            return primes;
+        }
+
+        /**
+         * Поиск простых чисел в заданном диапазоне [start, end]
+         */
+        function findPrimesInRange(start, end) {
+            if (end < 2) return [];
+            let allPrimesUpToEnd = sieveOfEratosthenes(end);
+            return allPrimesUpToEnd.filter(prime => prime >= start);
+        }
+
+        /**
+         * Получение шагов алгоритма Евклида
+         */
+        function getEuclidSteps(a, b) {
+            let steps = [];
+            let x = a, y = b;
+            while (y !== 0) {
+                let quotient = Math.floor(x / y);
+                let remainder = x % y;
+                steps.push(`<span>Шаг ${steps.length + 1}:</span> ${x} = ${y} × ${quotient} + ${remainder}`);
+                x = y;
+                y = remainder;
+            }
+            steps.push(`<span>Результат:</span> Последний ненулевой остаток = ${x}`);
+            return steps;
+        }
+
+        function calculate() {
+            let m = parseInt(document.getElementById('inputM').value);
+            let n = parseInt(document.getElementById('inputN').value);
+            
+            if (isNaN(m) || isNaN(n) || m < 2 || n < 2) {
+                alert('Пожалуйста, введите корректные числа (больше или равные 2)');
+                return;
+            }
+
+            document.getElementById('displayM').textContent = m;
+            document.getElementById('displayN').textContent = n;
+
+            
+            // Пункт 1: Простые числа до n
+            let primesUpToN = findPrimesInRange(2, n);
+            document.getElementById('primesUpToNList').innerHTML = primesUpToN.length > 0 ? 
+                '[' + primesUpToN.slice(0, 30).join(', ') + (primesUpToN.length > 30 ? ', ...' : '') + ']' : 
+                'Нет простых чисел';
+            document.getElementById('primesUpToNCount').textContent = primesUpToN.length;
+            
+            let nOverLnN = (n / Math.log(n)).toFixed(2);
+            document.getElementById('nOverLnN').textContent = nOverLnN + ' (округленно ' + Math.round(nOverLnN) + ')';
+
+            // Пункт 2: Простые числа в интервале [m, n]
+            let primesInRange;
+            if (m <= n) {
+                primesInRange = findPrimesInRange(m, n);
+                document.getElementById('primesInRangeList').innerHTML = primesInRange.length > 0 ? 
+                    '[' + primesInRange.join(', ') + ']' : 'Нет простых чисел';
+            } else {
+                primesInRange = findPrimesInRange(n, m);
+                document.getElementById('primesInRangeList').innerHTML = primesInRange.length > 0 ? 
+                    '[' + primesInRange.join(', ') + ']' : 'Нет простых чисел';
+            }
+            document.getElementById('primesInRangeCount').textContent = primesInRange.length;
+
+            // Пункт 3. Разложение на множители
+            let factorsM = primeFactors(m);
+            let factorsN = primeFactors(n);
+            document.getElementById('factorsM').textContent = formatPrimeFactors(factorsM);
+            document.getElementById('factorsN').textContent = formatPrimeFactors(factorsN);
+
+            // Пункт 4. Конкатенация
+            let concatenated = parseInt(`${m}${n}`);
+            document.getElementById('concatenated').textContent = concatenated.toLocaleString();
+            
+            let isPrimeConcat = isPrime(concatenated);
+            let divisorContainer = document.getElementById('divisorContainer');
+            let divisorText = document.getElementById('divisorText');
+            
+            if (isPrimeConcat) {
+                document.getElementById('concatStatus').innerHTML = '<span class="prime-text">ПРОСТОЕ ЧИСЛО</span>';
+                divisorContainer.style.display = 'none';
+            } else {
+                document.getElementById('concatStatus').innerHTML = '<span class="composite-text">СОСТАВНОЕ ЧИСЛО</span>';
+                
+                let smallestDivisor = null;
+                for (let i = 2; i * i <= concatenated; i++) {
+                    if (concatenated % i === 0) {
+                        smallestDivisor = i;
+                        break;
+                    }
+                }
+                if (smallestDivisor) {
+                    divisorText.innerHTML = `${smallestDivisor} (${concatenated} = ${smallestDivisor} × ${concatenated/smallestDivisor})`;
+                    divisorContainer.style.display = 'block';
+                } else {
+                    divisorContainer.style.display = 'none';
+                }
+            }
+
+            // Пункт 5. НОД
+            let gcdResult = gcd(m, n);
+            document.getElementById('gcdResult').textContent = gcdResult;
+            
+            let steps = getEuclidSteps(m, n);
+            document.getElementById('euclidSteps').innerHTML = steps.join('<br>');
+        }
+
+        window.onload = function() {
+            calculate();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+БД:
+Server: localhost,10443
+
+Login: sa
+
+Password: Str0ngPass!2026
+
+
+docker run -d `
+  --name tdwa06-mssql `
+  -e "ACCEPT_EULA=Y" `
+  -e "SA_PASSWORD=Str0ngPass!2026" `
+  -p 10443:1433 `
+  mcr.microsoft.com/mssql/server:2019-latest
+
+
+
+
+docker run -d `
+  --name tdwa06-nginx `
+  -p 8080:1433 `
+  -v D:\Univer\3_kurs\6sem\TRwP\Lab_06\tdwa06\nginx.conf:/etc/nginx/nginx.conf:ro `
+  nginx:alpine
+
+
+docker-compose up -d    # Запустить все контейнеры
+docker-compose down     # Остановить и удалить все
+docker-compose logs     # Посмотреть логи
+docker-compose ps       # Посмотреть статус
+
+
+
+CRUD:
+# 1. GET 
+Invoke-RestMethod -Uri http://localhost:3000/celebrities -Method Get
+
+# 3. POST
+Invoke-RestMethod -Uri http://localhost:3000/celebrities `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"FullName":"Marie Curie","Nationality":"PL","ReqPhotoPath":"/photos/curie.jpg"}'
+
+# 4. GET все записи
+Invoke-RestMethod -Uri http://localhost:3000/celebrities -Method Get
+
+# 5. GET
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/1 -Method Get
+
+# 6. PUT
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/1 `
+  -Method Put `
+  -ContentType "application/json" `
+  -Body '{"FullName":"Albert Einstein (Updated)","Nationality":"DE","ReqPhotoPath":"/photos/einstein_new.jpg"}'
+
+# 7. GET
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/1 -Method Get
+
+# 8. DELETE
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/2 -Method Delete
+
+# 9. GET
+Invoke-RestMethod -Uri http://localhost:3000/celebrities -Method Get
+
+
+
+NGINX:
+# 1. Полный список записей
+Invoke-RestMethod -Uri http://localhost:8080/celebrities -Method Get
+
+# 2. Добавление ещё одной записи
+Invoke-RestMethod -Uri http://localhost:8080/celebrities `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"FullName":"Isaac Newton","Nationality":"GB","ReqPhotoPath":"/photos/newton.jpg"}'
+
+
+
+docker run -d `
+  --name tdwa06-nginx `
+  -p 8080:80 `
+  -v D:\Univer\3_kurs\6sem\TRwP\Lab_06\tdwa06\nginx.conf:/etc/nginx/nginx.conf:ro `
+  nginx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Статус контейнера
+docker ps --filter "name=tdwa06-nginx"
+
+# Логи
+docker logs tdwa06-nginx
+
+
+
+
+
+
+
+
+
+
+# Проверка
+# Перезапускаем всё
+docker restart tdwa06-mssql
+docker restart tdwa06-nginx
+
+# Ждём 30 секунд
+Start-Sleep -Seconds 30
+
+# Проверяем, что данные сохранились и nginx работает
+Invoke-RestMethod -Uri http://localhost:8080/celebrities -Method Get
+
+
+docker stop tdwa06-mssql tdwa06-nginx
+
+docker start tdwa06-mssql tdwa06-nginx
+
+
+
+
+

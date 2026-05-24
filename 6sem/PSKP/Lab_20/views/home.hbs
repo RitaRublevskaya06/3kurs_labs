@@ -1,0 +1,9 @@
+<div class="phonebook-container">
+    <div class="phonebook-list">
+        {{> phone-row phonebook=phonebook disabled=false}}
+    </div>
+    
+    <form action="/Add" method="GET" class="add-form">
+        <button type="submit" class="add-btn">Добавить</button>
+    </form>
+</div>

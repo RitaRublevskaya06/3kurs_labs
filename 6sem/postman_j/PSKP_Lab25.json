@@ -1,0 +1,231 @@
+{
+  "info": {
+    "name": "PSKP_Lab25",
+    "description": "Коллекция для тестирования JSON-RPC сервера (задания 01-02)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "lab-25-jsonrpc"
+  },
+  "item": [
+    {
+      "name": "01. sum - позиционные параметры",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [5, 10, 15, 20, 25],\n    \"id\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "02. sum - именованные параметры (через массив)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],\n    \"id\": 2\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "03. mul - произведение чисел",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"mul\",\n    \"params\": [2, 3, 4, 5],\n    \"id\": 3\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "04. div - деление (именованные параметры)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": {\"x\": 100, \"y\": 20},\n    \"id\": 4\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "05. div - деление на ноль (ошибка)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": {\"x\": 10, \"y\": 0},\n    \"id\": 5\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "06. proc - вычисление процента",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"proc\",\n    \"params\": {\"x\": 25, \"y\": 50},\n    \"id\": 6\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "07. proc - проверка формулы (x/y*100)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"proc\",\n    \"params\": {\"x\": 30, \"y\": 200},\n    \"id\": 7\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "08. Уведомление (без id)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [1, 2, 3]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "09. Batch запрос (пакет запросов)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n    {\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"sum\",\n        \"params\": [1, 2, 3, 4],\n        \"id\": 1\n    },\n    {\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"mul\",\n        \"params\": [2, 3, 4],\n        \"id\": 2\n    },\n    {\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"proc\",\n        \"params\": {\"x\": 15, \"y\": 30},\n        \"id\": 3\n    }\n]"
+        },
+        "url": {
+          "raw": "http://localhost:5000/jsonrpc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["jsonrpc"]
+        }
+      }
+    },
+    {
+      "name": "10. Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}

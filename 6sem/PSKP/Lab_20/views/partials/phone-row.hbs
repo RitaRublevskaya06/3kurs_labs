@@ -1,0 +1,6 @@
+{{#each phonebook}}
+    <a href="/Update?id={{this.id}}" class="phone-row {{#if disabled}}disabled{{/if}}">
+        <span class="name">{{this.name}}</span>
+        <span class="phone">{{this.phone}}</span>
+    </a>
+{{/each}}

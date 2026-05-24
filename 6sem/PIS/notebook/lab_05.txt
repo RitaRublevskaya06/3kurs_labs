@@ -1,0 +1,56 @@
+go run main.go
+
+
+# Добавляем первую знаменитость
+Invoke-RestMethod -Uri "http://localhost:3000/Celebrities" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"id":1,"fullName":"Leonardo DiCaprio","nationality":"American","reqPhotoPath":"/images/dicaprio.jpg"}'
+
+# Добавляем вторую знаменитость
+Invoke-RestMethod -Uri "http://localhost:3000/Celebrities" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"id":2,"fullName":"Scarlett Johansson","nationality":"American","reqPhotoPath":"/images/johansson.jpg"}'
+
+# Добавляем третью знаменитость
+Invoke-RestMethod -Uri "http://localhost:3000/Celebrities" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"id":3,"fullName":"Keanu Reeves","nationality":"Canadian","reqPhotoPath":"/images/reeves.jpg"}'
+
+# Добавляем четвертую знаменитость
+Invoke-RestMethod -Uri "http://localhost:3000/Celebrities" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"id":4,"fullName":"Tom Hanks","nationality":"American","reqPhotoPath":"/images/hanks.jpg"}'
+
+ИЛИ
+
+
+[
+  {
+    "id": 1,
+    "fullName": "Leonardo DiCaprio",
+    "nationality": "American",
+    "reqPhotoPath": "/images/dicaprio.jpg"
+  },
+  {
+    "id": 2,
+    "fullName": "Scarlett Johansson",
+    "nationality": "American",
+    "reqPhotoPath": "/images/johansson.jpg"
+  },
+  {
+    "id": 3,
+    "fullName": "Keanu Reeves",
+    "nationality": "Canadian",
+    "reqPhotoPath": "/images/reeves.jpg"
+  },
+  {
+    "id": 4,
+    "fullName": "Tom Hanks",
+    "nationality": "American",
+    "reqPhotoPath": "/images/hanks.jpg"
+  }
+]

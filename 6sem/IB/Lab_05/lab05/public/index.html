@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №5 - Шифры перестановки</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа №5</h1>
+        <h2>Исследование криптографических шифров на основе перестановки символов</h2>
+        <p><strong>Вариант №1:</strong> Белорусский язык | Маршрутная перестановка | Множественная перестановка</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="route">Маршрутная перестановка</button>
+            <button class="tab-btn" data-tab="multiple">Множественная перестановка</button>
+            <button class="tab-btn" data-tab="analysis">Анализ частот</button>
+            <button class="tab-btn" data-tab="performance">Производительность</button>
+        </div>
+        
+        <!-- Вкладка 1: Маршрутная перестановка -->
+        <div id="tab-route" class="tab-content active">
+            <div class="card">
+                <h3>Шифр маршрутной перестановки</h3>
+                <p>Маршрут: запись – по строкам, считывание – по столбцам таблицы</p>
+                
+                <div class="form-group">
+                    <label>Загрузить из файла (.txt):</label>
+                    <input type="file" id="route-file-input" accept=".txt">
+                </div>
+                
+                <div class="form-group">
+                    <button id="route-load-sample" class="btn btn-small" style="background: #e2e8f0; color: #333;">Загрузить пример текста (500+ символов)</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Исходный текст (белорусский язык):</label>
+                    <textarea id="route-plaintext" rows="6" placeholder="Введите текст для шифрования...">бабры тут калісь вадзіліся</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Количество столбцов таблицы:</label>
+                    <input type="number" id="route-cols" value="8" min="1">
+                </div>
+                
+                <div class="button-group">
+                    <button id="route-encrypt-btn" class="btn btn-primary">Зашифровать</button>
+                    <button id="route-decrypt-btn" class="btn btn-secondary">Расшифровать</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Результат:</label>
+                    <textarea id="route-result" rows="6" readonly placeholder="Результат операции..."></textarea>
+                </div>
+                
+                <div class="info">
+                    <span>Время выполнения: <span id="route-time">0</span> мс</span>
+                    <span style="margin-left: 20px;">Длина результата: <span id="route-result-length">0</span> символов</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Вкладка 2: Множественная перестановка -->
+        <div id="tab-multiple" class="tab-content">
+            <div class="card">
+                <h3>Шифр множественной перестановки</h3>
+                <p>Ключевые слова: имя и фамилия</p>
+                
+                <div class="form-group">
+                    <label>Загрузить из файла (.txt):</label>
+                    <input type="file" id="multiple-file-input" accept=".txt">
+                </div>
+                
+                <div class="form-group">
+                    <button id="multiple-load-sample" class="btn btn-small" style="background: #e2e8f0; color: #333;">Загрузить пример текста (500+ символов)</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Исходный текст (белорусский язык):</label>
+                    <textarea id="multiple-plaintext" rows="6" placeholder="Введите текст для шифрования...">бабры тут калісь вадзіліся</textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Ключевое слово (имя):</label>
+                        <input type="text" id="multiple-row-key" value="имя" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group half">
+                        <label>Ключевое слово (фамилия):</label>
+                        <input type="text" id="multiple-col-key" value="имя" placeholder="Введите фамилию">
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="multiple-encrypt-btn" class="btn btn-primary">Зашифровать</button>
+                    <button id="multiple-decrypt-btn" class="btn btn-secondary">Расшифровать</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Результат:</label>
+                    <textarea id="multiple-result" rows="6" readonly placeholder="Результат операции..."></textarea>
+                </div>
+                
+                <div class="info">
+                    <span>Время выполнения: <span id="multiple-time">0</span> мс</span>
+                    <span style="margin-left: 20px;">Длина результата: <span id="multiple-result-length">0</span> символов</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Вкладка 3: Анализ частот -->
+        <div id="tab-analysis" class="tab-content">
+            <div class="card">
+                <h3>Анализ частот появления символов</h3>
+                
+                <div class="form-group">
+                    <label>Текст для анализа:</label>
+                    <textarea id="analysis-text" rows="8" placeholder="Введите текст для анализа...">бабры тут калісь вадзіліся</textarea>
+                </div>
+                
+                <div class="button-group">
+                    <button id="analyze-btn" class="btn btn-primary">Построить гистограмму</button>
+                    <button id="analysis-load-sample" class="btn btn-small" style="background: #e2e8f0; color: #333;">Загрузить пример для анализа</button>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="freq-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка 4: Производительность -->
+    <div id="tab-performance" class="tab-content">
+        <div class="card">
+            <h3>Анализ производительности шифров перестановки</h3>
+            <p>Сравнение времени выполнения при разных размерах текста</p>
+            
+            <div class="form-group">
+                <label>Количество повторений (для точности):</label>
+                <select id="test-iterations">
+                    <option value="3">3 раза</option>
+                    <option value="5" selected>5 раз</option>
+                    <option value="10">10 раз</option>
+                </select>
+            </div>
+            
+            <div class="button-group">
+                <button id="run-performance-test" class="btn btn-primary">Запустить тест производительности</button>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="performance-chart"></canvas>
+            </div>
+            
+            <div class="info" id="performance-results">
+                <p>Нажмите "Запустить тест" для построения графика производительности</p>
+                <p>Будут протестированы размеры: 100, 500, 1000, 2000, 5000 символов</p>
+                <p>График покажет зависимость времени выполнения от размера текста</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

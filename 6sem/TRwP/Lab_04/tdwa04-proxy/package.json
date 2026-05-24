@@ -1,0 +1,23 @@
+{
+  "name": "tdwa04-proxy",
+  "version": "1.0.0",
+  "description": "Лабораторная работа 4 - Ocelot proxy",
+  "main": "server.js",
+  "scripts": {
+    "start:x": "node server.js --Nick X --Port 3001",
+    "start:y": "node server.js --Nick Y --Port 3002",
+    "start:z": "node server.js --Nick Z --Port 3003",
+    "start:gateway": "node gateway-simple.js",
+    "start:all": "node start-all.js",
+    "test": "bash test.sh"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "express": "^4.22.1",
+    "http-proxy-middleware": "^2.0.9"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

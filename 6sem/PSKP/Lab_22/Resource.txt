@@ -1,0 +1,56 @@
+openssl genrsa -out RS.key 2048
+
+
+openssl req -new -key RS.key -out RS.csr -sha256 -config RS.cfg
+
+
+cat RS.csr
+cat RS.cfg
+
+
+Продолжение после CA
+
+
+openssl x509 -in RS.crt -text -noout | grep -E "(Subject:|Subject Alternative Name)"
+
+certlm.msc
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Сгенерировать ключ Resource
+openssl genrsa -out RS.key 2048
+
+2. Создать конфиг RS.cfg
+
+3. Создать запрос CSR
+openssl req -new -key RS.key -out RS.csr -sha256 -config RS.cfg
+
+4. Показать содержимое для отправки CA
+cat RS.csr
+cat RS.cfg
+
+
+Продолжение после CA
+
+5. Создать файлы от CA (вставить полученный текст)
+nano RS.crt
+nano CA.crt
+
+6. Проверить сертификат
+openssl x509 -in RS.crt -text -noout | grep -E "(Subject:|Subject Alternative Name)"
+
+certlm.msc
+
+
+
+7. Создать server.js и запустить

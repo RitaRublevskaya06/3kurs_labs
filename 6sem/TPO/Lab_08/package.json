@@ -1,0 +1,15 @@
+{
+  "name": "selenium-pom-lab",
+  "version": "1.0.0",
+  "description": "Laboratory work with Selenium Page Object Model",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/run_all.js"
+  },
+  "dependencies": {
+    "chai": "^4.3.10",
+    "chromedriver": "^146.0.0",
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^4.15.0"
+  }
+}

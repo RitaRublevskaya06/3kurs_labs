@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №13: LSB Стеганография</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Исследование стеганографического метода LSB</h1>
+        <p class="subtitle">Наименее значащие биты (Least Significant Bit) | Встраивание и извлечение данных</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="embed">Встраивание</button>
+            <button class="tab-btn" data-tab="extract">Извлечение</button>
+            <button class="tab-btn" data-tab="analysis">Визуальный анализ</button>
+            <!-- <button class="tab-btn" data-tab="performance">График времени</button> -->
+        </div>
+
+        <!-- Вкладка встраивания -->
+        <div id="embed" class="tab-content active">
+            <div class="split-pane">
+                <div class="pane">
+                    <h3>1. Выбор контейнера</h3>
+                    <div class="file-input-area">
+                        <input type="file" id="coverImageInput" accept="image/png,image/bmp" class="file-input">
+                        <label for="coverImageInput" class="file-label">Выбрать BMP изображение</label>
+                        <div id="coverImageInfo" class="info-text">Файл не выбран</div>
+                    </div>
+                    <div class="image-preview">
+                        <canvas id="coverCanvas" width="400" height="300" class="preview-canvas"></canvas>
+                    </div>
+                    <div id="coverStats" class="stats-box"></div>
+                </div>
+
+                <div class="pane">
+                    <h3>2. Сообщение для встраивания</h3>
+                    <div class="message-type">
+                        <label><input type="radio" name="msgType" value="personal" checked> Личные данные (ФИО)</label>
+                        <label><input type="radio" name="msgType" value="report"> Текст отчёта</label>
+                        <label><input type="radio" name="msgType" value="custom"> Свой текст</label>
+                    </div>
+                    <textarea id="secretMessage" rows="5" placeholder="Введите или выберите сообщение..."></textarea>
+                    <div class="message-info">
+                        <span>Длина: <span id="msgLength">0</span> символов</span>
+                        <span>Битов: <span id="msgBits">0</span></span>
+                    </div>
+
+                    <h3>3. Настройки встраивания</h3>
+                    <div class="settings-group">
+                        <label>Метод размещения:</label>
+                        <select id="embeddingMethod">
+                            <option value="sequential">Последовательный (подряд)</option>
+                            <option value="random" selected>Псевдослучайный (с ключом)</option>
+                        </select>
+                        <div id="randomKeyInput" style="display: block;">
+                            <label>Ключ (число):</label>
+                            <input type="number" id="randomKey" value="12345">
+                        </div>
+                        <label>Битовая плоскость:</label>
+                        <select id="bitPlane">
+                            <option value="0">LSB (бит 0)</option>
+                            <option value="1">Бит 1</option>
+                            <option value="2">Бит 2</option>
+                            <option value="3">Бит 3</option>
+                        </select>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="embedBtn" class="btn-primary">Встроить сообщение</button>
+                        <button id="saveStegoBtn" class="btn-success" disabled>Сохранить стегано-контейнер</button>
+                    </div>
+                    <div id="embedTiming" class="timing-info"></div>
+                    <div id="embedResult" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка извлечения -->
+        <div id="extract" class="tab-content">
+            <div class="split-pane">
+                <div class="pane">
+                    <h3>1. Загрузка стегано-контейнера</h3>
+                    <div class="file-input-area">
+                        <input type="file" id="stegoImageInput" accept="image/png,image/bmp" class="file-input">
+                        <label for="stegoImageInput" class="file-label">Выбрать стегано-изображение</label>
+                        <div id="stegoImageInfo" class="info-text">Файл не выбран</div>
+                    </div>
+                    <div class="image-preview">
+                        <canvas id="stegoCanvas" width="400" height="300" class="preview-canvas"></canvas>
+                    </div>
+                </div>
+
+                <div class="pane">
+                    <h3>2. Параметры извлечения</h3>
+                    <div class="settings-group">
+                        <label>Метод размещения:</label>
+                        <select id="extractMethod">
+                            <option value="sequential">Последовательный</option>
+                            <option value="random" selected>Псевдослучайный</option>
+                        </select>
+                        <div id="extractKeyInput" style="display: block;">
+                            <label>Ключ (число):</label>
+                            <input type="number" id="extractKey" value="12345">
+                        </div>
+                        <label>Битовая плоскость:</label>
+                        <select id="extractBitPlane">
+                            <option value="0">LSB (бит 0)</option>
+                            <option value="1">Бит 1</option>
+                            <option value="2">Бит 2</option>
+                            <option value="3">Бит 3</option>
+                        </select>
+                        <label>Длина сообщения (байт, 0 = авто):</label>
+                        <input type="number" id="extractLength" placeholder="0 = автоопределение" min="0">
+                    </div>
+
+                    <button id="extractBtn" class="btn-primary">Извлечь сообщение</button>
+                    <div id="extractTiming" class="timing-info"></div>
+                    <div id="extractResult" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка визуального анализа -->
+        <div id="analysis" class="tab-content">
+            <div class="full-width">
+                <h3>Визуализация битовых плоскостей и цветовых матриц</h3>
+                <div class="analysis-controls">
+                    <input type="file" id="analysisImageInput" accept="image/png,image/bmp">
+                    <button id="analyzeBtn" class="btn-primary">Анализировать</button>
+                </div>
+                <div id="bitPlanesContainer" class="bitplanes-container"></div>
+                <div id="analysisStats" class="stats-box"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка производительности -->
+        <!-- <div id="performance" class="tab-content">
+            <div class="full-width">
+                <h3>Анализ производительности LSB стеганографии</h3>
+                <div class="perf-controls">
+                    <label>Размер тестового изображения:</label>
+                    <select id="testImageSize">
+                        <option value="256">256x256</option>
+                        <option value="512" selected>512x512</option>
+                        <option value="1024">1024x1024</option>
+                    </select>
+                    <label>Размер сообщения (% от ёмкости):</label>
+                    <select id="testMsgSize">
+                        <option value="25">25%</option>
+                        <option value="50" selected>50%</option>
+                        <option value="75">75%</option>
+                        <option value="100">100%</option>
+                    </select>
+                    <button id="runPerfTest" class="btn-primary">Запустить тест</button>
+                    <button id="clearPerfData" class="btn-secondary">Очистить</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="perfChart" width="700" height="350"></canvas>
+                </div>
+                <div id="perfResults" class="perf-results"></div>
+            </div>
+        </div> -->
+    </div>
+
+    <script src="script.js" charset="UTF-8"></script>
+</body>
+</html>

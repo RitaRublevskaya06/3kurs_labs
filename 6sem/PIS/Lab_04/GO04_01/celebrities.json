@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "fullName": "Leonardo DiCaprio",
+        "nationality": "American",
+        "reqPhotoPath": "/images/dicaprio.jpg"
+    },
+    {
+        "id": 2,
+        "fullName": "Scarlett Johansson Updated",
+        "nationality": "American",
+        "reqPhotoPath": "/images/johansson_new.jpg"
+    },
+    {
+        "id": 3,
+        "fullName": "Keanu Reeves",
+        "nationality": "Canadian",
+        "reqPhotoPath": "/images/reeves.jpg"
+    }
+]

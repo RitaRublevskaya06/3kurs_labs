@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Отчет о тестировании Selenium POM</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .summary { background: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        .skip { color: gray; font-weight: bold; }
+        .expected-fail { color: orange; font-weight: bold; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Отчет о тестировании Selenium Page Object Model</h1>
+    <div class="summary">
+        <p><strong>Всего тестов:</strong> 14</p>
+        <p><strong>Пройдено:</strong> <span class="pass">11</span></p>
+        <p><strong>Провалено:</strong> <span class="fail">3</span></p>
+        <p><strong>Время выполнения:</strong> 85.62 сек</p>
+        <p><strong>Дата:</strong> 09.04.2026, 08:26:44</p>
+    </div>
+    <h2>Детали тестов</h2>
+    <table>
+        <thead>
+            <tr><th>Тест</th><th>Результат</th><th>Ошибка</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                    <td>Авторизация: Стандартный пользователь</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Авторизация: Заблокированный пользователь</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Авторизация: Пользователь с проблемами</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Авторизация: Неверные данные</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Пустые поля (проверка ошибки)</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Тест с русским языком (SKIP)</td>
+                    <td class="skip">SKIP</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Добавление одного товара</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Добавление нескольких товаров</td>
+                    <td class="fail">FAIL</td>
+                    <td>Ожидалось 3 товара, получено 0</td>
+                </tr><tr>
+                    <td>Удаление товара</td>
+                    <td class="fail">FAIL</td>
+                    <td>Перед удалением 0 товаров, ожидалось 1</td>
+                </tr><tr>
+                    <td>Полный цикл заказа</td>
+                    <td class="fail">FAIL</td>
+                    <td>Waiting for element to be located By(css selector, *[id="checkout"])
+Wait timed out after 10293ms</td>
+                </tr><tr>
+                    <td>Демонстрация работы с cookies</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Сортировка Name (A to Z)</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Сортировка Name (Z to A)</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Сортировка Price (low to high)</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr><tr>
+                    <td>Сортировка Price (high to low)</td>
+                    <td class="pass">PASS</td>
+                    <td></td>
+                </tr>
+        </tbody>
+    </table>
+    <h2>Требования лабораторной работы</h2>
+    <ul>
+        <li>1. Паттерн Page Object Model - реализован (папка pages)</li>
+        <li>2. Опции браузера - установлены в conftest.js</li>
+        <li>3. Работа с cookies - вывод в консоль</li>
+        <li>4. Скриншоты - сохранены в папке screenshots</li>
+        <li>5. Параметризация тестов - разные пользователи, разные варианты сортировки</li>
+        <li>6. Управление тестами - пропущенные тесты (SKIP), ожидаемо падающие (EXPECTED FAIL)</li>
+        <li>7. Отчет - сгенерирован в формате HTML</li>
+    </ul>
+    <p><em>Скриншоты доступны в папке screenshots</em></p>
+</body>
+</html>

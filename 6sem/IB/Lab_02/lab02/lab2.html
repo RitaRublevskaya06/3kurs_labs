@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №2</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f5f7fa; }
+        .container { max-width: 1300px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+        h1 { color: #1e3c5c; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2c3e50; }
+        .student-info { background: #e8f0fe; padding: 15px 20px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #3498db; font-size: 18px; }
+        .file-section { background: #f0f7ff; padding: 25px; border-radius: 12px; margin: 25px 0; border: 1px dashed #3498db; }
+        .result-box { border: 1px solid #d0e0f0; padding: 25px; margin: 30px 0; border-radius: 12px; background-color: white; box-shadow: 0 3px 10px rgba(0,0,0,0.03); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .alphabet-card { background: #f9fcff; padding: 20px; border-radius: 10px; border: 1px solid #c9e0ff; }
+        .stats-row { display: flex; justify-content: space-between; margin: 10px 0; padding: 8px; background: #f0f5fa; border-radius: 5px; }
+        .info-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .info-table th { background: #2c3e50; color: white; padding: 12px; text-align: center; }
+        .info-table td { padding: 15px 12px; border: 1px solid #d0dfea; text-align: center; }
+        .info-table tr:first-child td { background: #f0f9ff; font-weight: bold; }
+        .binary-box { background: #1e2a3a; color: #b0e0ff; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; word-break: break-all; margin: 15px 0; }
+        .error-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
+        .error-card { background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #bdd8f0; text-align: center; }
+        .error-card h4 { margin: 0 0 15px 0; color: #1e3c5c; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        .error-value { font-size: 24px; font-weight: bold; color: #2980b9; margin: 10px 0; }
+        .explanation { background: #ebf5ff; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 5px solid #2ecc71; }
+        .binary-card { background: #f0f7fa; padding: 15px; border-radius: 8px; border: 1px solid #b8d1e0; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Лабораторная работа №2</h1>
+    <h2>Элементы теории информации. Параметры и характеристики дискретных ИС</h2>
+    
+    <div class="student-info">
+        <strong>Исследуемые языки:</strong> Болгарский (кириллица) и Испанский (латиница)
+    </div>
+
+    <div class="file-section">
+        <h3>Загрузка файлов для анализа алфавитов</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <label><strong>🇧🇬 Болгарский текст (кириллица):</strong></label>
+                <input type="file" id="fileBulgarian" accept=".txt" style="display: block; margin: 10px 0; padding: 8px; width: 100%;">
+            </div>
+            <div>
+                <label><strong>🇪🇸 Испанский текст (латиница):</strong></label>
+                <input type="file" id="fileSpanish" accept=".txt" style="display: block; margin: 10px 0; padding: 8px; width: 100%;">
+            </div>
+        </div>
+        <button onclick="processFiles()" style="background: #3498db; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 20px;">Выполнить анализ</button>
+    </div>
+
+    <div id="results" style="display:none;">
+        <!-- Результаты пункта (а) - Анализ алфавитов -->
+        <div class="result-box">
+            <h3>Пункт (а) - Анализ частотных характеристик алфавитов</h3>
+            <div class="grid-2">
+                <div class="alphabet-card">
+                    <h4>🇧🇬 Болгарский алфавит (кириллица)</h4>
+                    <div class="stats-row"><span>Мощность алфавита N:</span> <strong><span id="bulgarian-alphabet-size"></span></strong></div>
+                    <div class="stats-row"><span>Энтропия Шеннона H<sub>S</sub>:</span> <strong><span id="bulgarian-entropy-shannon"></span> бит/символ</strong></div>
+                    <div class="stats-row"><span>Энтропия Хартли H<sub>Ch</sub>:</span> <strong><span id="bulgarian-entropy-hartley"></span> бит/символ</strong></div>
+                    <div class="stats-row"><span>Избыточность R:</span> <strong><span id="bulgarian-redundancy"></span></strong></div>
+                    <div id="bulgarian-histogram" style="max-height: 400px; overflow-y: auto; margin-top: 15px;"></div>
+                </div>
+                <div class="alphabet-card">
+                    <h4>🇪🇸 Испанский алфавит (латиница)</h4>
+                    <div class="stats-row"><span>Мощность алфавита N:</span> <strong><span id="spanish-alphabet-size"></span></strong></div>
+                    <div class="stats-row"><span>Энтропия Шеннона H<sub>S</sub>:</span> <strong><span id="spanish-entropy-shannon"></span> бит/символ</strong></div>
+                    <div class="stats-row"><span>Энтропия Хартли H<sub>Ch</sub>:</span> <strong><span id="spanish-entropy-hartley"></span> бит/символ</strong></div>
+                    <div class="stats-row"><span>Избыточность R:</span> <strong><span id="spanish-redundancy"></span></strong></div>
+                    <div id="spanish-histogram" style="max-height: 400px; overflow-y: auto; margin-top: 15px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Результаты пункта (б) - Анализ бинарного алфавита (ДЛЯ ОБОИХ ТЕКСТОВ) -->
+        <div class="result-box">
+            <h3>Пункт (б) - Энтропия бинарного алфавита</h3>
+            <div class="grid-2">
+                <div class="binary-card">
+                    <h4>🇧🇬 Болгарский текст (бинарный)</h4>
+                    <div class="stats-row"><span>Энтропия Шеннона:</span> <strong><span id="binary-entropy-cyr"></span> бит/символ</strong></div>
+                    <div class="stats-row"><span>Энтропия Хартли:</span> <strong>1.0000 бит/символ</strong></div>
+                    <div class="stats-row"><span>Избыточность:</span> <strong><span id="binary-redundancy-cyr"></span></strong></div>
+                </div>
+                <div class="binary-card">
+                    <h4>🇪🇸 Испанский текст (бинарный)</h4>
+                    <div class="stats-row"><span>Энтропия Шеннона:</span> <strong><span id="binary-entropy-lat"></span> бит/символ</strong></div>
+                    <div class="stats-row"><span>Энтропия Хартли:</span> <strong>1.0000 бит/символ</strong></div>
+                    <div class="stats-row"><span>Избыточность:</span> <strong><span id="binary-redundancy-lat"></span></strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Результаты пункта (в) - Количество информации в ФИО на разных алфавитах -->
+    <div class="result-box">
+        <h3>Пункт (в) - Количество информации в ФИО</h3>
+    
+        <div class="warning" style="background-color: #e1f5fe; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+            <b>Особенности кодировки UTF-8:</b> Кириллические символы занимают 2 байта (16 бит), латинские - 1 байт (8 бит).
+        </div>
+            <table class="info-table">
+                <tr>
+                <th>Представление ФИО</th>
+                <th>Длина (символов)</th>
+                <th>Используемый алфавит</th>
+                <th>Энтропия (бит/символ)</th>
+                <th>Количество информации (бит)</th>
+            </tr>
+            <tr>
+                <td><b>🇧🇬 На кириллице</b><br>"Фамилия Имя Отчество"</td>
+                <td id="cyrillic-length"></td>
+                <td>Болгарский (из п. а)</td>
+                <td id="bulgarian-entropy-value"></td>
+                <td id="cyrillic-info"></td>
+            </tr>
+            <tr>
+                <td><b>🇪🇸 На латинице</b><br>"Фамилия Имя Отчество"</td>
+                <td id="latin-length"></td>
+                <td>Испанский (из п. а)</td>
+                <td id="spanish-entropy-value"></td>
+                <td id="latin-info"></td>
+            </tr>
+            <tr>
+                <td><b>Кириллица в UTF-8</b><br>(2 байта на символ)</td>
+                <td id="cyrillic-binary-length"></td>
+                <td>Бинарный (из п. б, болг.)</td>
+                <td id="binary-entropy-cyr-value"></td>
+                <td id="cyrillic-binary-info"></td>
+            </tr>
+                <tr>
+                    <td><b>Латиница в UTF-8</b><br>(1 байт на символ)</td>
+                    <td id="latin-binary-length"></td>
+                    <td>Бинарный (из п. б, исп.)</td>
+                    <td id="binary-entropy-lat-value"></td>
+                    <td id="latin-binary-info"></td>
+                </tr>
+            </table>
+    
+            <div class="explanation">
+                <h4>Объяснение результатов:</h4>
+                <ul id="explanation-list" style="line-height: 1.8;">
+                    <li>Количество информации в кириллическом представлении (<span id="exp-cyr"></span> бит) и латинице (<span id="exp-lat"></span> бит) зависит от энтропии соответствующих алфавитов</li>
+                    <li>Бинарное представление содержит значительно больше информации (<span id="exp-bin-cyr"></span> бит для кириллицы, <span id="exp-bin-lat"></span> бит для латиницы), так как каждый символ кодируется несколькими байтами в UTF-8</li>
+                    <li><b>Важно:</b> Кириллица в UTF-8 занимает 16 бит на символ (528 бит для 33 символов), латиница - 8 бит на символ (272 бита для 34 символов)</li>
+                    <li>Разная энтропия бинарных алфавитов (0.9855 для болгарского текста и 0.9943 для испанского) объясняется особенностями распределения нулей и единиц в кодировке UTF-8 для кириллицы и латиницы</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Результаты пункта (г) - Влияние ошибок в канале -->
+        <div class="result-box">
+            <h3>Пункт (г) - Анализ влияния ошибок в двоичном симметричном канале</h3>
+            
+            <div class="binary-box" id="binary-preview-cyr"></div>
+            <div class="binary-box" id="binary-preview-lat" style="margin-top: 5px;"></div>
+            
+            <div class="error-cards" id="error-analysis"></div>
+            
+            <div class="explanation">
+                <h4>Анализ влияния ошибок:</h4>
+                <ul>
+                    <li><strong>p = 0.1:</strong> Умеренные помехи, информация частично теряется</li>
+                    <li><strong>p = 0.5:</strong> Канал полностью шумовой, передача информации невозможна</li>
+                    <li><strong>p = 1.0:</strong> Детерминированное инвертирование, информация сохраняется полностью</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const FULL_NAME_CYRILLIC = "Фамилия Имя Отчество"; 
+    const FULL_NAME_LATIN = "Фамилия Имя Отчество";
+    
+    function getUTF8Length(str) {
+        return new Blob([str]).size;
+    }
+
+    function getCharCount(str) {
+        return str.length;
+    }
+
+    function stringToBinary(str) {
+        let binaryStr = '';
+        const encoder = new TextEncoder();
+        const bytes = encoder.encode(str);
+        
+        for (let byte of bytes) {
+            let binary = byte.toString(2);
+            binary = '0'.repeat(8 - binary.length) + binary;
+            binaryStr += binary;
+        }
+        return binaryStr;
+    }
+
+    function calculateFrequencies(text) {
+        const freq = {};
+        let totalChars = 0;
+        for (let char of text) {
+            if (char === ' ' || char === '\n' || char === '\r' || char === '\t') continue;
+            freq[char] = (freq[char] || 0) + 1;
+            totalChars++;
+        }
+        return { freq, totalChars };
+    }
+
+    function calculateShannonEntropy(freqData) {
+        let entropy = 0;
+        const total = freqData.totalChars;
+        if (total === 0) return 0;
+        for (let char in freqData.freq) {
+            const prob = freqData.freq[char] / total;
+            entropy -= prob * Math.log2(prob);
+        }
+        return entropy;
+    }
+
+    function calculateHartleyEntropy(freqData) {
+        const alphabetSize = Object.keys(freqData.freq).length;
+        return Math.log2(alphabetSize) || 0;
+    }
+
+    function calculateRedundancy(shannonEntropy, hartleyEntropy) {
+        if (hartleyEntropy === 0) return '0.00%';
+        const redundancy = ((hartleyEntropy - shannonEntropy) / hartleyEntropy * 100);
+        return redundancy.toFixed(2) + '%';
+    }
+
+    function generateHistogram(freqData, maxBars = 15) {
+        const total = freqData.totalChars;
+        const sortedChars = Object.entries(freqData.freq)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, maxBars);
+
+        if (sortedChars.length === 0) {
+            return '<p>Нет данных</p>';
+        }
+
+        let html = '<div style="font-family: monospace; font-size: 13px;">';
+        const maxCount = sortedChars[0][1];
+        for (let [char, count] of sortedChars) {
+            const prob = (count / total * 100).toFixed(2);
+            const barWidth = Math.max(1, Math.round((count / maxCount) * 200));
+            html += `
+                <div style="display: flex; align-items: center; margin-bottom: 3px;">
+                    <span style="width: 30px; font-weight: bold;">'${char}':</span>
+                    <div style="height: 18px; width: ${barWidth}px; background: #3498db; border: 1px solid #2980b9; border-radius: 3px;"></div>
+                    <span style="margin-left: 10px; color: #555;">(${count} раз, ${prob}%)</span>
+                </div>
+            `;
+        }
+        html += '</div>';
+        return html;
+    }
+
+    function calcConditionalEntropy(p_error) {
+        if (p_error === 0 || p_error === 1) return 0;
+        if (p_error === 0.5) return 1;
+        const q = 1 - p_error;
+        return -p_error * Math.log2(p_error) - q * Math.log2(q);
+    }
+
+    function calcEffectiveEntropy(p_error) {
+        const condEntropy = calcConditionalEntropy(p_error);
+        return 1 - condEntropy;
+    }
+
+    async function processFiles() {
+        const fileBul = document.getElementById('fileBulgarian').files[0];
+        const fileEsp = document.getElementById('fileSpanish').files[0];
+
+        if (!fileBul || !fileEsp) {
+            alert('Пожалуйста, выберите оба файла.');
+            return;
+        }
+
+        const textBul = await readFile(fileBul);
+        const textEsp = await readFile(fileEsp);
+
+        // Анализ болгарского текста
+        const freqBul = calculateFrequencies(textBul);
+        const entropyShannonBul = calculateShannonEntropy(freqBul);
+        const entropyHartleyBul = calculateHartleyEntropy(freqBul);
+        const redundancyBul = calculateRedundancy(entropyShannonBul, entropyHartleyBul);
+
+        // Анализ испанского текста
+        const freqEsp = calculateFrequencies(textEsp);
+        const entropyShannonEsp = calculateShannonEntropy(freqEsp);
+        const entropyHartleyEsp = calculateHartleyEntropy(freqEsp);
+        const redundancyEsp = calculateRedundancy(entropyShannonEsp, entropyHartleyEsp);
+
+        // Данные для ФИО
+        const cyrillicLength = getCharCount(FULL_NAME_CYRILLIC);
+        const latinLength = getCharCount(FULL_NAME_LATIN);
+        
+        // Бинарные представления текстовых файлов (для пункта б)
+        const binaryBulText = stringToBinary(textBul);
+        const binaryEspText = stringToBinary(textEsp);
+        
+        // Энтропия бинарного алфавита для обоих текстов
+        const freqBinaryBul = calculateFrequencies(binaryBulText);
+        const freqBinaryEsp = calculateFrequencies(binaryEspText);
+        
+        const entropyShannonBinaryBul = calculateShannonEntropy(freqBinaryBul);
+        const entropyShannonBinaryEsp = calculateShannonEntropy(freqBinaryEsp);
+        
+        const redundancyBinaryBul = calculateRedundancy(entropyShannonBinaryBul, 1.0);
+        const redundancyBinaryEsp = calculateRedundancy(entropyShannonBinaryEsp, 1.0);
+        
+        // Бинарные представления ФИО (для пункта в и г)
+        const binaryCyrillic = stringToBinary(FULL_NAME_CYRILLIC);
+        const binaryLatin = stringToBinary(FULL_NAME_LATIN);
+        
+        const expectedCyrillicBits = cyrillicLength * 16; // 33 * 16 = 528
+        const expectedLatinBits = latinLength * 8;        // 34 * 8 = 272
+        
+        // Количество информации для пункта (в)
+        const infoCyrillic = entropyShannonBul * cyrillicLength;
+        const infoLatin = entropyShannonEsp * latinLength;
+        const infoBinaryCyrillic = entropyShannonBinaryBul * expectedCyrillicBits; 
+        const infoBinaryLatin = entropyShannonBinaryEsp * expectedLatinBits;      
+        
+        // Анализ для ДСК (пункт г)
+        const errors = [0.1, 0.5, 1.0];
+        let errorAnalysisHtml = '';
+        
+        errors.forEach(p => {
+            const effEntropy = calcEffectiveEntropy(p);
+            const infoCyrWithError = effEntropy * expectedCyrillicBits; 
+            const infoLatWithError = effEntropy * expectedLatinBits;
+            
+            errorAnalysisHtml += `
+                <div class="error-card">
+                    <h4>p = ${p}</h4>
+                    <div class="error-value">He = ${effEntropy.toFixed(4)}</div>
+                    <p><strong>🇧🇬 Кириллица:</strong> ${infoCyrWithError.toFixed(2)} бит</p>
+                    <p><strong>🇪🇸 Латиница:</strong> ${infoLatWithError.toFixed(2)} бит</p>
+                    <p style="color: #7f8c8d; font-size: 13px;">H(Y|X) = ${calcConditionalEntropy(p).toFixed(4)}</p>
+                </div>
+            `;
+        });
+
+        // Отображение результатов
+        document.getElementById('results').style.display = 'block';
+
+        // Болгарский алфавит
+        document.getElementById('bulgarian-alphabet-size').textContent = Object.keys(freqBul.freq).length;
+        document.getElementById('bulgarian-entropy-shannon').textContent = entropyShannonBul.toFixed(4);
+        document.getElementById('bulgarian-entropy-hartley').textContent = entropyHartleyBul.toFixed(4);
+        document.getElementById('bulgarian-redundancy').textContent = redundancyBul;
+        document.getElementById('bulgarian-histogram').innerHTML = generateHistogram(freqBul);
+
+        // Испанский алфавит
+        document.getElementById('spanish-alphabet-size').textContent = Object.keys(freqEsp.freq).length;
+        document.getElementById('spanish-entropy-shannon').textContent = entropyShannonEsp.toFixed(4);
+        document.getElementById('spanish-entropy-hartley').textContent = entropyHartleyEsp.toFixed(4);
+        document.getElementById('spanish-redundancy').textContent = redundancyEsp;
+        document.getElementById('spanish-histogram').innerHTML = generateHistogram(freqEsp);
+
+        // Бинарный алфавит для обоих текстов
+        document.getElementById('binary-entropy-cyr').textContent = entropyShannonBinaryBul.toFixed(4);
+        document.getElementById('binary-redundancy-cyr').textContent = redundancyBinaryBul;
+        document.getElementById('binary-entropy-lat').textContent = entropyShannonBinaryEsp.toFixed(4);
+        document.getElementById('binary-redundancy-lat').textContent = redundancyBinaryEsp;
+
+        // Пункт (в) - данные
+        document.getElementById('cyrillic-length').textContent = cyrillicLength;
+        document.getElementById('latin-length').textContent = latinLength;
+        document.getElementById('cyrillic-binary-length').textContent = expectedCyrillicBits;
+        document.getElementById('latin-binary-length').textContent = expectedLatinBits;
+
+        document.getElementById('bulgarian-entropy-value').textContent = entropyShannonBul.toFixed(4);
+        document.getElementById('spanish-entropy-value').textContent = entropyShannonEsp.toFixed(4);
+        document.getElementById('binary-entropy-cyr-value').textContent = entropyShannonBinaryBul.toFixed(4);
+        document.getElementById('binary-entropy-lat-value').textContent = entropyShannonBinaryEsp.toFixed(4);
+        
+        document.getElementById('cyrillic-info').textContent = infoCyrillic.toFixed(2) + ' бит';
+        document.getElementById('latin-info').textContent = infoLatin.toFixed(2) + ' бит';
+        document.getElementById('cyrillic-binary-info').textContent = infoBinaryCyrillic.toFixed(2) + ' бит';
+        document.getElementById('latin-binary-info').textContent = infoBinaryLatin.toFixed(2) + ' бит';
+
+        // Объяснения
+        document.getElementById('exp-cyr').textContent = infoCyrillic.toFixed(2);
+        document.getElementById('exp-lat').textContent = infoLatin.toFixed(2);
+        document.getElementById('exp-bin-cyr').textContent = infoBinaryCyrillic.toFixed(2);
+        document.getElementById('exp-bin-lat').textContent = infoBinaryLatin.toFixed(2);
+
+        // Пункт (г) - бинарные строки
+        document.getElementById('binary-preview-cyr').innerHTML = '<strong>🇧🇬 Кириллица (первые 80 бит):</strong> ' + binaryCyrillic.substring(0, 80) + '...';
+        document.getElementById('binary-preview-lat').innerHTML = '<strong>🇪🇸 Латиница (первые 80 бит):</strong> ' + binaryLatin.substring(0, 80) + '...';
+        document.getElementById('error-analysis').innerHTML = errorAnalysisHtml;
+    }
+
+    function readFile(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = e => resolve(e.target.result);
+            reader.onerror = reject;
+            reader.readAsText(file, 'UTF-8');
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+{
+  "info": {
+    "name": "TRWP Лабораторная 5 - Load Balancer",
+    "description": "Тестирование API Gateway с балансировкой нагрузки (Round Robin, Sticky Sessions, Custom 50/30/20)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Round Robin Balancer",
+      "item": [
+        {
+          "name": "GET /lb (10 запросов)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "console.log(`Сервер: ${response.Nick}, Метод: ${response.Method}, Задержка: ${response.Delay}ms`);",
+                  "",
+                  "// Сбор статистики",
+                  "let stats = pm.collectionVariables.get('roundRobinStats') || {};",
+                  "stats[response.Nick] = (stats[response.Nick] || 0) + 1;",
+                  "pm.collectionVariables.set('roundRobinStats', stats);",
+                  "",
+                  "pm.test(`Запрос обработан сервером ${response.Nick}`, () => {",
+                  "    pm.expect(response.Nick).to.be.oneOf(['X', 'Y', 'Z']);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /lb",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"testData\": \"Hello from Postman\",\n    \"timestamp\": \"{{$timestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /lb",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"updateData\": \"Updating resource\",\n    \"requestId\": \"{{$guid}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /lb",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Показать статистику Round Robin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const stats = pm.collectionVariables.get('roundRobinStats');",
+                  "console.log('=== Статистика Round Robin ===');",
+                  "console.log('Сервер X:', stats?.X || 0, 'запросов');",
+                  "console.log('Сервер Y:', stats?.Y || 0, 'запросов');",
+                  "console.log('Сервер Z:', stats?.Z || 0, 'запросов');",
+                  "const total = (stats?.X || 0) + (stats?.Y || 0) + (stats?.Z || 0);",
+                  "console.log('Всего запросов:', total);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Sticky Sessions Balancer",
+      "item": [
+        {
+          "name": "GET /lb (с куками)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "console.log(`Sticky Session -> Сервер: ${response.Nick}`);",
+                  "",
+                  "let stickyStats = pm.collectionVariables.get('stickyStats') || {};",
+                  "stickyStats[response.Nick] = (stickyStats[response.Nick] || 0) + 1;",
+                  "pm.collectionVariables.set('stickyStats', stickyStats);",
+                  "",
+                  "// Проверяем, что все запросы идут на один сервер",
+                  "const servers = Object.keys(stickyStats);",
+                  "if (servers.length > 0) {",
+                  "    pm.test('Sticky Session работает - все запросы на один сервер', () => {",
+                  "        pm.expect(servers.length).to.equal(1);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Очистить куки и статистику",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set('stickyStats', {});",
+                  "console.log('Статистика и куки очищены');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Custom Balancer (50% X, 30% Y, 20% Z)",
+      "item": [
+        {
+          "name": "GET /lb (50 запросов для статистики)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Инициализируем счетчик запросов",
+                  "let counter = pm.collectionVariables.get('customCounter') || 0;",
+                  "counter++;",
+                  "pm.collectionVariables.set('customCounter', counter);",
+                  "",
+                  "if (counter === 1) {",
+                  "    pm.collectionVariables.set('customStats', {});",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "let stats = pm.collectionVariables.get('customStats') || {};",
+                  "stats[response.Nick] = (stats[response.Nick] || 0) + 1;",
+                  "pm.collectionVariables.set('customStats', stats);",
+                  "",
+                  "let counter = pm.collectionVariables.get('customCounter');",
+                  "console.log(`Запрос ${counter}: Сервер ${response.Nick}`);",
+                  "",
+                  "if (counter === 50) {",
+                  "    console.log('=== ИТОГОВАЯ СТАТИСТИКА CUSTOM BALANCER ===');",
+                  "    const total = (stats.X || 0) + (stats.Y || 0) + (stats.Z || 0);",
+                  "    console.log(`Сервер X: ${stats.X || 0} запросов (${((stats.X || 0)/total*100).toFixed(1)}%)`);",
+                  "    console.log(`Сервер Y: ${stats.Y || 0} запросов (${((stats.Y || 0)/total*100).toFixed(1)}%)`);",
+                  "    console.log(`Сервер Z: ${stats.Z || 0} запросов (${((stats.Z || 0)/total*100).toFixed(1)}%)`);",
+                  "    console.log(`Ожидалось: X=50%, Y=30%, Z=20%`);",
+                  "    ",
+                  "    // Проверка приблизительного соответствия весам",
+                  "    const xPercent = (stats.X || 0)/total*100;",
+                  "    pm.test(`Распределение близко к 50/30/20 (X: ${xPercent.toFixed(1)}%)`, () => {",
+                  "        pm.expect(xPercent).to.be.within(40, 60);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Сбросить статистику Custom",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set('customCounter', 0);",
+                  "pm.collectionVariables.set('customStats', {});",
+                  "console.log('Статистика сброшена');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Сравнительный анализ",
+      "item": [
+        {
+          "name": "Сравнение всех балансировщиков",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const rrStats = pm.collectionVariables.get('roundRobinStats');",
+                  "const stickyStats = pm.collectionVariables.get('stickyStats');",
+                  "const customStats = pm.collectionVariables.get('customStats');",
+                  "",
+                  "console.log('\\n========== СРАВНЕНИЕ БАЛАНСИРОВЩИКОВ ==========');",
+                  "",
+                  "if (rrStats) {",
+                  "    const total = (rrStats.X || 0) + (rrStats.Y || 0) + (rrStats.Z || 0);",
+                  "    console.log('\\nRound Robin (равномерно):');",
+                  "    console.log(`  X: ${rrStats.X || 0} (${((rrStats.X || 0)/total*100).toFixed(1)}%)`);",
+                  "    console.log(`  Y: ${rrStats.Y || 0} (${((rrStats.Y || 0)/total*100).toFixed(1)}%)`);",
+                  "    console.log(`  Z: ${rrStats.Z || 0} (${((rrStats.Z || 0)/total*100).toFixed(1)}%)`);",
+                  "}",
+                  "",
+                  "if (stickyStats) {",
+                  "    const total = (stickyStats.X || 0) + (stickyStats.Y || 0) + (stickyStats.Z || 0);",
+                  "    console.log('\\nSticky Sessions (прилипание):');",
+                  "    Object.keys(stickyStats).forEach(server => {",
+                  "        console.log(`  ${server}: ${stickyStats[server]} (100%) - все запросы на один сервер`);",
+                  "    });",
+                  "}",
+                  "",
+                  "if (customStats) {",
+                  "    const total = (customStats.X || 0) + (customStats.Y || 0) + (customStats.Z || 0);",
+                  "    console.log('\\nCustom Weighted (50/30/20):');",
+                  "    console.log(`  X: ${customStats.X || 0} (${((customStats.X || 0)/total*100).toFixed(1)}%) ~50%`);",
+                  "    console.log(`  Y: ${customStats.Y || 0} (${((customStats.Y || 0)/total*100).toFixed(1)}%) ~30%`);",
+                  "    console.log(`  Z: ${customStats.Z || 0} (${((customStats.Z || 0)/total*100).toFixed(1)}%) ~20%`);",
+                  "}",
+                  "",
+                  "console.log('\\n=============================================');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/lb",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["lb"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "roundRobinStats",
+      "value": {}
+    },
+    {
+      "key": "stickyStats",
+      "value": {}
+    },
+    {
+      "key": "customStats",
+      "value": {}
+    },
+    {
+      "key": "customCounter",
+      "value": 0
+    }
+  ]
+}

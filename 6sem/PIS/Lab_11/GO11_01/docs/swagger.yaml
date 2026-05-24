@@ -1,0 +1,169 @@
+basePath: /
+definitions:
+  models.Celebrity:
+    properties:
+      fullName:
+        example: Leonardo DiCaprio
+        type: string
+      id:
+        example: 1
+        type: integer
+      nationality:
+        example: American
+        type: string
+      reqPhotoPath:
+        example: /images/dicaprio.jpg
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: REST API для CRUD операций со знаменитостями (лабораторная 11).
+  title: GO11_01 Celebrities API
+  version: "1.0"
+paths:
+  /Celebrities:
+    post:
+      consumes:
+      - application/json
+      description: POST /Celebrities
+      parameters:
+      - description: Данные знаменитости
+        in: body
+        name: celebrity
+        required: true
+        schema:
+          $ref: '#/definitions/models.Celebrity'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Celebrity'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Создать знаменитость
+      tags:
+      - celebrities
+  /Celebrities/{id}:
+    delete:
+      description: DELETE /Celebrities/{id}
+      parameters:
+      - description: ID знаменитости
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Удалить знаменитость
+      tags:
+      - celebrities
+    get:
+      description: GET /Celebrities/{id}
+      parameters:
+      - description: ID знаменитости
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Celebrity'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Получить знаменитость по ID
+      tags:
+      - celebrities
+    put:
+      consumes:
+      - application/json
+      description: PUT /Celebrities/{id}
+      parameters:
+      - description: ID знаменитости
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные знаменитости
+        in: body
+        name: celebrity
+        required: true
+        schema:
+          $ref: '#/definitions/models.Celebrity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Celebrity'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Обновить знаменитость
+      tags:
+      - celebrities
+  /Celebrities/All:
+    get:
+      description: GET /Celebrities/All
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Celebrity'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Получить всех знаменитостей
+      tags:
+      - celebrities
+swagger: "2.0"

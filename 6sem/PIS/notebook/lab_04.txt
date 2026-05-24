@@ -1,0 +1,51 @@
+./GO04_01.exe
+go build -o GO04_01.exe main.go
+
+# Остановить контейнер
+docker stop go04_01_container
+
+# Запустить снова
+docker start go04_01_container
+
+# Перезапустить
+docker restart go04_01_container
+
+# Удалить контейнер (предварительно остановив)
+docker rm go04_01_container
+
+# Посмотреть использование ресурсов
+docker stats go04_01_container
+
+
+
+# 1. GET всех знаменитостей
+Invoke-RestMethod -Uri http://localhost:3000/Celebrities/All | ConvertTo-Json
+
+# 2. GET знаменитость с ID=1
+Invoke-RestMethod -Uri http://localhost:3000/Celebrities/1 | ConvertTo-Json
+
+# 3. POST добавить новую знаменитость
+$body = @{
+    id = 4
+    fullName = "Linux Docker User"
+    nationality = "Canadian"
+    reqPhotoPath = "/images/docker.jpg"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri http://localhost:3000/Celebrities -Method Post -Body $body -ContentType "application/json"
+
+# 4. PUT обновить знаменитость
+$body = @{
+    id = 2
+    fullName = "Scarlett Johansson (Updated in Docker)"
+    nationality = "American"
+    reqPhotoPath = "/images/johansson_docker.jpg"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri http://localhost:3000/Celebrities/2 -Method Put -Body $body -ContentType "application/json"
+
+# 5. DELETE удалить знаменитость
+Invoke-RestMethod -Uri http://localhost:3000/Celebrities/3 -Method Delete
+
+# 6. Проверка финального состояния
+Invoke-RestMethod -Uri http://localhost:3000/Celebrities/All | ConvertTo-Json

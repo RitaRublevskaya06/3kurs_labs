@@ -1,0 +1,30 @@
+go mod tidy
+swag init -g main.go -o docs
+go build -o GO11_01.exe .
+
+
+cd D:\Univer\3_kurs\6sem\PIS\Lab_11\GO11_01
+go run ./scripts/import_data.go   # один раз
+go run .
+
+браузере: http://localhost:3000/swagger/index.html
+
+
+GET /Celebrities/All
+GET /Celebrities/{id}
+POST /Celebrities
+PUT /Celebrities/{id}
+DELETE /Celebrities/{id}
+
+Пример тела для POST/PUT:
+{
+  "id": 3,
+  "fullName": "Tom Hanks",
+  "nationality": "American",
+  "reqPhotoPath": "/images/hanks.jpg"
+}
+
+
+
+swag init -g main.go -o docs
+go run .

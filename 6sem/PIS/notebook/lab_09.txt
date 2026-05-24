@@ -1,0 +1,68 @@
+ЧАСТЬ 1 — только WSL (задание 1)
+wsl -d docker-desktop
+
+apk add --no-cache nginx nginx-mod-http-dav-ext apache2-utils cadaver
+
+sh /mnt/host/d/Univer/3_kurs/6sem/PIS/Lab_09/scripts/setup_nginx_wsl.sh
+
+pkill nginx 2>/dev/null
+rm -f /run/nginx/nginx.pid
+mkdir -p /run/nginx
+nginx
+ps | grep nginx
+Должны быть строки nginx: master process.
+
+
+cadaver http://localhost:8081/webdav/
+Ввод:
+Username: webdavuser
+Password: password123
+Если подключилось, будет:
+dav:/webdav/>
+
+Команды внутри cadaver:
+mkcol test
+put /mnt/host/d/Univer/3_kurs/6sem/PIS/Lab_09/myfile.txt myfile.txt
+get myfile.txt
+ls
+quit
+
+
+ЧАСТЬ 2 — только PowerShell (задание 2)
+
+[System.IO.File]::WriteAllText("$PWD\myfile.txt", "Hello WebDAV!", [System.Text.UTF8Encoding]::new($false))
+
+cd D:\Univer\3_kurs\6sem\PIS\Lab_09
+
+go build -o GO09_01c.exe ./GO09_01c
+
+.\GO09_01c.exe mkcol testfolder
+.\GO09_01c.exe put myfile.txt myfile.txt
+.\GO09_01c.exe get myfile.txt
+.\GO09_01c.exe copy myfile.txt copied.txt
+.\GO09_01c.exe get copied.txt
+.\GO09_01c.exe move myfile.txt testfolder/myfile.txt
+.\GO09_01c.exe delete copied.txt
+.\GO09_01c.exe delete testfolder/myfile.txt
+.\GO09_01c.exe delete testfolder/
+
+
+ЧАСТЬ 3 — два окна PowerShell (задание 3)
+Окно PowerShell №1
+cd D:\Univer\3_kurs\6sem\PIS\Lab_09
+go run ./GO09_01s
+
+Не закрывать. Должно быть: http://localhost:8090/webdav/
+
+Окно PowerShell №2
+cd D:\Univer\3_kurs\6sem\PIS\Lab_09
+$env:WEBDAV_URL="http://localhost:8090/webdav/"
+$env:WEBDAV_NO_AUTH="1"
+.\GO09_01c.exe mkcol testfolder
+.\GO09_01c.exe put myfile.txt myfile.txt
+.\GO09_01c.exe get myfile.txt
+.\GO09_01c.exe copy myfile.txt copied.txt
+.\GO09_01c.exe move myfile.txt testfolder/myfile.txt
+.\GO09_01c.exe delete copied.txt
+.\GO09_01c.exe delete testfolder/myfile.txt
+.\GO09_01c.exe delete testfolder/

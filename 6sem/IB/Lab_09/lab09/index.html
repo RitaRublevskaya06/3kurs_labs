@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №9: Ранцевый алгоритм</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Исследование асимметричных шифров</h1>
+        <h2>Ранцевый алгоритм (Merkle-Hellman Knapsack)</h2>
+
+        <div class="info-panel">
+            <p><strong>Студент:</strong> <input type="text" id="studentName" placeholder="Фамилия Имя Отчество" value="Иванов Иван Иванович"></p>
+            <p><strong>Кодировка:</strong>
+                <select id="encodingType">
+                    <option value="ascii">ASCII (8 бит, z=8)</option>
+                    <option value="base64">Base64 (6 бит, z=6)</option>
+                </select>
+            </p>
+        </div>
+
+        <div class="key-section">
+            <h3>Генерация ключей</h3>
+            <div class="key-controls">
+                <button id="genKeysBtn" class="btn btn-primary">Сгенерировать ключи</button>
+                <div class="param-input">
+                    <label>Размер последовательности (z): <span id="zValue">8</span></label>
+                    <label>Модуль n: <span id="nValue">-</span></label>
+                    <label>Множитель a: <span id="aValue">-</span></label>
+                </div>
+            </div>
+            <div class="key-display">
+                <div class="key-box">
+                    <h4>Тайный ключ (сверхвозрастающая последовательность)</h4>
+                    <textarea id="privateKey" readonly rows="2"></textarea>
+                </div>
+                <div class="key-box">
+                    <h4>Открытый ключ (нормальная последовательность)</h4>
+                    <textarea id="publicKey" readonly rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="encrypt-section">
+            <h3>Зашифрование сообщения</h3>
+            <div class="message-input">
+                <textarea id="plainMessage" rows="3" placeholder="Введите сообщение для зашифрования..."></textarea>
+                <div class="msg-controls">
+                    <button id="useStudentNameBtn" class="btn btn-secondary">Использовать ФИО</button>
+                    <button id="encryptBtn" class="btn btn-success">Зашифровать</button>
+                </div>
+            </div>
+            <div class="result-box">
+                <h4>Зашифрованное сообщение</h4>
+                <textarea id="encryptedMessage" readonly rows="2"></textarea>
+                <div class="time-info" id="encryptTime"></div>
+            </div>
+        </div>
+
+        <div class="decrypt-section">
+            <h3>Расшифрование сообщения</h3>
+            <button id="decryptBtn" class="btn btn-warning">Расшифровать</button>
+            <div class="result-box">
+                <h4>Расшифрованное сообщение</h4>
+                <textarea id="decryptedMessage" readonly rows="2"></textarea>
+                <div class="time-info" id="decryptTime"></div>
+            </div>
+        </div>
+
+        <div class="analysis-section">
+            <h3>Анализ производительности</h3>
+            <div class="analysis-controls">
+                <button id="analyzeBtn" class="btn btn-info">Выполнить анализ</button>
+                <div class="test-params">
+                    <label>Количество тестов: 
+                        <select id="testCount">
+                            <option value="3">3 теста</option>
+                            <option value="5" selected>5 тестов</option>
+                            <option value="7">7 тестов</option>
+                            <option value="10">10 тестов</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="timeChart"></canvas>
+            </div>
+            
+            <div class="analysis-results" id="analysisResults"></div>
+        </div>
+
+        <div class="footer">
+            <p>БГТУ - Лабораторная работа №9. Исследование асимметричных шифров (ранцевый алгоритм)</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

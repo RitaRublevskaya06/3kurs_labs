@@ -1,0 +1,57 @@
+
+1. Сгенерировать ключ CA
+openssl genrsa -out CA.key 2048
+
+2. Создать сертификат CA
+openssl req -x509 -new -key CA.key -subj "//C=BY\ST=Minsk\L=Minsk\O=BELSTU-IT\OU=PI-LAB\CN=CA-LAB22-SAV" -days 700 -sha256 -out CA.crt
+
+3. Проверить сертификат CA
+openssl x509 -in CA.crt -text -noout | grep "Subject:"
+
+
+
+Продолжение после Resource
+
+
+4. Получить файлы эти
+nano RS.csr
+nano RS.cfg
+
+5. Выдать сертификат для Resource
+openssl x509 -req -in RS.csr -CA CA.crt -CAkey CA.key -CAcreateserial -out RS.crt -days 365 -sha256 -extensions v3_req -extfile RS.cfg
+
+6. Отправить сертификаты
+cat RS.crt
+cat CA.crt
+
+
+
+
+
+
+2 случай
+
+1. Сгенерировать ключ CA
+openssl genrsa -out CA.key 2048
+
+2. Создать сертификат CA
+openssl req -x509 -new -key CA.key -subj "//C=BY\ST=Minsk\L=Minsk\O=BELSTU-IT\OU=PI-LAB\CN=CA-LAB22-RMV" -days 700 -sha256 -out CA.crt
+
+3. Проверить сертификат CA
+openssl x509 -in CA.crt -text -noout | grep "Subject:"
+
+
+
+Продолжение после Resource
+
+
+4. Получить файлы эти
+nano RS.csr
+nano RS.cfg
+
+5. Выдать сертификат для Resource
+openssl x509 -req -in RS.csr -CA CA.crt -CAkey CA.key -CAcreateserial -out RS.crt -days 365 -sha256 -extensions v3_req -extfile RS.cfg
+
+6. Отправить сертификаты
+cat RS.crt
+cat CA.crt

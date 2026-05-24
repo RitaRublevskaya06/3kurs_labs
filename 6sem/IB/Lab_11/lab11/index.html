@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №11: Исследование криптографических хеш-функций</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Исследование криптографических хеш-функций</h1>
+            <p>Алгоритмы: SHA-256, SHA-512, MD5, SHA-1</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Входное сообщение</h2>
+                <div class="input-controls">
+                    <textarea id="messageInput" placeholder="Введите текст для хеширования..."></textarea>
+                    <div class="button-group">
+                        <button id="loadFileBtn" class="btn btn-secondary">Загрузить из файла</button>
+                        <button id="clearBtn" class="btn btn-danger">Очистить</button>
+                        <input type="file" id="fileInput" style="display: none;" accept=".txt">
+                    </div>
+                </div>
+                <div class="message-info">
+                    <span>Длина сообщения: <strong id="messageLength">0</strong> байт</span>
+                    <span> | </span>
+                    <span>Кодировка: UTF-8</span>
+                </div>
+            </section>
+
+            <section class="algorithm-section">
+                <h2>Выбор алгоритма хеширования</h2>
+                <div class="algorithm-selector">
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="SHA-256" checked> SHA-256 (256 бит)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="SHA-512"> SHA-512 (512 бит)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="MD5"> MD5 (128 бит)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="algorithm" value="SHA-1"> SHA-1 (160 бит)
+                    </label>
+                </div>
+                <button id="hashBtn" class="btn btn-primary">Вычислить хеш</button>
+            </section>
+
+            <section class="result-section">
+                <h2>Результат хеширования</h2>
+                <div class="result-box">
+                    <label>Хеш-код (HEX):</label>
+                    <textarea id="hashResult" readonly placeholder="Результат появится здесь..."></textarea>
+                    <button id="copyHashBtn" class="btn-small">Копировать</button>
+                </div>
+                <div class="result-box">
+                    <label>Хеш-код (Base64):</label>
+                    <textarea id="hashResultBase64" readonly placeholder="Результат появится здесь..."></textarea>
+                    <button id="copyBase64Btn" class="btn-small">Копировать</button>
+                </div>
+            </section>
+
+            <section class="performance-section">
+                <h2>Оценка производительности</h2>
+                <div class="performance-controls">
+                    <div class="perf-input-group">
+                        <label>Количество итераций:</label>
+                        <input type="number" id="iterations" value="1000" min="1" max="50000">
+                    </div>
+                    <button id="benchmarkBtn" class="btn btn-secondary">Выполнить тест производительности</button>
+                </div>
+                
+                <div class="performance-result">
+                    <h3>Результаты тестирования:</h3>
+                    <div id="benchmarkResults">
+                        <p class="placeholder">Нажмите "Выполнить тест производительности" для начала</p>
+                    </div>
+                </div>
+                
+                <!-- График производительности -->
+                <div class="chart-container">
+                    <h3>График зависимости времени от количества итераций:</h3>
+                    <canvas id="performanceChart" width="400" height="200"></canvas>
+                    <div class="chart-controls">
+                    </div>
+                </div>
+            </section>
+
+            <!-- <section class="analysis-section">
+                <h2>Анализ криптостойкости</h2>
+                <div class="analysis-controls">
+                    <button id="analysisBtn" class="btn btn-secondary">Проверить лавинный эффект</button>
+                    <button id="collisionCheckBtn" class="btn btn-secondary">Проверить коллизию (изменение 1 бита)</button>
+                </div>
+                <div id="analysisResult" class="analysis-result">
+                    <p class="placeholder">Результаты анализа появятся здесь</p>
+                </div>
+            </section> -->
+
+            <!-- <section class="info-section">
+                <h2>Теоретические сведения</h2>
+                <div class="info-content">
+                    <h3>Хеш-функции</h3>
+                    <p><strong>Хеш-функция</strong> - это математическая функция, преобразующая входную строку переменной длины в выходную строку фиксированной длины.</p>
+                    
+                    <h3>Основные свойства:</h3>
+                    <ul>
+                        <li><strong>Детерминированность</strong> - одинаковый вход всегда даёт одинаковый хеш</li>
+                        <li><strong>Односторонность</strong> - невозможно восстановить исходное сообщение по хешу</li>
+                        <li><strong>Устойчивость к коллизиям</strong> - сложно найти два разных сообщения с одинаковым хешем</li>
+                        <li><strong>Лавинный эффект</strong> - малое изменение входа приводит к кардинальному изменению хеша</li>
+                    </ul>
+
+                    <div class="algorithm-info">
+                        <h4>Характеристики алгоритмов:</h4>
+                        <table class="info-table">
+                            <thead>
+                                <tr><th>Алгоритм</th><th>Длина хеша (бит)</th><th>Длина хеша (байт)</th><th>Безопасность</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>MD5</td><td>128</td><td>16</td><td>Коллизии найдены, не рекомендуется</td></tr>
+                                <tr><td>SHA-1</td><td>160</td><td>20</td><td>Ослаблен, коллизии найдены</td></tr>
+                                <tr><td>SHA-256</td><td>256</td><td>32</td><td>Безопасен, рекомендуется</td></tr>
+                                <tr><td>SHA-512</td><td>512</td><td>64</td><td>Безопасен, рекомендуется</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section> -->
+        </main>
+
+        <footer>
+            <p>Лабораторная работа №11: Исследование криптографических хеш-функций</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

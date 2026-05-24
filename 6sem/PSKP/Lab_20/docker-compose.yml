@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  phonebook-app:
+    build: .
+    container_name: phonebook-20-01
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+      - ./public:/app/public
+      - ./views:/app/views
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped

@@ -1,0 +1,32 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/lb",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3005
+        },
+        {
+          "Host": "localhost",
+          "Port": 3006
+        },
+        {
+          "Host": "localhost",
+          "Port": 3007
+        }
+      ],
+      "UpstreamPathTemplate": "/lb",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "LoadBalancerOptions": {
+        "Type": "CookieStickySessions",
+        "Key": "GatewayAffinity",
+        "ExpiryMs": 3600000
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

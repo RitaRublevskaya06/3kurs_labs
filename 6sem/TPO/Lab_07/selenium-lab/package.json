@@ -1,0 +1,14 @@
+{
+  "name": "selenium-lab",
+  "version": "1.0.0",
+  "description": "Automation UI testing with Selenium",
+  "main": "index.js",
+  "scripts": {
+    "task1": "node task_one.js",
+    "task2": "node task_two.js"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.15.0",
+    "chromedriver": "^119.0.1"
+  }
+}

@@ -1,0 +1,13 @@
+2026/03/12 09:48:34 GO03_01.go:26: Сервер запущен на порту :3000
+2026/03/12 09:48:45 GO03_01.go:47: Method: DELETE, Path: /A - 405 Method Not Allowed
+2026/03/12 09:52:11 GO03_01.go:64: Method: GET, Path: /A
+2026/03/12 09:52:32 GO03_01.go:61: Method: POST, Path: /A, Body: {
+    "name": "John",
+    "age": 30
+}
+2026/03/12 09:52:39 GO03_01.go:61: Method: PUT, Path: /A, Body: {
+    "name": "Nik",
+    "age": 25
+}
+2026/03/12 09:52:46 GO03_01.go:93: Method: GET, Path: /anything (не перечисленный маршрут)
+2026/03/12 09:52:52 GO03_01.go:47: Method: DELETE, Path: /A - 405 Method Not Allowed

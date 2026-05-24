@@ -1,0 +1,383 @@
+{
+  "info": {
+    "name": "TDWA04-01 Lab 04 - Ocelot Proxy",
+    "description": "Лабораторная работа 4: Тестирование API Gateway и серверов TDWA04-01",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "1. Прямые запросы к серверам",
+      "item": [
+        {
+          "name": "Server X - GET /A",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["A"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Server X - POST /A",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["A"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Server X - PUT /A",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["A"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Server X - DELETE /A",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["A"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Server Y - GET /A",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3002/A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3002",
+              "path": ["A"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Server Z - GET /A",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["A"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Запросы через API Gateway",
+      "item": [
+        {
+          "name": "Gateway - GET /api (→ Server X)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has Nick X\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.Nick).to.eql(\"X\");",
+                  "    pm.expect(jsonData.Method).to.eql(\"GET\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Gateway - POST /api (→ Server Y)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has Nick Y\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.Nick).to.eql(\"Y\");",
+                  "    pm.expect(jsonData.Method).to.eql(\"POST\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"test\": \"data\",\n    \"timestamp\": \"{{$timestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Gateway - PUT /api (→ Server Z)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has Nick Z\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.Nick).to.eql(\"Z\");",
+                  "    pm.expect(jsonData.Method).to.eql(\"PUT\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"test\": \"data\",\n    \"timestamp\": \"{{$timestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Gateway - DELETE /api (→ Server Z)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has Nick Z\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.Nick).to.eql(\"Z\");",
+                  "    pm.expect(jsonData.Method).to.eql(\"DELETE\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Автоматические тесты (Collection Runner)",
+      "item": [
+        {
+          "name": "GET /api - Проверка маршрутизации",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api - Проверка маршрутизации",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api - Проверка маршрутизации",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api - Проверка маршрутизации",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "serverXPort",
+      "value": "3001",
+      "type": "string"
+    },
+    {
+      "key": "serverYPort",
+      "value": "3002",
+      "type": "string"
+    },
+    {
+      "key": "serverZPort",
+      "value": "3003",
+      "type": "string"
+    }
+  ]
+}

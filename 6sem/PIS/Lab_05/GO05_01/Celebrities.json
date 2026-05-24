@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "fullName": "Leonardo DiCaprio",
+    "nationality": "American",
+    "reqPhotoPath": "/images/dicaprio.jpg"
+  },
+  {
+    "id": 2,
+    "fullName": "Scarlett Johansson",
+    "nationality": "American",
+    "reqPhotoPath": "/images/johansson.jpg"
+  }
+]

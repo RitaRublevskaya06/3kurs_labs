@@ -1,0 +1,12 @@
+{
+  "name": "permutation-cipher-lab",
+  "version": "1.0.0",
+  "description": "Лабораторная работа №5: Шифры перестановки",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

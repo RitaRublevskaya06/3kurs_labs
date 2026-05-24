@@ -1,0 +1,91 @@
+Задание 1
+
+docker login
+
+# Собираем образ
+docker build -t raven018/tdwa07-01 .
+
+# Проверяем
+docker images | findstr raven018
+
+# Пушим в Docker Hub
+docker push raven018/tdwa07-01
+
+https://hub.docker.com/
+
+логин: raven018
+пароль: RSXw5,b*Zf6H!
+
+docker logout
+
+Str0ngPass!2026
+
+
+
+docker run -d `
+  --name tdwa07-mssql `
+  -e "ACCEPT_EULA=Y" `
+  -e "SA_PASSWORD=Str0ngPass!2026" `
+  -e "MSSQL_PID=Express" `
+  -p 11443:1433 `
+  mcr.microsoft.com/mssql/server:2019-latest
+
+# NGINX
+docker run -d `
+  --name tdwa07-nginx `
+  -p 8080:1433 `
+  -v D:\Univer\3_kurs\6sem\TRwP\Lab_07\tdwa07-01\nginx.conf:/etc/nginx/nginx.conf:ro `
+  nginx:alpine
+
+# API
+docker run -d `
+  --name tdwa07-app `
+  -p 3000:3000 `
+  raven018/tdwa07-01
+
+
+
+docker rm tdwa07-nginx
+docker stop tdwa07-nginx
+
+
+# 1. GET все записи (должны быть те, что в БД)
+Invoke-RestMethod -Uri http://localhost:3000/celebrities -Method Get
+
+# 2. POST - добавляем новую запись
+Invoke-RestMethod -Uri http://localhost:3000/celebrities `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"FullName":"Albert Einstein","Nationality":"DE","ReqPhotoPath":"/photos/einstein.jpg"}'
+
+# 3. POST - добавляем вторую запись
+Invoke-RestMethod -Uri http://localhost:3000/celebrities `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"FullName":"Marie Curie","Nationality":"PL","ReqPhotoPath":"/photos/curie.jpg"}'
+
+# 4. GET все записи (должны быть обе)
+Invoke-RestMethod -Uri http://localhost:3000/celebrities -Method Get
+
+# 5. GET одну запись (id=1)
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/1 -Method Get
+
+# 6. PUT - обновляем запись
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/1 `
+  -Method Put `
+  -ContentType "application/json" `
+  -Body '{"FullName":"Albert Einstein (Updated)","Nationality":"DE","ReqPhotoPath":"/photos/einstein_new.jpg"}'
+
+# 7. GET проверяем обновление
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/1 -Method Get
+
+# 8. DELETE - удаляем вторую запись
+Invoke-RestMethod -Uri http://localhost:3000/celebrities/2 -Method Delete
+
+# 9. GET проверяем (должен остаться только Einstein)
+Invoke-RestMethod -Uri http://localhost:3000/celebrities -Method Get
+
+
+
+
+

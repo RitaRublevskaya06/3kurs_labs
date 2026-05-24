@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приложение 1: Линейный конгруэнтный генератор ПСП</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Приложение 1: Линейный конгруэнтный генератор ПСП</h1>
+            <p>Генерация псевдослучайной последовательности методом LCG</p>
+        </div>
+
+        <div class="card">
+            <h2>Параметры генератора</h2>
+            <div class="param-grid">
+                <div class="param-item">
+                    <label>Множитель (a)</label>
+                    <div class="value">421</div>
+                </div>
+                <div class="param-item">
+                    <label>Приращение (c)</label>
+                    <div class="value">1663</div>
+                </div>
+                <div class="param-item">
+                    <label>Модуль (n)</label>
+                    <div class="value">7875</div>
+                </div>
+                <div class="param-item">
+                    <label>Начальное значение (x₀)</label>
+                    <input type="number" id="seed" value="1234" min="0" max="7874">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Управление</h2>
+            <div class="control-panel">
+                <button onclick="generateSequence()">Сгенерировать последовательность</button>
+                <button onclick="clearSequence()" class="secondary">Очистить</button>
+                <button onclick="generateRandomSeed()" class="reset">Случайное начальное значение</button>
+            </div>
+            <div class="control-panel">
+                <label>Количество чисел:</label>
+                <input type="number" id="count" value="50" min="10" max="500">
+                <button onclick="generateAndAnalyze()">Сгенерировать и проанализировать</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Результаты генерации</h2>
+            <div class="result-area">
+                <h3>Сгенерированная последовательность:</h3>
+                <div class="sequence" id="sequence"></div>
+                
+                <div class="stats" id="stats">
+                    <div class="stat-card">
+                        <div class="label">Всего чисел</div>
+                        <div class="value" id="totalCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Период (предполагаемый)</div>
+                        <div class="value" id="period">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Среднее значение</div>
+                        <div class="value" id="average">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Время генерации</div>
+                        <div class="value" id="time">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="card">
+            <h2>Статистический анализ</h2>
+            <div id="frequencyTable"></div>
+            <div class="frequency-chart" id="chart"></div>
+        </div> -->
+        <div class="card">
+            <h2>Анализ производительности</h2>
+            <div class="control-panel">
+                <label>Максимальное количество чисел:</label>
+                <input type="number" id="maxCount" value="50000" min="1000" max="500000" step="1000">
+                <button onclick="runPerformanceTest()">Запустить тест производительности</button>
+            </div>
+            <canvas id="performanceChart" width="800" height="400" style="width:100%; max-width:800px; margin:0 auto; display:block;"></canvas>
+            <div id="performanceStats" style="margin-top:15px;"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

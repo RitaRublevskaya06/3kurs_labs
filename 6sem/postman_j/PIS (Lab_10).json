@@ -1,0 +1,162 @@
+{
+  "info": {
+    "_postman_id": "go10-01-celebrities-graphql",
+    "name": "GO10_01 — GraphQL Celebrities",
+    "description": "Лабораторная 10. CRUD знаменитостей через GraphQL (порт 3000).\n\nПеред запуском:\n1. cd Lab_10\\GO10_01\n2. go run ./scripts/import_data.go\n3. go run .\n\nИмпорт: File → Import → этот файл.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Query — все записи",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ celebrities { id fullName nationality reqPhotoPath } }\"\n}"
+        },
+        "url": "{{baseUrl}}/graphql",
+        "description": "Аналог GET /Celebrities/All"
+      }
+    },
+    {
+      "name": "Query — запись по id",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ celebrity(id: 1) { id fullName nationality reqPhotoPath } }\"\n}"
+        },
+        "url": "{{baseUrl}}/graphql",
+        "description": "Аналог GET /Celebrities/1"
+      }
+    },
+    {
+      "name": "Mutation — создать запись",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"mutation { createCelebrity(input: { id: 3 fullName: \\\"Tom Hanks\\\" nationality: \\\"American\\\" reqPhotoPath: \\\"/images/hanks.jpg\\\" }) { id fullName nationality reqPhotoPath } }\"\n}"
+        },
+        "url": "{{baseUrl}}/graphql",
+        "description": "Аналог POST /Celebrities. id должен быть > 0 и уникальным."
+      }
+    },
+    {
+      "name": "Mutation — обновить запись",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"mutation { updateCelebrity(id: 1, input: { id: 1 fullName: \\\"Leonardo DiCaprio\\\" nationality: \\\"USA\\\" reqPhotoPath: \\\"/images/dicaprio_new.jpg\\\" }) { id fullName nationality reqPhotoPath } }\"\n}"
+        },
+        "url": "{{baseUrl}}/graphql",
+        "description": "Аналог PUT /Celebrities/1. id в input должен совпадать с id в аргументе."
+      }
+    },
+    {
+      "name": "Mutation — удалить запись",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"mutation { deleteCelebrity(id: 2) }\"\n}"
+        },
+        "url": "{{baseUrl}}/graphql",
+        "description": "Аналог DELETE /Celebrities/2"
+      }
+    },
+    {
+      "name": "Ошибки",
+      "item": [
+        {
+          "name": "Не найдено (id 999)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ celebrity(id: 999) { id fullName } }\"\n}"
+            },
+            "url": "{{baseUrl}}/graphql"
+          }
+        },
+        {
+          "name": "Дубликат id",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { createCelebrity(input: { id: 1 fullName: \\\"Test\\\" nationality: \\\"Test\\\" reqPhotoPath: \\\"/test.jpg\\\" }) { id } }\"\n}"
+            },
+            "url": "{{baseUrl}}/graphql"
+          }
+        },
+        {
+          "name": "Неверный id (0)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { createCelebrity(input: { id: 0 fullName: \\\"Test\\\" nationality: \\\"Test\\\" reqPhotoPath: \\\"/test.jpg\\\" }) { id } }\"\n}"
+            },
+            "url": "{{baseUrl}}/graphql"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приложение 2: RC4 Потоковый шифр</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Приложение 2: RC4 Потоковый шифр</h1>
+            <p>Шифрование/дешифрование текста с помощью алгоритма RC4</p>
+        </div>
+
+        <div class="card">
+            <h2>Параметры (Вариант 11)</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Размер слова (n)</label>
+                    <div class="value">8 бит</div>
+                </div>
+                <div class="info-item">
+                    <label>Ключ (десятичные числа)</label>
+                    <div class="value">13, 19, 90, 92, 240</div>
+                </div>
+                <div class="info-item">
+                    <label>Размер S-блока</label>
+                    <div class="value">256 байт</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Настройка ключа</h2>
+            <div class="key-input">
+                <input type="text" id="keyInput" value="13,19,90,92,240" placeholder="Введите ключ (числа через запятую)">
+                <button onclick="setKey()">Установить ключ</button>
+                <button onclick="randomKey()" class="clear">Случайный ключ</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="tab-container">
+                <div class="tab active" data-tab="encrypt">Шифрование</div>
+                <div class="tab" data-tab="decrypt">Дешифрование</div>
+                <div class="tab" data-tab="performance">Тест производительности</div>
+            </div>
+
+            <!-- Вкладка шифрования -->
+            <div id="encryptTab" class="tab-content active">
+                <h3>Исходный текст</h3>
+                <textarea id="plaintext" rows="5" placeholder="Введите текст для шифрования..."></textarea>
+                <div class="control-panel">
+                    <button onclick="encrypt()" class="encrypt">Зашифровать</button>
+                    <button onclick="loadSampleText()" class="clear">Загрузить пример</button>
+                    <button onclick="clearEncrypt()" class="clear">Очистить</button>
+                </div>
+                <div class="result-area">
+                    <h3>Зашифрованный текст (Base64):</h3>
+                    <div class="result-text" id="ciphertext"></div>
+                </div>
+            </div>
+
+            <!-- Вкладка дешифрования -->
+            <div id="decryptTab" class="tab-content">
+                <h3>Зашифрованный текст (Base64)</h3>
+                <textarea id="cipherInput" rows="5" placeholder="Введите зашифрованный текст в Base64..."></textarea>
+                <div class="control-panel">
+                    <button onclick="decrypt()" class="decrypt">Дешифровать</button>
+                    <button onclick="clearDecrypt()" class="clear">Очистить</button>
+                </div>
+                <div class="result-area">
+                    <h3>Дешифрованный текст:</h3>
+                    <div class="result-text" id="decryptedText"></div>
+                </div>
+            </div>
+
+            <!-- Вкладка производительности -->
+            <div id="performanceTab" class="tab-content">
+                <h3>Анализ производительности RC4</h3>
+                <div class="control-panel">
+                    <label>Максимальный размер (байт):</label>
+                    <input type="number" id="maxSize" value="500000" min="10000" max="1000000" step="10000">
+                    <button onclick="runPerformanceTest()" class="encrypt">Запустить тест</button>
+                    <button onclick="clearPerformance()" class="clear">Очистить</button>
+                </div>
+                
+                <!-- График производительности -->
+                <canvas id="performanceChart" width="800" height="400" style="width:100%; max-width:900px; margin:20px auto; display:block; background:white; border-radius:10px;"></canvas>
+                
+                <!-- Статистика -->
+                <div id="performanceStats" style="margin-top:20px;"></div>
+                
+                <!-- Кнопка экспорта -->
+                <div class="control-panel" style="margin-top:15px;">
+                    <button onclick="exportChartAsImage()" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">Сохранить график для отчета</button>
+                    <button onclick="exportPerformanceData()" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Экспорт данных (CSV)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

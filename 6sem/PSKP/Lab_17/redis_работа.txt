@@ -1,0 +1,44 @@
+Как остановить Redis:
+
+Способ 1 - В окне сервера:
+
+Нажмите Ctrl + C в том окне, где запущен redis-server.exe
+
+\[21508] 12 Feb 09:22:59.981 # User requested shutdown...
+
+\[21508] 12 Feb 09:22:59.981 # Redis is now ready to exit, bye bye...
+
+
+
+Способ 2 - Через клиент:
+
+В окне с redis-cli.exe выполните:
+
+shutdown
+
+или shutdown save
+
+
+
+Ручной запуск (простой):
+
+D:
+
+cd D:\\Programs\\Redis\\
+
+redis-server.exe
+
+
+
+и
+
+
+
+D:
+
+cd D:\\Programs\\Redis\\
+
+redis-cli.exe
+
+
+

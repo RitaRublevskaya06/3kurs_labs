@@ -1,0 +1,23 @@
+2026/04/08 21:16:54 main.go:299: Сервер запущен на порту :3000
+2026/04/08 21:21:42 main.go:98: GET /Celebrities/All - возвращено 3 записей
+2026/04/08 21:21:47 main.go:121: GET /Celebrities/1 - найдено: Leonardo DiCaprio
+2026/04/08 21:21:53 main.go:173: POST /Celebrities - добавлена знаменитость: Tom Hanks (ID: 4)
+2026/04/08 21:21:57 main.go:155: POST /Celebrities - ошибка: ID 1 уже существует
+2026/04/08 21:22:03 main.go:223: PUT /Celebrities/2 - обновлена знаменитость: Scarlett Johansson Updated
+2026/04/08 21:22:07 main.go:229: PUT /Celebrities/999 - ошибка: знаменитость не найдена
+2026/04/08 21:22:15 main.go:261: DELETE /Celebrities/4 - удалена знаменитость: Tom Hanks
+2026/04/08 21:22:22 main.go:98: GET /Celebrities/All - возвращено 3 записей
+2026/04/08 21:22:31 main.go:173: POST /Celebrities - добавлена знаменитость: Tom Hanks (ID: 4)
+2026/04/08 21:22:34 main.go:98: GET /Celebrities/All - возвращено 4 записей
+2026/04/08 21:22:40 main.go:261: DELETE /Celebrities/4 - удалена знаменитость: Tom Hanks
+2026/04/08 21:22:44 main.go:267: DELETE /Celebrities/999 - ошибка: знаменитость не найдена
+2026/04/09 09:05:44 main.go:299: Сервер запущен на порту :3000
+2026/04/09 10:01:49 main.go:299: Сервер запущен на порту :3000
+2026/04/09 10:01:49 main.go:308: listen tcp :3000: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2026/04/09 10:11:37 main.go:291: Сервер запущен на порту :3000
+2026/04/09 10:11:45 main.go:202: PUT /Celebrities/2 - ошибка: ID не совпадает (body ID=1)
+2026/04/09 10:11:54 main.go:96: GET /Celebrities/All - возвращено 3 записей
+2026/04/09 10:11:59 main.go:202: PUT /Celebrities/2 - ошибка: ID не совпадает (body ID=1)
+2026/04/09 10:15:35 main.go:96: GET /Celebrities/All - возвращено 3 записей
+2026/04/09 10:20:16 main.go:291: Сервер запущен на порту :3000
+2026/04/09 10:21:18 main.go:202: PUT /Celebrities/2 - ошибка: ID не совпадает (body ID=1)

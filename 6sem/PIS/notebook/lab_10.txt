@@ -1,0 +1,182 @@
+go mod tidy
+go build -o GO10_01.exe .
+
+cd D:\Univer\3_kurs\6sem\PIS\Lab_10\GO10_01
+go run .
+http://localhost:3000/
+
+Все записи (как GET /Celebrities/All):
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"{ celebrities { id fullName nationality reqPhotoPath } }"}' | ConvertTo-Json -Depth 5
+
+
+Одна запись (как GET /Celebrities/1):
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"{ celebrity(id: 1) { id fullName nationality reqPhotoPath } }"}' | ConvertTo-Json -Depth 5
+
+
+Создание (как POST /Celebrities):
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"mutation { createCelebrity(input: { id: 3 fullName: \"Tom Hanks\" nationality: \"American\" reqPhotoPath: \"/images/hanks.jpg\" }) { id fullName } }"}' | ConvertTo-Json -Depth 5
+
+
+Обновление (как PUT /Celebrities/1):
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"mutation { updateCelebrity(id: 1, input: { id: 1 fullName: \"Leonardo DiCaprio\" nationality: \"USA\" reqPhotoPath: \"/images/dicaprio.jpg\" }) { id fullName nationality } }"}' | ConvertTo-Json -Depth 5
+
+
+Удаление (как DELETE /Celebrities/2):
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"mutation { deleteCelebrity(id: 3) }"}' | ConvertTo-Json -Depth 5
+
+
+
+Проверки ошибок 
+
+Не найдено:
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"{ celebrity(id: 999) { id } }"}' | ConvertTo-Json -Depth 5
+
+
+Дубликат id:
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"mutation { createCelebrity(input: { id: 1 fullName: \"X\" nationality: \"X\" reqPhotoPath: \"/x.jpg\" }) { id } }"}' | ConvertTo-Json -Depth 5
+
+
+id = 0:
+
+Invoke-RestMethod -Uri "http://localhost:3000/graphql" -Method POST -ContentType "application/json" -Body '{"query":"mutation { createCelebrity(input: { id: 0 fullName: \"X\" nationality: \"X\" reqPhotoPath: \"/x.jpg\" }) { id } }"}' | ConvertTo-Json -Depth 5
+
+
+
+
+
+
+
+
+
+
+с GraphiQL 
+main go
+package main
+
+import (
+	"log"
+	"net/http"
+
+	"GO10_01/db"
+	gql "GO10_01/graphql"
+
+	"github.com/graphql-go/handler"
+)
+
+func main() {
+	db.InitDB()
+
+	if err := gql.InitSchema(); err != nil {
+		log.Fatal("Ошибка создания GraphQL схемы:", err)
+	}
+
+	h := handler.New(&handler.Config{
+		Schema:   &gql.Schema,
+		Pretty:   true,
+		GraphiQL: true,
+	})
+
+	http.Handle("/graphql", h)
+
+	port := ":3000"
+	log.Printf("GraphQL сервер запущен на порту %s", port)
+	log.Printf("Endpoint: http://localhost%s/graphql", port)
+	log.Fatal(http.ListenAndServe(port, nil))
+}
+
+① Все записи (аналог GET /Celebrities/All):
+query {
+  celebrities {
+    id
+    fullName
+    nationality
+    reqPhotoPath
+  }
+}
+
+② Одна запись (аналог GET /Celebrities/1):
+query {
+  celebrity(id: 1) {
+    id
+    fullName
+    nationality
+    reqPhotoPath
+  }
+}
+
+③ Создание (аналог POST /Celebrities):
+mutation {
+  createCelebrity(input: {
+    id: 3
+    fullName: "Tom Hanks"
+    nationality: "American"
+    reqPhotoPath: "/images/hanks.jpg"
+  }) {
+    id
+    fullName
+    nationality
+    reqPhotoPath
+  }
+}
+
+④ Обновление (аналог PUT /Celebrities/1):
+mutation {
+  updateCelebrity(id: 1, input: {
+    id: 1
+    fullName: "Leonardo DiCaprio"
+    nationality: "USA"
+    reqPhotoPath: "/images/dicaprio_new.jpg"
+  }) {
+    id
+    fullName
+    nationality
+    reqPhotoPath
+  }
+}
+
+⑤ Удаление (аналог DELETE /Celebrities/2):
+mutation {
+  deleteCelebrity(id: 2)
+}
+
+Ошибки:
+1. Запись не найдена
+query {
+  celebrity(id: 999) {
+    id
+    fullName
+  }
+}
+
+2. Дубликат ID при создании
+mutation {
+  createCelebrity(input: {
+    id: 1
+    fullName: "Test"
+    nationality: "Test"
+    reqPhotoPath: "/test.jpg"
+  }) {
+    id
+    fullName
+  }
+}
+
+3. Неверный ID (0 или отрицательный)
+mutation {
+  createCelebrity(input: {
+    id: 0
+    fullName: "Test"
+    nationality: "Test"
+    reqPhotoPath: "/test.jpg"
+  }) {
+    id
+    fullName
+  }
+}

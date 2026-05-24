@@ -1,0 +1,157 @@
+{
+  "info": {
+    "name": "Celebrities API",
+    "description": "Коллекция для тестирования REST API знаменитостей",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET All Celebrities",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/Celebrities/All",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities", "All"]
+        }
+      }
+    },
+    {
+      "name": "GET Celebrity by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/Celebrities/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities", "1"]
+        }
+      }
+    },
+    {
+      "name": "POST Create Celebrity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"fullName\": \"Leonardo DiCaprio\",\n  \"nationality\": \"American\",\n  \"reqPhotoPath\": \"/images/dicaprio.jpg\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/Celebrities",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities"]
+        }
+      }
+    },
+    {
+      "name": "PUT Update Celebrity",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"fullName\": \"Leonardo Wilhelm DiCaprio\",\n  \"nationality\": \"American\",\n  \"reqPhotoPath\": \"/images/leo_dicaprio.jpg\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/Celebrities/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities", "1"]
+        }
+      }
+    },
+    {
+      "name": "DELETE Celebrity",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/Celebrities/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities", "1"]
+        }
+      }
+    },
+    {
+      "name": "POST Create Celebrity (Duplicate ID - Should fail)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"fullName\": \"Scarlett Johansson\",\n  \"nationality\": \"American\",\n  \"reqPhotoPath\": \"/images/johansson.jpg\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/Celebrities",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities"]
+        }
+      }
+    },
+    {
+      "name": "GET Celebrity Not Found (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/Celebrities/999",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities", "999"]
+        }
+      }
+    },
+    {
+      "name": "PUT Update Non-Existent Celebrity (404)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 999,\n  \"fullName\": \"Test\",\n  \"nationality\": \"Test\",\n  \"reqPhotoPath\": \"/test.jpg\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/Celebrities/999",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["Celebrities", "999"]
+        }
+      }
+    }
+  ]
+}

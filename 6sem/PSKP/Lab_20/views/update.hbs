@@ -1,0 +1,29 @@
+<div class="phonebook-container">
+    <div class="phonebook-list">
+        {{> phone-row phonebook=phonebook disabled=true}}
+    </div>
+    
+    <form action="/Update" method="POST" class="edit-form" id="updateForm">
+        <input type="hidden" name="id" value="{{record.id}}">
+        
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" value="{{record.name}}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Телефон:</label>
+            <input type="text" id="phone" name="phone" value="{{record.phone}}" required>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">Изменить</button>
+            <button type="button" class="delete-btn" id="deleteBtn">Удалить</button>
+            {{{cancelButton}}}
+        </div>
+    </form>
+    
+    <form action="/Delete" method="POST" id="deleteForm" style="display: none;">
+        <input type="hidden" name="id" value="{{record.id}}">
+    </form>
+</div>

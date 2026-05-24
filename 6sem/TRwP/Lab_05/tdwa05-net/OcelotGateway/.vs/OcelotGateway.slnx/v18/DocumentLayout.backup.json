@@ -1,0 +1,104 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|d:\\univer\\3_kurs\\6sem\\trwp\\lab_05\\tdwa05-net\\ocelotgateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|d:\\univer\\3_kurs\\6sem\\trwp\\lab_05\\tdwa05-net\\ocelotgateway\\ocelot.sticky.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|solutionrelative:ocelot.sticky.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|d:\\univer\\3_kurs\\6sem\\trwp\\lab_05\\tdwa05-net\\ocelotgateway\\custombalancer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|solutionrelative:custombalancer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|d:\\univer\\3_kurs\\6sem\\trwp\\lab_05\\tdwa05-net\\ocelotgateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|solutionrelative:ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|d:\\univer\\3_kurs\\6sem\\trwp\\lab_05\\tdwa05-net\\ocelotgateway\\ocelot.custom.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1A791971-8394-F48A-048C-96C820DEC8CA}|OcelotGateway.csproj|solutionrelative:ocelot.custom.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ocelot.json",
+              "DocumentMoniker": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\ocelot.json",
+              "RelativeDocumentMoniker": "ocelot.json",
+              "ToolTip": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\ocelot.json",
+              "RelativeToolTip": "ocelot.json",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-12T18:08:53.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomBalancer.cs",
+              "DocumentMoniker": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\CustomBalancer.cs",
+              "RelativeDocumentMoniker": "CustomBalancer.cs",
+              "ToolTip": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\CustomBalancer.cs",
+              "RelativeToolTip": "CustomBalancer.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAgwDMAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-12T18:20:07.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-12T18:12:39.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ocelot.custom.json",
+              "DocumentMoniker": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\ocelot.custom.json",
+              "RelativeDocumentMoniker": "ocelot.custom.json",
+              "ToolTip": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\ocelot.custom.json",
+              "RelativeToolTip": "ocelot.custom.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-12T18:15:17.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ocelot.sticky.json",
+              "DocumentMoniker": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\ocelot.sticky.json",
+              "RelativeDocumentMoniker": "ocelot.sticky.json",
+              "ToolTip": "D:\\Univer\\3_kurs\\6sem\\TRwP\\Lab_05\\tdwa05-net\\OcelotGateway\\ocelot.sticky.json",
+              "RelativeToolTip": "ocelot.sticky.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-12T18:15:43.924Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

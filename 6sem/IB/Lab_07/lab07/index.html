@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №7: DES - Исследование блочных шифров</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>ИССЛЕДОВАНИЕ БЛОЧНЫХ ШИФРОВ</h1>
+        <div class="subtitle">DES (Data Encryption Standard) | Анализ производительности и лавинного эффекта</div>
+        
+        <div class="student-info">
+            <strong>Студент:</strong> Фамилия Имя Отчество &nbsp;|&nbsp;
+            <strong>Ключ:</strong> <code id="key-display">Фамилия</code> → 
+            <strong>Hex:</strong> <code id="key-hex"></code>
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="main">Шифрование</button>
+            <button class="tab-btn" data-tab="performance">График времени</button>
+            <button class="tab-btn" data-tab="avalanche">Лавинный эффект</button>
+            <button class="tab-btn" data-tab="weakkeys">Слабые ключи</button>
+            <button class="tab-btn" data-tab="compress">Анализ сжатия</button>
+        </div>
+
+        <!-- Вкладка 1: Основное шифрование -->
+        <div id="tab-main" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <h3>Исходный текст</h3>
+                    <textarea id="plaintext" rows="8" placeholder="Введите текст для шифрования..."></textarea>
+                    <div class="btn-group">
+                        <button onclick="encrypt()">Зашифровать</button>
+                        <button onclick="decrypt()">Расшифровать</button>
+                        <button onclick="clearFields()">Очистить</button>
+                        <button onclick="loadLiteraryText()">Загрузить текст</button>
+                        <!-- <button onclick="runPerformanceTest()">Тест производительности</button> -->
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Результат</h3>
+                    <div class="result">
+                        <div class="result-label">Зашифрованный текст (Base64):</div>
+                        <div id="ciphertext" style="word-break:break-all">-</div>
+                    </div>
+                    <div class="result">
+                        <div class="result-label">Расшифрованный текст:</div>
+                        <div id="decryptedtext">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div>Время шифрования</div>
+                    <div class="stat-value" id="enc-time">0</div>
+                    <div>мс</div>
+                </div>
+                <div class="stat-card">
+                    <div>Время расшифрования</div>
+                    <div class="stat-value" id="dec-time">0</div>
+                    <div>мс</div>
+                </div>
+                <div class="stat-card">
+                    <div>Размер исходного текста</div>
+                    <div class="stat-value" id="plain-size">0</div>
+                    <div>байт</div>
+                </div>
+                <div class="stat-card">
+                    <div>Размер шифротекста</div>
+                    <div class="stat-value" id="cipher-size">0</div>
+                    <div>байт</div>
+                </div>
+                <div class="stat-card">
+                    <div>Коэффициент расширения</div>
+                    <div class="stat-value" id="expansion">0</div>
+                    <div>x</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка 2: График времени -->
+        <div id="tab-performance" class="tab-content">
+            <div class="card">
+                <h3>Линейный график времени выполнения операций</h3>
+                <p>Тестирование производительности при разных размерах входных данных (100, 500, 1000, 2000, 5000, 10000, 20000, 50000 байт)</p>
+                
+                <div class="btn-group">
+                    <button onclick="runPerformanceTest()">Запустить тест производительности</button>
+                    <button onclick="clearPerformanceChart()">Очистить график</button>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                
+                <div class="result" id="performance-stats" style="margin-top:15px">
+                    <div class="result-label">Результаты тестирования:</div>
+                    <div id="perf-results">Нажмите "Запустить тест производительности"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка 3: Лавинный эффект -->
+        <div id="tab-avalanche" class="tab-content">
+            <div class="card">
+                <h3>Анализ лавинного эффекта</h3>
+                <p>Лавинный эффект — изменение одного бита входных данных изменяет ~50% выходных битов</p>
+                <div class="grid">
+                    <div>
+                        <label>Исходное слово/фраза:</label>
+                        <input type="text" id="avalanche-input" value="фио" style="width:100%">
+                        <button onclick="testAvalanche()" style="margin-top:10px">Тестировать лавинный эффект</button>
+                        <button onclick="testAllBitChanges()" style="margin-top:10px">Тест всех битов (первые 16 символов)</button>
+                    </div>
+                    <div>
+                        <div class="result">
+                            <div class="result-label">Статистика:</div>
+                            <div id="avalanche-result">Нажмите кнопку для тестирования</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="avalanche-progress"></div>
+                </div>
+                <table class="avalanche-table" id="avalanche-table">
+                    <thead>
+                        <tr><th>Изменение</th><th>Исходный шифр (hex, первые 16 байт)</th><th>Измененный шифр (hex, первые 16 байт)</th><th>Различающиеся биты</th><th>Процент</th></tr>
+                    </thead>
+                    <tbody id="avalanche-tbody">
+                        <tr><td colspan="5">Нет данных</td></tr>
+                    </tbody>
+                </table>
+                <div class="chart-container" style="margin-top:20px">
+                    <canvas id="avalancheChart" style="max-height:200px"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка 4: Слабые ключи -->
+        <div id="tab-weakkeys" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3>Тестирование слабых ключей DES</h3>
+                    <label>Тестовое сообщение:</label>
+                    <input type="text" id="weak-test-text" value="Тестирование слабых ключей DES" style="width:100%">
+                    <label style="margin-top:10px">Тип ключа:</label>
+                    <select id="weak-key-type" style="width:100%">
+                        <option value="weak1">Слабый ключ #1: 0x0101010101010101</option>
+                        <option value="weak2">Слабый ключ #2: 0xFEFEFEFEFEFEFEFE</option>
+                        <option value="weak3">Слабый ключ #3: 0xE0E0E0E0F1F1F1F1</option>
+                        <option value="weak4">Слабый ключ #4: 0x1F1F1F1F0E0E0E0E</option>
+                        <option value="semiweak1">Полуслабый: 0x01FE01FE01FE01FE</option>
+                        <option value="semiweak2">Полуслабый: 0xFE01FE01FE01FE01</option>
+                        <option value="custom">Обычный ключ (мой: Фамилия)</option>
+                    </select>
+                    <div class="btn-group" style="margin-top:15px">
+                        <button onclick="testWeakKey()">Шифровать</button>
+                        <button onclick="testDoubleEncryption()">Двойное шифрование</button>
+                    </div>
+                    <div class="result">
+                        <div class="result-label">Результат:</div>
+                        <div id="weak-result">-</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Сравнение лавинного эффекта</h3>
+                    <div class="result">
+                        <div class="result-label">Анализ для выбранного ключа:</div>
+                        <div id="weak-avalanche">-</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="weakKeyChart" style="max-height:200px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка 5: Анализ сжатия -->
+        <div id="tab-compress" class="tab-content">
+            <div class="card">
+                <h3>Анализ степени сжатия и энтропии</h3>
+                <label>Текст для анализа (200 символов по умолчанию):</label>
+                <textarea id="compress-text" rows="8"></textarea>
+                <div class="btn-group">
+                    <button onclick="load200CharTextToCompress()">Загрузить текст (200 символов)</button>
+                    <button onclick="analyzeCompression()">Выполнить анализ</button>
+                </div>
+                <div class="result">
+                    <div class="result-label">Результаты анализа:</div>
+                    <div id="compress-result">-</div>
+                </div>
+                <!-- <div class="chart-container">
+                    <div id="entropyChartLegend"></div>
+                    <canvas id="entropyChart" style="max-height:250px"></canvas>
+                    <canvas id="entropyChart" style="max-height:250px"></canvas>
+                </div> -->
+                <div class="chart-container">
+                    <canvas id="entropyChart" style="max-height:250px; width:100%"></canvas>
+                    <div id="entropyChartLegend" style="margin-top: 5px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+            <h3>Пояснение к лабораторной работе</h3>
+            <p><strong>DES (Data Encryption Standard)</strong> — блочный шифр с размером блока 64 бита и ключом 56 бит (8 байт с битами четности).</p>
+            <p><strong>Лавинный эффект</strong> — свойство, при котором изменение одного бита входных данных приводит к изменению примерно половины битов выходных данных.</p>
+            <p><strong>Слабые ключи</strong> — 4 ключа, для которых E(E(M)) = M (шифрование дважды возвращает исходный текст).</p>
+            <p><strong>Полуслабые ключи</strong> — пары ключей K1 и K2, для которых E(K1, E(K2, M)) = M.</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
