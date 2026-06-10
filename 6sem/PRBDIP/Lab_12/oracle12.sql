@@ -107,6 +107,11 @@ CREATE INDEX IX_Report_XMLData ON Report(xml_data) INDEXTYPE IS XDB.XMLINDEX;
 
 SELECT index_name, index_type FROM user_indexes WHERE table_name = 'REPORT';
 
+SELECT id, created_at
+FROM Report
+WHERE XMLExists('/ToursReport/Tour[Name="Анталья - всё включено"]' 
+                PASSING xml_data);
+
 
 ---- задание 5
 CREATE OR REPLACE PROCEDURE sp_ExtractXMLValue (
@@ -231,6 +236,15 @@ TRUNCATE TABLE Report;
 
 DROP TABLE Report;
 
+
+
+DROP PROCEDURE sp_ExtractXMLValue;
+DROP PROCEDURE sp_InsertXMLReport;
+DROP PROCEDURE sp_GenerateTourReportXML;
+
+DROP INDEX IX_Report_XMLData;
+
+DROP TABLE Report CASCADE CONSTRAINTS;
 
 
 
