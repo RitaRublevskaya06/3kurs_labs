@@ -1,0 +1,95 @@
+docker inspect oracle-xe | Select-String -Pattern "Mounts" -Context 0,10
+
+docker exec oracle-xe mkdir -p /tmp/travel_docs
+
+
+docker cp "D:\TRAVEL_DOCS\turkey_photo.jpg" oracle-xe:/tmp/travel_docs/
+docker cp "D:\TRAVEL_DOCS\egypt_photo.jpg" oracle-xe:/tmp/travel_docs/
+docker cp "D:\TRAVEL_DOCS\italy_photo.jpg" oracle-xe:/tmp/travel_docs/
+
+
+docker exec oracle-xe ls -la /tmp/travel_docs/
+
+
+docker exec oracle-xe chown -R oracle:oinstall /tmp/travel_docs
+docker exec oracle-xe chmod -R 755 /tmp/travel_docs
+
+
+
+
+-- удаление
+docker exec oracle-xe rm -rf /tmp/travel_docs
+docker exec oracle-xe mkdir -p /tmp/travel_docs
+
+
+
+docker cp D:\TRAVEL_DOCS\turkey_photo.jpg oracle-xe:/tmp/travel_docs/
+docker cp D:\TRAVEL_DOCS\egypt_photo.jpg oracle-xe:/tmp/travel_docs/
+docker cp D:\TRAVEL_DOCS\italy_photo.jpg oracle-xe:/tmp/travel_docs/
+
+
+docker exec oracle-xe ls -la /tmp/travel_docs/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Создаем файл для Турции
+docker exec oracle-xe bash -c "echo 'Тур в Турцию: Анталья, Кемер, 7 ночей' > /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo 'Отель: 5 звезд, all inclusive' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo 'Вылет: из Москвы' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo 'Цена: 500$ на человека' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo 'Даты: июнь-сентябрь 2026' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo ' ' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo 'Программа тура:' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo '1 день: Прилет, трансфер в отель' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo '2-6 день: Отдых на пляже, экскурсии' >> /tmp/travel_docs/turkey_description.txt"
+docker exec oracle-xe bash -c "echo '7 день: Вылет домой' >> /tmp/travel_docs/turkey_description.txt"
+
+# Создаем файл для Египта
+docker exec oracle-xe bash -c "echo 'Тур в Египет: Хургада, Шарм-эль-Шейх, 10 ночей' > /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo 'Отель: 4 звезды, ультра all inclusive' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo 'Вылет: из Санкт-Петербурга' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo 'Цена: 650$ на человека' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo 'Даты: весь год' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo ' ' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo 'Программа тура:' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo '1 день: Прилет, заселение' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo '2-9 день: Пляжный отдых, дайвинг' >> /tmp/travel_docs/egypt_description.txt"
+docker exec oracle-xe bash -c "echo '10 день: Вылет' >> /tmp/travel_docs/egypt_description.txt"
+
+# Создаем файл для Италии
+docker exec oracle-xe bash -c "echo 'Тур в Италию: Рим, Флоренция, Венеция, 8 ночей' > /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo 'Отель: 4 звезды, завтраки' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo 'Вылет: из Москвы' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo 'Цена: 1200$ на человека' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo 'Даты: май-октябрь 2026' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo ' ' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo 'Программа тура:' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo '1-2 день: Рим (Колизей, Ватикан)' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo '3-4 день: Флоренция (галерея Уффици)' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo '5-7 день: Венеция (каналы, Сан-Марко)' >> /tmp/travel_docs/italy_description.txt"
+docker exec oracle-xe bash -c "echo '8 день: Вылет' >> /tmp/travel_docs/italy_description.txt"
+
+
+
+# Смотрим все файлы в папке
+docker exec oracle-xe ls -la /tmp/travel_docs/
+
+# Проверяем содержимое каждого файла
+docker exec oracle-xe cat /tmp/travel_docs/turkey_description.txt
+docker exec oracle-xe cat /tmp/travel_docs/egypt_description.txt
+docker exec oracle-xe cat /tmp/travel_docs/italy_description.txt
+
+# Используем bash -c с кавычками
+docker exec oracle-xe bash -c "chown oracle:oinstall /tmp/travel_docs/*.txt"
+docker exec oracle-xe bash -c "chmod 644 /tmp/travel_docs/*.txt"
