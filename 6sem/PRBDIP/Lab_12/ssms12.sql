@@ -1,6 +1,6 @@
 USE TravelAgency;
 GO
----- задание 1
+---- Р·Р°РґР°РЅРёРµ 1
 CREATE TABLE Report (
     id INT IDENTITY(1,1) PRIMARY KEY,
     xml_data XML NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE Report (
 );
 GO
 
----- задание 2
+---- Р·Р°РґР°РЅРёРµ 2
 CREATE OR ALTER PROCEDURE sp_GenerateTourReportXML
     @StartDate DATE,
     @EndDate DATE
@@ -43,12 +43,12 @@ BEGIN
 END;
 GO
 
--- Проверка
+-- РџСЂРѕРІРµСЂРєР°
 EXEC sp_GenerateTourReportXML '2024-06-01', '2024-12-31';
 
 
 
----- задание 3
+---- Р·Р°РґР°РЅРёРµ 3 РІСЃС‚Р°РІРєР°
 CREATE OR ALTER PROCEDURE sp_InsertXMLReport
     @StartDate DATE,
     @EndDate DATE
@@ -89,21 +89,21 @@ BEGIN
 END;
 GO
 
--- Проверка
+-- РџСЂРѕРІРµСЂРєР°
 EXEC sp_InsertXMLReport '2024-06-01', '2024-12-31';
 
 
--- Просмотр результатов
+-- РџСЂРѕСЃРјРѕС‚СЂ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ
 SELECT id, created_at, CAST(xml_data AS NVARCHAR(MAX)) AS xml_text 
 FROM Report;
 
 
 
----- задание 4
+---- Р·Р°РґР°РЅРёРµ 4
 CREATE PRIMARY XML INDEX IX_Report_XMLData ON Report(xml_data);
 GO
 
--- Вторичные XML-индексы
+-- Р’С‚РѕСЂРёС‡РЅС‹Рµ XML-РёРЅРґРµРєСЃС‹
 CREATE XML INDEX IX_Report_XMLData_Path ON Report(xml_data)
 USING XML INDEX IX_Report_XMLData FOR PATH;
 GO
@@ -116,13 +116,16 @@ CREATE XML INDEX IX_Report_XMLData_Property ON Report(xml_data)
 USING XML INDEX IX_Report_XMLData FOR PROPERTY;
 GO
 
--- Проверка индексов
+-- РџСЂРѕРІРµСЂРєР° РёРЅРґРµРєСЃРѕРІ
 SELECT name, type_desc FROM sys.indexes WHERE object_id = OBJECT_ID('Report');
 
+SELECT id, created_at
+FROM Report
+WHERE xml_data.exist('/ToursReport/Tour[Name = "РђРЅС‚Р°Р»СЊСЏ - РІСЃС‘ РІРєР»СЋС‡РµРЅРѕ"]') = 1;
+GO
 
 
-
----- задание 5
+---- Р·Р°РґР°РЅРёРµ 5
 CREATE OR ALTER PROCEDURE sp_ExtractXMLValue
     @TourName NVARCHAR(255) = NULL,
     @MinRevenue DECIMAL(10,2) = NULL
@@ -153,27 +156,36 @@ BEGIN
 END;
 GO
 
--- Все туры
+-- Р’СЃРµ С‚СѓСЂС‹
 EXEC sp_ExtractXMLValue;
 
--- Только туры с названием "Анталья"
-EXEC sp_ExtractXMLValue @TourName = 'Анталья';
+-- РўРѕР»СЊРєРѕ С‚СѓСЂС‹ СЃ РЅР°Р·РІР°РЅРёРµРј "РђРЅС‚Р°Р»СЊСЏ"
+EXEC sp_ExtractXMLValue @TourName = 'РђРЅС‚Р°Р»СЊСЏ';
 
--- Туры с выручкой больше 5000
+-- РўСѓСЂС‹ СЃ РІС‹СЂСѓС‡РєРѕР№ Р±РѕР»СЊС€Рµ 5000
 EXEC sp_ExtractXMLValue @MinRevenue = 5000;
 
--- Комбинированный фильтр
-EXEC sp_ExtractXMLValue @TourName = 'Египет', @MinRevenue = 2000;
+-- РљРѕРјР±РёРЅРёСЂРѕРІР°РЅРЅС‹Р№ С„РёР»СЊС‚СЂ
+EXEC sp_ExtractXMLValue @TourName = 'Р•РіРёРїРµС‚', @MinRevenue = 2000;
 
 
 
 
 
-TRUNCATE TABLE Report;
+
+
+DROP PROCEDURE IF EXISTS sp_ExtractXMLValue;
+DROP PROCEDURE IF EXISTS sp_InsertXMLReport;
+DROP PROCEDURE IF EXISTS sp_GenerateTourReportXML;
 GO
 
-DROP INDEX IX_Report_XMLData_Property ON Report;
-DROP INDEX IX_Report_XMLData_Value ON Report;
-DROP INDEX IX_Report_XMLData_Path ON Report;
-DROP INDEX IX_Report_XMLData ON Report;
+
+DROP INDEX IF EXISTS IX_Report_XMLData_Property ON Report;
+DROP INDEX IF EXISTS IX_Report_XMLData_Value ON Report;
+DROP INDEX IF EXISTS IX_Report_XMLData_Path ON Report;
+DROP INDEX IF EXISTS IX_Report_XMLData ON Report;
+GO
+
+
+DROP TABLE IF EXISTS Report;
 GO
