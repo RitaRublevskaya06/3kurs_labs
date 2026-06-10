@@ -1,7 +1,7 @@
 USE TravelAgency;
 GO
 
--- задание 1
+-- Р·Р°РґР°РЅРёРµ 1
 CREATE OR ALTER FUNCTION GET_TOURS_BY_DATE_RANGE (
     @StartDate DATE,
     @EndDate DATE
@@ -31,18 +31,18 @@ RETURN
 GO
 
 
--- проверка
+-- РїСЂРѕРІРµСЂРєР°
 SELECT * FROM GET_TOURS_BY_DATE_RANGE('2024-06-01', '2024-12-31');
 GO
 
--- задание 2
+-- Р·Р°РґР°РЅРёРµ 2 (cmd)
 ---- bcp "SELECT * FROM TravelAgency.dbo.GET_TOURS_BY_DATE_RANGE('2024-06-01', '2024-12-31')" queryout "D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\tours_export.txt" -w -t, -S localhost -T
 
 
--- задание 3
----- файл импорт
+-- Р·Р°РґР°РЅРёРµ 3
+---- С„Р°Р№Р» РёРјРїРѕСЂС‚
 
--- задание 4
+-- Р·Р°РґР°РЅРёРµ 4
 
 SELECT id, name FROM Country;
 SELECT id, name FROM Hotel;
@@ -91,7 +91,7 @@ INSERT INTO Tour (
 )
 SELECT 
     t.Title,
-    N'Импортированный тур' AS description,
+    N'РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ С‚СѓСЂ' AS description,
     t.TourTypeID,
     t.CountryID,
     t.HotelID,
@@ -108,31 +108,31 @@ WHERE NOT EXISTS (
         AND departure_date = t.DepartureDate
 );
 
-PRINT N'Импортировано строк: ' + CAST(@@ROWCOUNT AS NVARCHAR(10));
+PRINT N'РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРѕ СЃС‚СЂРѕРє: ' + CAST(@@ROWCOUNT AS NVARCHAR(10));
 GO
 
--- проверка
+-- РїСЂРѕРІРµСЂРєР°
 SELECT id, title, departure_date, base_price 
 FROM Tour 
 WHERE created_at >= DATEADD(day, -1, GETDATE())
 ORDER BY id DESC;
 GO
 
--- очистка
+-- РѕС‡РёСЃС‚РєР°
 DROP TABLE #TempImport;
 GO
 
 
---проверка
+--РїСЂРѕРІРµСЂРєР°
 SELECT TOP 10 * FROM Tour ORDER BY id DESC;
 GO
 
--- очистка
+-- РѕС‡РёСЃС‚РєР°
 SELECT id, title, departure_date, description
 FROM Tour 
-WHERE description = 'Импортированный тур'
+WHERE description = 'РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ С‚СѓСЂ'
 ORDER BY id;
 
 
 DELETE FROM Tour 
-WHERE description = 'Импортированный тур';
+WHERE description = 'РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ С‚СѓСЂ';
