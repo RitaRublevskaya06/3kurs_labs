@@ -1,0 +1,352 @@
+1 СПОСОБ:
+-- ЗАДАНИЕ 4
+Коллекция tours
+Запрос		Filter
+$or с $lt, $gt	{$or: [{price: {$lt: 50000}}, {duration_days: {$gt: 6}}]}
+$all			{preferences: {$all: ["пляж", "люкс"]}}
+$in			{transport: {$in: ["bus", "plane"]}}
+$exists		{phone: {$exists: false}}
+$type		{phone: {$type: "string"}}
+$regex		{email: {$regex: "\.ru$"}}
+
+
+-- ЗАДАНИЕ 5
+Коллекция tours в поле "Project" 
+{title: 1, price: 1, _id: 0}
+
+
+-- ЗАДАНИЕ 6
+Коллекция clients в поле Filter:
+-ничего 
+-{total_trips: {$gt: 3}}
+
+
+-- ЗАДАНИЕ 7
+Коллекция tours, нажать "Options":
+Limit:  1
+Skip:  1
+Sort:  {price: 1}
+
+
+
+-- ЗАДАНИЕ 8
+Коллекция tours → вкладка "Aggregations" → "Add Stage" → выбрать $group:
+_id: "$country" 
+
+
+-- ЗАДАНИЕ 9
+1) Коллекция tours → вкладка "Aggregations" → "Add Stage" → $group:
+	1)  _id: "$country"
+	2) total_tours: {$sum: 1}
+2) Коллекция clients → вкладка "Aggregations" :
+Стадия 1 - $unwind:
+{
+  path: "$purchases"
+}
+
+Стадия 2 - $lookup:
+{
+  from: "tours",
+  localField: "purchases.tour_id",
+  foreignField: "_id",
+  as: "tour_details"
+}
+
+Стадия 3 - $unwind:
+{
+  "path": "$tour_details"
+}
+
+Стадия 4 - $project:
+{
+  client_name: "$name",
+  tour_title: "$tour_details.title",
+  purchase_date: "$purchases.date",
+  price: "$purchases.amount"
+}
+
+-- ЗАДАНИЕ 10
+Коллекция tours → вкладка "Aggregations" → добавить стадии:
+Стадия 1 - $match
+	1) {}
+	2) 
+{
+  price: {$gt: 30000}
+}
+
+Стадия 2 - $group
+{
+  "_id": {
+    "country": "$country",
+    "stars": "$details.hotel_stars"
+  },
+  "count": { "$sum": 1 },
+  "avg_price": { "$avg": "$price" }
+}
+
+Стадия 3 - $sort
+{
+  count: -1
+}
+
+
+
+
+
+
+
+
+
+
+2 СПОСОБ:
+
+// === ЗАДАНИЕ 2. СОЗДАНИЕ БАЗЫ ДАННЫХ ===
+use travel_agency
+
+
+// === ЗАДАНИЕ 3. СОЗДАНИЕ КОЛЛЕКЦИЙ И ДОБАВЛЕНИЕ ДАННЫХ ===
+// Создание коллекций
+db.createCollection("clients")
+db.createCollection("tours")
+
+// Добавление данных в коллекцию tours
+db.tours.insertMany([
+  {
+    _id: 1,
+    title: "Выходные в Париже",
+    country: "Франция",
+    price: 45000,
+    duration_days: 4,
+    transport: ["bus", "plane"],
+    is_hot: true,
+    start_dates: [new Date("2024-06-01"), new Date("2024-06-15")],
+    details: { meals_included: true, hotel_stars: 4 }
+  },
+  {
+    _id: 2,
+    title: "Пеший тур по Алтаю",
+    country: "Россия",
+    price: 28500,
+    duration_days: 7,
+    transport: ["bus"],
+    is_hot: false,
+    start_dates: [new Date("2024-07-10"), new Date("2024-08-05")],
+    details: { meals_included: false, hotel_stars: 0 }
+  },
+  {
+    _id: 3,
+    title: "Отдых на Мальдивах",
+    country: "Мальдивы",
+    price: 185000,
+    duration_days: 10,
+    transport: ["plane"],
+    is_hot: false,
+    start_dates: [new Date("2024-05-20")],
+    details: { meals_included: true, hotel_stars: 5 }
+  }
+])
+
+// Добавление данных в коллекцию clients
+db.clients.insertMany([
+  {
+    _id: 101,
+    name: "Иван Петров",
+    email: "ivan@example.com",
+    phone: "+375291234567",
+    total_trips: 5,
+    preferences: ["горы", "активный отдых"],
+    purchases: [
+      { tour_id: 2, date: new Date("2023-08-01"), amount: 28500 },
+      { tour_id: 1, date: new Date("2024-01-15"), amount: 45000 }
+    ]
+  },
+  {
+    _id: 102,
+    name: "Анна Смирнова",
+    email: "anna@example.com",
+    phone: "+375333456789",
+    total_trips: 12,
+    preferences: ["пляж", "люкс"],
+    purchases: [
+      { tour_id: 3, date: new Date("2024-02-10"), amount: 185000 },
+      { tour_id: 1, date: new Date("2024-03-05"), amount: 45000 }
+    ]
+  },
+  {
+    _id: 103,
+    name: "Олег Иванов",
+    email: "oleg@mail.ru",
+    phone: "+375447891011",
+    total_trips: 1,
+    preferences: [],
+    purchases: [
+      { tour_id: 2, date: new Date("2024-09-01"), amount: 28500 }
+    ]
+  }
+])
+
+// Изменение и обновление элементов коллекций
+db.tours.updateOne({ title: "Выходные в Париже" }, { $set: { is_hot: false } })
+db.clients.updateOne({ name: "Анна Смирнова" }, { $push: { purchases: { tour_id: 2, date: new Date(), amount: 28500 } }, $inc: { total_trips: 1 } })
+
+
+db.tours.insertMany([
+  {
+    _id: 4,
+    title: "Экскурсии в Санкт-Петербург",
+    country: "Россия",
+    price: 35000,
+    duration_days: 5,
+    transport: ["bus", "train"],
+    is_hot: true,
+    start_dates: [new Date("2024-07-01"), new Date("2024-07-15"), new Date("2024-08-01")],
+    details: { meals_included: true, hotel_stars: 3 }
+  },
+  {
+    _id: 5,
+    title: "Сафари в Танзании",
+    country: "Танзания",
+    price: 250000,
+    duration_days: 12,
+    transport: ["plane", "bus"],
+    is_hot: false,
+    start_dates: [new Date("2024-09-10")],
+    details: { meals_included: true, hotel_stars: 4 }
+  },
+  {
+    _id: 6,
+    title: "Новогодние каникулы в Лапландии",
+    country: "Финляндия",
+    price: 120000,
+    duration_days: 6,
+    transport: ["plane"],
+    is_hot: false,
+    start_dates: [new Date("2024-12-25"), new Date("2024-12-30")],
+    details: { meals_included: false, hotel_stars: 4 }
+  },
+  {
+    _id: 7,
+    title: "Гастрономический тур по Италии",
+    country: "Италия",
+    price: 95000,
+    duration_days: 8,
+    transport: ["plane", "bus"],
+    is_hot: true,
+    start_dates: [new Date("2024-08-10"), new Date("2024-09-05")],
+    details: { meals_included: true, hotel_stars: 4 }
+  }
+])
+
+
+db.clients.insertMany([
+  {
+    _id: 104,
+    name: "Екатерина Козлова",
+    email: "ekaterina@tut.by",
+    phone: "+375298887766",
+    total_trips: 8,
+    preferences: ["экскурсии", "история", "городской отдых"],
+    purchases: [
+      { tour_id: 4, date: new Date("2024-06-20"), amount: 35000 },
+      { tour_id: 7, date: new Date("2024-08-15"), amount: 95000 }
+    ]
+  },
+  {
+    _id: 105,
+    name: "Дмитрий Морозов",
+    email: "dmitry@gmail.com",
+    total_trips: 3,
+    preferences: ["пляж", "экстрим", "дайвинг"],
+    purchases: [
+      { tour_id: 3, date: new Date("2024-03-10"), amount: 185000 },
+      { tour_id: 5, date: new Date("2024-09-20"), amount: 250000 }
+    ]
+  },
+  {
+    _id: 106,
+    name: "Мария Новик",
+    email: "maria@mail.ru",
+    phone: "+375336554433",
+    total_trips: 0,
+    preferences: ["горы", "активный отдых", "походы"],
+    purchases: []
+  }
+])
+
+
+
+
+// === ЗАДАНИЕ 4. ВЫБОРКА С УСЛОВНЫМИ ОПЕРАТОРАМИ ===
+// Условные операторы ($lt, $gt, $or)
+db.tours.find({ $or: [{ price: { $lt: 50000 } }, { duration_days: { $gt: 6 } }] }).pretty()
+db.tours.find({ $or: [{ price: { $lt: 1000 } }, { duration_days: { $gt: 6 } }] }).pretty()
+
+// Операторы работы с массивами ($all, $in)
+db.clients.find({ preferences: { $all: ["пляж", "люкс"] } }).pretty()
+db.tours.find({ transport: { $in: ["bus", "plane"] } }).pretty()
+
+// Операторы $exists и $type
+db.clients.find({ phone: { $exists: false } }).pretty()
+db.clients.find({ phone: { $exists: false } }).pretty()
+
+// Оператор $regex
+db.clients.find({ email: { $regex: /\.ru$/ } }).pretty()
+
+
+
+// === ЗАДАНИЕ 5. ВЫБОРКА С ПРОЕКЦИЕЙ ===
+db.tours.find({}, { title: 1, price: 1, _id: 0 }).pretty()
+
+
+
+
+// === ЗАДАНИЕ 6. ФУНКЦИЯ count() ===
+// Число всех элементов коллекции clients
+db.clients.countDocuments()
+
+// Число элементов с фильтром (total_trips больше 3)
+db.clients.countDocuments({ total_trips: { $gt: 3 } })
+
+
+
+
+// === ЗАДАНИЕ 7. МЕТОДЫ limit() И skip() ===
+db.tours.find().sort({ price: 1 }).skip(1).limit(1).pretty()
+
+
+
+
+// === ЗАДАНИЕ 8. ФУНКЦИЯ distinct() ===
+db.tours.distinct("country")
+db.tours.distinct("transport")
+
+
+
+// === ЗАДАНИЕ 9. АГРЕГАЦИОННЫЕ ОПЕРАЦИИ ===
+// Группировка с суммой
+db.tours.aggregate([{ $group: { _id: "$country", total_tours: { $sum: 1 } } }])
+
+// Соединение коллекций ($lookup) и $unwind
+db.clients.aggregate([
+  { $unwind: "$purchases" },
+  { $lookup: { from: "tours", localField: "purchases.tour_id", foreignField: "_id", as: "tour_details" } },
+  { $unwind: "$tour_details" },
+  { $project: { client_name: "$name", tour_title: "$tour_details.title", purchase_date: "$purchases.date", price: "$purchases.amount" } }
+]).pretty()
+
+
+
+
+//=== ЗАДАНИЕ 10. ПУСТОЙ И НЕПУСТОЙ FILTER, ГРУППИРВКА ===
+// Пустой фильтр {} (выбирает все документы)
+db.tours.aggregate([
+  { $match: {} },
+  { $group: { _id: "$country", total: { $sum: 1 } } }
+])
+
+// Непустой фильтр { price: { $gt: 30000 } } и группировка по нескольким ключам
+db.tours.aggregate([
+  { $match: { price: { $gt: 30000 } } },
+  { $group: { _id: { country: "$country", stars: "$details.hotel_stars" }, count: { $sum: 1 }, avg_price: { $avg: "$price" } } },
+  { $sort: { count: -1 } }
+])
