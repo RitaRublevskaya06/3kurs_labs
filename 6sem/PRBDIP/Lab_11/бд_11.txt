@@ -1,0 +1,237 @@
+cd D:\Univer\3_kurs\6sem\PRBDIP\Lab_11
+
+---- задание 7 и 8 
+docker cp D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\import_data.csv oracle-xe:/tmp/import_data.csv
+
+docker cp D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\load.ctl oracle-xe:/tmp/load.ctl
+
+docker exec -it oracle-xe bash
+
+cd /tmp
+sqlldr RMV/1234qwer@XE control=/tmp/load.ctl log=/tmp/load.log
+
+sqlplus RMV/1234qwer@XE
+
+----- удаление 
+docker exec -it --user root oracle-xe rm -f /tmp/import_data.csv /tmp/load.ctl
+
+
+- показ
+docker cp import_data.csv oracle-xe:/tmp/
+docker cp load.ctl oracle-xe:/tmp/
+docker exec -it oracle-xe sqlldr RMV/1234qwer@XE control=/tmp/load.ctl
+
+
+
+
+
+
+SELECT booking_number, persons_count, total_price, status_name  FROM Booking_Staging;
+
+
+UPDATE Booking_Staging SET status_name = TRIM(UPPER(status_name));
+COMMIT;
+
+SELECT booking_number, status_name FROM Booking_Staging;
+
+
+----UPDATE ORDERSTATUS SET name = UPPER(name); COMMIT; ---
+
+SELECT id, name FROM ORDERSTATUS;
+
+
+BEGIN
+    FOR rec IN (SELECT * FROM Booking_Staging) LOOP
+        INSERT INTO Booking (
+            id, booking_number, client_id, tour_id, booking_date,
+            status_id, persons_count, total_price
+        )
+        SELECT 
+            seq_booking.NEXTVAL,
+            rec.booking_number,
+            rec.client_id,
+            rec.tour_id,
+            rec.booking_date,
+            (SELECT id FROM ORDERSTATUS WHERE name = rec.status_name),
+            rec.persons_count,
+            rec.total_price
+        FROM DUAL
+        WHERE NOT EXISTS (
+            SELECT 1 FROM Booking 
+            WHERE booking_number = rec.booking_number
+        );
+    END LOOP;
+    COMMIT;
+END;
+/
+
+SELECT booking_number, persons_count, total_price, status_id 
+FROM Booking 
+WHERE booking_number LIKE 'BK-2025%';
+
+DELETE FROM Booking WHERE booking_number LIKE 'BK-2025%';
+TRUNCATE TABLE Booking_Staging;
+
+EXIT;
+
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+docker exec -it oracle-xe mkdir -p /tmp/data
+
+docker cp D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\load.ctl oracle-xe:/tmp/data/load.ctl
+
+docker cp D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\import_data.csv oracle-xe:/tmp/data/import_data.csv
+
+docker exec -it oracle-xe bash
+
+cd /tmp/data
+ls -la
+
+sqlplus RMV/1234qwer@XEPDB1
+
+CREATE OR REPLACE FUNCTION GET_CLIENTS_AND_TOURS_BY_DATE (
+    p_StartDate IN DATE,
+    p_EndDate IN DATE
+)
+RETURN SYS_REFCURSOR
+IS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT 
+            c.user_id AS ClientID,
+            u.last_name || ' ' || u.first_name AS ClientName,
+            b.booking_number AS BookingNumber,
+            t.title AS TourName,
+            TO_CHAR(t.departure_date, 'YYYY-MM-DD') AS TourDepartureDate,
+            TO_CHAR(b.booking_date, 'YYYY-MM-DD') AS BookingDate,
+            b.persons_count AS PersonsCount,
+            b.total_price AS TotalPrice,
+            os.name AS OrderStatus
+        FROM Client c
+        INNER JOIN "User" u ON c.user_id = u.id
+        INNER JOIN Booking b ON c.user_id = b.client_id
+        INNER JOIN Tour t ON b.tour_id = t.id
+        INNER JOIN OrderStatus os ON b.status_id = os.id
+        WHERE b.booking_date BETWEEN p_StartDate AND p_EndDate
+        ORDER BY b.booking_date DESC;
+    
+    RETURN v_cursor;
+END GET_CLIENTS_AND_TOURS_BY_DATE;
+/
+
+CREATE SEQUENCE seq_booking START WITH 100 INCREMENT BY 1;
+
+CREATE TABLE Booking_Staging (
+    booking_number VARCHAR2(50),
+    client_id NUMBER,
+    tour_id NUMBER,
+    booking_date DATE,
+    persons_count NUMBER,
+    total_price NUMBER(10,2),
+    status_name VARCHAR2(50)
+);
+
+EXIT;
+
+sqlldr RMV/1234qwer@XEPDB1 control=/tmp/data/load.ctl log=/tmp/data/load.log
+
+sqlplus RMV/1234qwer@XEPDB1
+
+DROP SEQUENCE seq_booking;
+CREATE SEQUENCE seq_booking START WITH 100 INCREMENT BY 1;
+EXIT;
+
+sqlldr RMV/1234qwer@XEPDB1 control=/tmp/data/load.ctl log=/tmp/data/load.log
+
+
+
+
+
+
+
+ЗАДАНИЕ
+
+docker exec -it oracle-xe sqlplus RMV/1234qwer@XEPDB1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+docker cp D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\load.ctl oracle-xe:/tmp/load.ctl
+
+docker cp D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\import_data.csv oracle-xe:/tmp/import_data.csv
+
+docker exec -it oracle-xe sqlldr system/MyStrongPassw0rd@XEPDB1 control=/tmp/load.ctl log=/tmp/load.log
+
+
+docker exec -it oracle-xe sqlplus system/MyStrongPassw0rd@XEPDB1
+
+CREATE TABLE Booking_Staging (
+    booking_number VARCHAR2(50),
+    client_id NUMBER,
+    tour_id NUMBER,
+    booking_date DATE,
+    persons_count NUMBER,
+    total_price NUMBER(10,2),
+    status_name VARCHAR2(50)
+);
+
+SELECT * FROM Booking_Staging;
+
+2) ИМПОРТ
+docker exec -it oracle-xe bash -c "cd /home/oracle && cat > import_data.csv << 'EOF'
+bk-2025-001,1,1,2025-01-15,2,2500.00,pending
+bk-2025-002,2,3,2025-01-20,1,950.00,confirmed
+bk-2025-003,6,4,2025-02-01,4,11000.00,paid
+bk-2025-004,7,6,2025-02-10,2,4000.00,pending
+bk-2025-005,3,5,2025-02-15,3,12000.00,confirmed
+EOF"
+
+docker exec -it oracle-xe bash -c "cd /home/oracle && cat > load.ctl << 'EOF'
+LOAD DATA
+INFILE 'import_data.csv'
+INTO TABLE Booking_Staging
+APPEND
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '\"'
+TRAILING NULLCOLS
+(
+    booking_number,
+    client_id,
+    tour_id,
+    booking_date DATE \"YYYY-MM-DD\",
+    persons_count,
+    total_price,
+    status_name
+)
+EOF"
+
+docker exec -it oracle-xe bash -c "cd /home/oracle && sqlldr system/MyStrongPassw0rd@XEPDB1 control=load.ctl log=load.log"
+
+docker exec -it oracle-xe sqlplus system/MyStrongPassw0rd@XEPDB1 -s "SELECT COUNT(*) FROM Booking_Staging;"

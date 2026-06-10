@@ -1,0 +1,26 @@
+Format: csv
+Delimiter: ,
+Left Enclosure: "
+Right Enclosure: 
+Header: (включить)
+Encoding: UTF-8
+File: D:\Univer\3_kurs\6sem\PRBDIP\Lab_11\clients_tours_export.csv
+
+docker exec -it oracle-xe bash
+
+sqlplus system/MyStrongPassw0rd@XEPDB1
+
+GRANT CREATE SESSION TO RMV;
+GRANT UNLIMITED TABLESPACE TO RMV;
+GRANT CREATE TABLE TO RMV;
+GRANT CREATE SEQUENCE TO RMV;
+GRANT CREATE PROCEDURE TO RMV;
+GRANT CREATE VIEW TO RMV;
+
+EXIT;
+
+bk-2025-001,1,1,2025-01-15,2,2500.00,pending
+bk-2025-002,2,3,2025-01-20,1,950.00,confirmed
+bk-2025-003,6,4,2025-02-01,4,11000.00,paid
+bk-2025-004,7,6,2025-02-10,2,4000.00,pending
+bk-2025-005,3,5,2025-02-15,3,12000.00,confirmed
